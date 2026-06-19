@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Graph Paper Generator - Free printable grid paper - Printable Paper Lab</title>
+  <meta name="description" content="Create free printable graph paper with custom paper size, grid spacing, line color, and optional title. Print or save as PDF in your browser.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://dhforge.github.io/paper/graph-paper/">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body data-template="graph-paper">
+  <header class="site-header">
+    <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span><strong>Printable Paper Lab</strong><small>Graph Paper</small></span></a>
+    <nav class="top-nav" aria-label="Main links"><a href="../">Templates</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></nav>
+  </header>
+  <main class="page-main">
+    <section class="tool-heading">
+      <p class="eyebrow">Printable Grid Paper</p>
+      <h1>Graph Paper Generator</h1>
+      <p>Create square grid paper for math, drawing, charts, design sketches, and planning. Adjust the paper size, spacing, line color, and title before printing.</p>
+    </section>
+    <section class="tool-layout">
+      <div class="tool-card">
+        <label class="field"><span>Paper size</span><select id="paperSize"><option value="letter">Letter</option><option value="a4">A4</option></select></label>
+        <label class="field"><span>Grid spacing</span><select id="lineSpacing"><option value="20">Small</option><option value="24" selected>Medium</option><option value="32">Large</option></select></label>
+        <label class="field"><span>Line color</span><input id="lineColor" type="color" value="#86a5b8"></label>
+        <label class="field"><span>Optional title</span><input id="titleText" type="text" maxlength="80" placeholder="Math notes, project sketch, worksheet"></label>
+        <div class="button-row"><button class="primary-button" id="printTemplate" type="button">Print or save PDF</button><button id="resetTemplate" type="button">Reset</button></div>
+      </div>
+      <div class="preview-wrap"><div class="sheet paper-grid" id="paperSheet" aria-label="Printable graph paper preview"></div></div>
+    </section>
+    <section class="content-panel">
+      <h2>How to use the graph paper generator</h2>
+      <p>Choose Letter or A4, pick the grid spacing, and use the print button. In the print dialog, select your printer or choose Save as PDF to keep a reusable file.</p>
+      <div class="content-grid"><article><h3>Math practice</h3><p>Use square grids for arithmetic, geometry, coordinate work, and classroom worksheets.</p></article><article><h3>Sketching</h3><p>Plan layouts, icons, furniture, or small diagrams with evenly spaced grid lines.</p></article><article><h3>PDF workflow</h3><p>Browser printing lets you save the generated page as a PDF without extra software.</p></article></div>
+      <details><summary>Can I change the final print scale?</summary><p>Yes. Use your browser or printer scale setting if you need exact physical spacing.</p></details>
+      <details><summary>Does the page store my title?</summary><p>No. The title is only used in the current browser tab.</p></details>
+      <details><summary>Can I use this for classroom handouts?</summary><p>Yes. You may print templates for ordinary classroom and personal use.</p></details>
+      <div class="related-tools"><a href="../dot-grid-paper/">Dot Grid Paper</a><a href="../isometric-paper/">Isometric Paper</a><a href="../lined-paper/">Lined Paper</a></div>
+    </section>
+  </main>
+  <footer class="site-footer"><p>Printable Paper Lab</p><nav aria-label="Footer links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></nav></footer>
+  <script src="../app.js" defer></script>
+</body>
+</html>
