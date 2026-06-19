@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unit Converter - Length, weight, temperature, area - Free Toolbox</title>
+  <meta name="description" content="Free unit converter for length, weight, temperature, and area including cm, meters, inches, kilograms, pounds, Celsius, Fahrenheit, square meters, and pyeong.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://dhforge.github.io/en/unit-converter/">
+  <link rel="alternate" hreflang="ko" href="https://dhforge.github.io/unit-converter/">
+  <link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/unit-converter/">
+  <link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/unit-converter/">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span><strong>Free Toolbox</strong><small>Unit Converter</small></span></a>
+    <nav class="top-nav" aria-label="Main links"><a href="../../unit-converter/">Korean</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></nav>
+  </header>
+  <main class="tool-shell">
+    <aside class="tool-nav" aria-label="Tool list">
+      <a class="tool-tab" href="../char-counter/">Character Counter</a><a class="tool-tab" href="../date-calculator/">Date Calculator</a><a class="tool-tab is-active" href="../unit-converter/">Unit Converter</a><a class="tool-tab" href="../random-picker/">Random Picker</a><a class="tool-tab" href="../qr-generator/">QR Code Generator</a><a class="tool-tab" href="../text-cleaner/">Text Cleaner</a><a class="tool-tab" href="../color-tool/">Color Converter</a><a class="tool-tab" href="../timer/">Timer</a><a class="tool-tab" href="../ratio-calculator/">Ratio Calculator</a><a class="tool-tab" href="../image-resizer/">Image Resizer</a>
+    </aside>
+    <div class="tool-panels">
+      <section class="tool-panel is-active">
+        <div class="panel-heading"><div><p class="eyebrow">Converter</p><h1>Unit Converter</h1></div><p>Convert common length, weight, temperature, and area units in one place.</p></div>
+        <div class="converter-row"><label class="field"><span>Type</span><select id="unitType"></select></label><label class="field"><span>Value</span><input id="unitValue" type="number" value="1" step="any"></label><label class="field"><span>From unit</span><select id="unitFrom"></select></label></div>
+        <div class="result-list" id="unitResults"></div>
+      </section>
+      <section class="content-panel">
+        <h2>How to use this unit converter</h2>
+        <p>Select a category, enter a number, and choose the current unit. The tool converts the value into all supported units in the same category, which is useful for product sizes, recipes, rooms, temperatures, and quick comparisons.</p>
+        <div class="content-grid"><article><h3>Length</h3><p>Convert mm, cm, m, km, inches, and feet.</p></article><article><h3>Weight and temperature</h3><p>Convert grams, kilograms, pounds, ounces, Celsius, Fahrenheit, and Kelvin.</p></article><article><h3>Area</h3><p>Compare square meters, pyeong, square feet, and acres.</p></article></div>
+        <h2>Steps</h2>
+        <ol class="step-list"><li>Choose the conversion type.</li><li>Enter the value and source unit.</li><li>Read the converted values in the result list.</li></ol>
+        <h2>Examples</h2>
+        <ul class="example-list"><li>Converting centimeters to inches for product dimensions</li><li>Checking square meters and pyeong together</li><li>Switching between Celsius and Fahrenheit</li></ul>
+        <details><summary>Are results rounded?</summary><p>Results are trimmed for readability. Use a specialist tool for scientific precision.</p></details>
+        <details><summary>What is the pyeong conversion?</summary><p>One pyeong is calculated as 3.305785 square meters.</p></details>
+        <details><summary>Are values stored?</summary><p>No. The conversion runs in your current browser tab.</p></details>
+        <div class="related-tools"><a href="../ratio-calculator/">Ratio Calculator</a><a href="../image-resizer/">Image Resizer</a><a href="../color-tool/">Color Converter</a></div>
+      </section>
+    </div>
+  </main>
+  <script src="../../app.js" defer></script>
+</body>
+</html>

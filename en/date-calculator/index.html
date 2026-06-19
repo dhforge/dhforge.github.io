@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Date Calculator - Date difference and add days - Free Toolbox</title>
+  <meta name="description" content="Free date calculator for finding days between two dates and adding or subtracting days from a base date.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://dhforge.github.io/en/date-calculator/">
+  <link rel="alternate" hreflang="ko" href="https://dhforge.github.io/date-calculator/">
+  <link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/date-calculator/">
+  <link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/date-calculator/">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span><strong>Free Toolbox</strong><small>Date Calculator</small></span></a>
+    <nav class="top-nav" aria-label="Main links"><a href="../../date-calculator/">Korean</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></nav>
+  </header>
+  <main class="tool-shell">
+    <aside class="tool-nav" aria-label="Tool list">
+      <a class="tool-tab" href="../char-counter/">Character Counter</a><a class="tool-tab is-active" href="../date-calculator/">Date Calculator</a><a class="tool-tab" href="../unit-converter/">Unit Converter</a><a class="tool-tab" href="../random-picker/">Random Picker</a><a class="tool-tab" href="../qr-generator/">QR Code Generator</a><a class="tool-tab" href="../text-cleaner/">Text Cleaner</a><a class="tool-tab" href="../color-tool/">Color Converter</a><a class="tool-tab" href="../timer/">Timer</a><a class="tool-tab" href="../ratio-calculator/">Ratio Calculator</a><a class="tool-tab" href="../image-resizer/">Image Resizer</a>
+    </aside>
+    <div class="tool-panels">
+      <section class="tool-panel is-active">
+        <div class="panel-heading"><div><p class="eyebrow">Date Utility</p><h1>Date Calculator</h1></div><p>Calculate the day difference between two dates or find a date before or after a base date.</p></div>
+        <div class="two-column">
+          <div><label class="field"><span>Start date</span><input id="dateStart" type="date"></label><label class="field"><span>End date</span><input id="dateEnd" type="date"></label><output class="notice" id="dateDiffResult">Select both dates.</output></div>
+          <div><label class="field"><span>Base date</span><input id="dateBase" type="date"></label><label class="field"><span>Days to add or subtract</span><input id="dateOffset" type="number" value="30" step="1"></label><output class="notice" id="dateOffsetResult">Select a base date.</output></div>
+        </div>
+      </section>
+      <section class="content-panel">
+        <h2>How to use this date calculator</h2>
+        <p>Use the first section to count the days between two dates. Use the second section to add or subtract days from a base date. It is useful for deadlines, schedules, trip lengths, and personal milestones.</p>
+        <div class="content-grid"><article><h3>Date difference</h3><p>Select a start and end date to see the number of days between them.</p></article><article><h3>Inclusive count</h3><p>The result also shows the count when the start date is included.</p></article><article><h3>Add days</h3><p>Enter positive or negative days to move forward or backward from a date.</p></article></div>
+        <h2>Steps</h2>
+        <ol class="step-list"><li>Select the start and end dates.</li><li>Enter a base date and day offset if needed.</li><li>Use the result in your calendar, schedule, or notes.</li></ol>
+        <h2>Examples</h2>
+        <ul class="example-list"><li>Finding the date 100 days from today</li><li>Counting days until a project deadline</li><li>Checking the length of a trip</li></ul>
+        <details><summary>Does it account for leap years?</summary><p>Yes. It uses the browser's date handling, so leap years and month lengths are reflected.</p></details>
+        <details><summary>Does it calculate business days?</summary><p>No. Holidays and business days vary by country and year, so this tool only calculates calendar days.</p></details>
+        <details><summary>Can I use negative day offsets?</summary><p>Yes. A negative number calculates a date before the base date.</p></details>
+        <div class="related-tools"><a href="../timer/">Timer</a><a href="../ratio-calculator/">Ratio Calculator</a><a href="../random-picker/">Random Picker</a></div>
+      </section>
+    </div>
+  </main>
+  <script src="../../app.js" defer></script>
+</body>
+</html>

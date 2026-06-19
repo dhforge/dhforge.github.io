@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Text Cleaner - Remove spaces, blank lines, duplicates - Free Toolbox</title>
+  <meta name="description" content="Clean text for free by trimming lines, removing blank lines, removing duplicate lines, collapsing spaces, and changing case in your browser.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://dhforge.github.io/en/text-cleaner/">
+  <link rel="alternate" hreflang="ko" href="https://dhforge.github.io/text-cleaner/">
+  <link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/text-cleaner/">
+  <link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/text-cleaner/">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span><strong>Free Toolbox</strong><small>Text Cleaner</small></span></a>
+    <nav class="top-nav" aria-label="Main links"><a href="../../text-cleaner/">Korean</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></nav>
+  </header>
+  <main class="tool-shell">
+    <aside class="tool-nav" aria-label="Tool list">
+      <a class="tool-tab" href="../char-counter/">Character Counter</a><a class="tool-tab" href="../date-calculator/">Date Calculator</a><a class="tool-tab" href="../unit-converter/">Unit Converter</a><a class="tool-tab" href="../random-picker/">Random Picker</a><a class="tool-tab" href="../qr-generator/">QR Code Generator</a><a class="tool-tab is-active" href="../text-cleaner/">Text Cleaner</a><a class="tool-tab" href="../color-tool/">Color Converter</a><a class="tool-tab" href="../timer/">Timer</a><a class="tool-tab" href="../ratio-calculator/">Ratio Calculator</a><a class="tool-tab" href="../image-resizer/">Image Resizer</a>
+    </aside>
+    <div class="tool-panels">
+      <section class="tool-panel is-active">
+        <div class="panel-heading"><div><p class="eyebrow">Text Utility</p><h1>Text Cleaner</h1></div><p>Clean copied text by removing unwanted spaces, blank lines, duplicates, and case inconsistencies.</p></div>
+        <label class="field"><span>Original text</span><textarea id="cleanInput" rows="7" placeholder="Paste the text you want to clean."></textarea></label>
+        <div class="button-row wrap">
+          <button data-clean="trim-lines" type="button">Trim line spaces</button>
+          <button data-clean="remove-empty" type="button">Remove blank lines</button>
+          <button data-clean="dedupe" type="button">Remove duplicates</button>
+          <button data-clean="collapse-space" type="button">Collapse spaces</button>
+          <button data-clean="upper" type="button">Uppercase</button>
+          <button data-clean="lower" type="button">Lowercase</button>
+        </div>
+        <label class="field"><span>Result</span><textarea id="cleanOutput" rows="7" readonly></textarea></label>
+        <button id="copyCleanText" type="button">Copy result</button>
+      </section>
+      <section class="content-panel">
+        <h2>How to use this text cleaner</h2>
+        <p>Paste copied text from a document, spreadsheet, website, or notes app and choose the cleanup action you need. The result appears in a separate box so the original stays unchanged.</p>
+        <div class="content-grid"><article><h3>Whitespace cleanup</h3><p>Trim line edges and collapse repeated spaces into cleaner text.</p></article><article><h3>Blank line removal</h3><p>Reduce extra empty lines from pasted lists and documents.</p></article><article><h3>Duplicate removal</h3><p>Keep the first copy of each line and remove later duplicates.</p></article></div>
+        <h2>Steps</h2>
+        <ol class="step-list"><li>Paste the source text.</li><li>Click the cleanup action you need.</li><li>Copy the cleaned result.</li></ol>
+        <h2>Examples</h2>
+        <ul class="example-list"><li>Removing blank lines from a copied list</li><li>Keeping only unique URLs</li><li>Changing an English heading to uppercase or lowercase</li></ul>
+        <details><summary>Does it modify my original input?</summary><p>No. The cleaned text appears only in the result box.</p></details>
+        <details><summary>Does duplicate removal keep order?</summary><p>Yes. It keeps the first occurrence and removes later duplicate lines.</p></details>
+        <details><summary>Is the text stored?</summary><p>No. The actions run in the current browser tab.</p></details>
+        <div class="related-tools"><a href="../char-counter/">Character Counter</a><a href="../qr-generator/">QR Code Generator</a><a href="../random-picker/">Random Picker</a></div>
+      </section>
+    </div>
+  </main>
+  <script src="../../app.js" defer></script>
+</body>
+</html>

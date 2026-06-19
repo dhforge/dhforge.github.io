@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QR Code Generator - Create QR codes in browser - Free Toolbox</title>
+  <meta name="description" content="Create a free QR code for a short URL or text in your browser and download it as a PNG image.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://dhforge.github.io/en/qr-generator/">
+  <link rel="alternate" hreflang="ko" href="https://dhforge.github.io/qr-generator/">
+  <link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/qr-generator/">
+  <link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/qr-generator/">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span><strong>Free Toolbox</strong><small>QR Code Generator</small></span></a>
+    <nav class="top-nav" aria-label="Main links"><a href="../../qr-generator/">Korean</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></nav>
+  </header>
+  <main class="tool-shell">
+    <aside class="tool-nav" aria-label="Tool list">
+      <a class="tool-tab" href="../char-counter/">Character Counter</a><a class="tool-tab" href="../date-calculator/">Date Calculator</a><a class="tool-tab" href="../unit-converter/">Unit Converter</a><a class="tool-tab" href="../random-picker/">Random Picker</a><a class="tool-tab is-active" href="../qr-generator/">QR Code Generator</a><a class="tool-tab" href="../text-cleaner/">Text Cleaner</a><a class="tool-tab" href="../color-tool/">Color Converter</a><a class="tool-tab" href="../timer/">Timer</a><a class="tool-tab" href="../ratio-calculator/">Ratio Calculator</a><a class="tool-tab" href="../image-resizer/">Image Resizer</a>
+    </aside>
+    <div class="tool-panels">
+      <section class="tool-panel is-active">
+        <div class="panel-heading"><div><p class="eyebrow">QR Utility</p><h1>QR Code Generator</h1></div><p>Create a QR code in the browser without calling an external QR API.</p></div>
+        <div class="two-column">
+          <div><label class="field"><span>QR content</span><textarea id="qrText" rows="7" maxlength="100" placeholder="https://example.com"></textarea></label><div class="button-row"><button class="primary-button" id="makeQr" type="button">Make QR</button><button id="downloadQr" type="button">Save PNG</button></div><p class="helper">Best for short URLs and brief text. Long text may be too large for this compact generator.</p></div>
+          <div class="canvas-stage"><canvas id="qrCanvas" width="280" height="280" aria-label="Generated QR code"></canvas></div>
+        </div>
+      </section>
+      <section class="content-panel">
+        <h2>How to use this QR code generator</h2>
+        <p>Enter a short URL or text, generate a QR code, and download it as a PNG file. The QR code is created with JavaScript and canvas inside the browser.</p>
+        <div class="content-grid"><article><h3>URL QR codes</h3><p>Turn a website address into a QR code that can be opened by a phone camera.</p></article><article><h3>Text QR codes</h3><p>Encode short notes or simple values as a scannable image.</p></article><article><h3>PNG download</h3><p>Save the generated code for a document, sign, or handout.</p></article></div>
+        <h2>Steps</h2>
+        <ol class="step-list"><li>Enter the URL or text.</li><li>Click Make QR to render the image.</li><li>Use Save PNG if you need a file.</li></ol>
+        <h2>Examples</h2>
+        <ul class="example-list"><li>Adding a website link to a printed flyer</li><li>Sharing a short event page URL</li><li>Making a quick QR code for a simple text value</li></ul>
+        <details><summary>Can it handle long paragraphs?</summary><p>This generator is tuned for short URLs and short text. Shorten long content first for best results.</p></details>
+        <details><summary>Is the content sent to a QR API?</summary><p>No. The QR code is generated in the current browser tab.</p></details>
+        <details><summary>Can I use the generated QR commercially?</summary><p>You may use the generated image, but you are responsible for the rights and accuracy of the link or text inside it.</p></details>
+        <div class="related-tools"><a href="../char-counter/">Character Counter</a><a href="../image-resizer/">Image Resizer</a><a href="../text-cleaner/">Text Cleaner</a></div>
+      </section>
+    </div>
+  </main>
+  <script src="../../app.js" defer></script>
+</body>
+</html>

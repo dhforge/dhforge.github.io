@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Character Counter - Count characters, words, bytes - Free Toolbox</title>
+  <meta name="description" content="Free character counter for characters with spaces, characters without spaces, UTF-8 bytes, words, lines, and estimated reading time.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://dhforge.github.io/en/char-counter/">
+  <link rel="alternate" hreflang="ko" href="https://dhforge.github.io/char-counter/">
+  <link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/char-counter/">
+  <link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/char-counter/">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span><strong>Free Toolbox</strong><small>Character Counter</small></span></a>
+    <nav class="top-nav" aria-label="Main links"><a href="../../char-counter/">Korean</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></nav>
+  </header>
+  <main class="tool-shell">
+    <aside class="tool-nav" aria-label="Tool list">
+      <a class="tool-tab is-active" href="../char-counter/">Character Counter</a>
+      <a class="tool-tab" href="../date-calculator/">Date Calculator</a>
+      <a class="tool-tab" href="../unit-converter/">Unit Converter</a>
+      <a class="tool-tab" href="../random-picker/">Random Picker</a>
+      <a class="tool-tab" href="../qr-generator/">QR Code Generator</a>
+      <a class="tool-tab" href="../text-cleaner/">Text Cleaner</a>
+      <a class="tool-tab" href="../color-tool/">Color Converter</a>
+      <a class="tool-tab" href="../timer/">Timer</a>
+      <a class="tool-tab" href="../ratio-calculator/">Ratio Calculator</a>
+      <a class="tool-tab" href="../image-resizer/">Image Resizer</a>
+    </aside>
+    <div class="tool-panels">
+      <section class="tool-panel is-active">
+        <div class="panel-heading">
+          <div><p class="eyebrow">Text Utility</p><h1>Character Counter</h1></div>
+          <p>Count text length, bytes, words, lines, and reading time without sending your text to a server.</p>
+        </div>
+        <label class="field"><span>Text input</span><textarea id="charInput" rows="10" placeholder="Paste or type your text here."></textarea></label>
+        <div class="result-grid">
+          <output class="metric"><span>With spaces</span><strong id="charWithSpaces">0</strong></output>
+          <output class="metric"><span>Without spaces</span><strong id="charNoSpaces">0</strong></output>
+          <output class="metric"><span>UTF-8 bytes</span><strong id="charBytes">0</strong></output>
+          <output class="metric"><span>Words</span><strong id="wordCount">0</strong></output>
+          <output class="metric"><span>Lines</span><strong id="lineCount">0</strong></output>
+          <output class="metric"><span>Reading time</span><strong id="readTime">0 sec</strong></output>
+        </div>
+      </section>
+      <section class="content-panel">
+        <h2>How to use this character counter</h2>
+        <p>Paste text into the box and the page instantly calculates characters with spaces, characters without spaces, UTF-8 bytes, words, lines, and estimated reading time. It is useful for bios, titles, descriptions, applications, and short writing limits.</p>
+        <div class="content-grid">
+          <article><h3>Characters with spaces</h3><p>Counts every visible character plus spaces and line breaks.</p></article>
+          <article><h3>Characters without spaces</h3><p>Removes whitespace before counting the remaining characters.</p></article>
+          <article><h3>UTF-8 bytes</h3><p>Shows byte length for text that may include Korean, English, symbols, or numbers.</p></article>
+        </div>
+        <h2>Steps</h2>
+        <ol class="step-list"><li>Paste the text you want to check.</li><li>Review the character, byte, word, and line results.</li><li>Edit the text until it fits your limit.</li></ol>
+        <h2>Examples</h2>
+        <ul class="example-list"><li>Checking a social profile length</li><li>Adjusting a blog title or meta description</li><li>Estimating the length of a short announcement</li></ul>
+        <details><summary>Is my text saved?</summary><p>No. The calculation runs in your browser tab and the text is not sent to this site's own server.</p></details>
+        <details><summary>Why can byte count be different from character count?</summary><p>UTF-8 can use multiple bytes for one character, especially for non-Latin text and symbols.</p></details>
+        <details><summary>What does without spaces remove?</summary><p>It removes spaces, tabs, and line breaks before counting.</p></details>
+        <div class="related-tools"><a href="../text-cleaner/">Text Cleaner</a><a href="../qr-generator/">QR Code Generator</a><a href="../date-calculator/">Date Calculator</a></div>
+      </section>
+    </div>
+  </main>
+  <script src="../../app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aspect Ratio Calculator - Image and video size - Free Toolbox</title>
+  <meta name="description" content="Calculate aspect ratios and proportional image or video dimensions. Enter original width and height to resize without distortion.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://dhforge.github.io/en/ratio-calculator/">
+  <link rel="alternate" hreflang="ko" href="https://dhforge.github.io/ratio-calculator/">
+  <link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/ratio-calculator/">
+  <link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/ratio-calculator/">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span><strong>Free Toolbox</strong><small>Ratio Calculator</small></span></a>
+    <nav class="top-nav" aria-label="Main links"><a href="../../ratio-calculator/">Korean</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></nav>
+  </header>
+  <main class="tool-shell">
+    <aside class="tool-nav" aria-label="Tool list">
+      <a class="tool-tab" href="../char-counter/">Character Counter</a><a class="tool-tab" href="../date-calculator/">Date Calculator</a><a class="tool-tab" href="../unit-converter/">Unit Converter</a><a class="tool-tab" href="../random-picker/">Random Picker</a><a class="tool-tab" href="../qr-generator/">QR Code Generator</a><a class="tool-tab" href="../text-cleaner/">Text Cleaner</a><a class="tool-tab" href="../color-tool/">Color Converter</a><a class="tool-tab" href="../timer/">Timer</a><a class="tool-tab is-active" href="../ratio-calculator/">Ratio Calculator</a><a class="tool-tab" href="../image-resizer/">Image Resizer</a>
+    </aside>
+    <div class="tool-panels">
+      <section class="tool-panel is-active">
+        <div class="panel-heading"><div><p class="eyebrow">Design Utility</p><h1>Aspect Ratio Calculator</h1></div><p>Calculate matching image, video, and thumbnail dimensions without stretching.</p></div>
+        <div class="converter-row"><label class="field"><span>Original width</span><input id="ratioWidth" type="number" value="1920" min="1"></label><label class="field"><span>Original height</span><input id="ratioHeight" type="number" value="1080" min="1"></label><label class="field"><span>New width</span><input id="ratioNewWidth" type="number" value="1280" min="1"></label></div>
+        <div class="result-grid compact"><output class="metric"><span>Ratio</span><strong id="ratioSimple">16:9</strong></output><output class="metric"><span>New height</span><strong id="ratioNewHeight">720</strong></output><output class="metric"><span>Width from height</span><strong id="ratioWidthFromHeight">1920</strong></output></div>
+        <label class="field small-field"><span>Calculate width from new height</span><input id="ratioTargetHeight" type="number" value="1080" min="1"></label>
+      </section>
+      <section class="content-panel">
+        <h2>How to use this aspect ratio calculator</h2>
+        <p>Enter the original width and height to simplify the ratio and calculate proportional dimensions. This helps resize images, videos, thumbnails, and banners without distortion.</p>
+        <div class="content-grid"><article><h3>Simplified ratio</h3><p>Convert dimensions such as 1920x1080 into 16:9.</p></article><article><h3>Width-based size</h3><p>Enter a new width and calculate the matching height.</p></article><article><h3>Height-based size</h3><p>Enter a new height to find the matching width.</p></article></div>
+        <h2>Steps</h2>
+        <ol class="step-list"><li>Enter the original width and height.</li><li>Enter a new width or new height.</li><li>Use the calculated size in your editor or upload form.</li></ol>
+        <h2>Examples</h2>
+        <ul class="example-list"><li>Resizing a YouTube thumbnail proportionally</li><li>Fitting a banner to a specific width</li><li>Keeping photos from looking stretched</li></ul>
+        <details><summary>How are decimal pixels handled?</summary><p>The display rounds to whole pixels because most image editors use integer pixel sizes.</p></details>
+        <details><summary>Does it work for ratios other than 16:9?</summary><p>Yes. It calculates from whatever original dimensions you enter.</p></details>
+        <details><summary>Does it edit an image file?</summary><p>No. This page only calculates numbers. Use the image resizer to create a resized file.</p></details>
+        <div class="related-tools"><a href="../image-resizer/">Image Resizer</a><a href="../unit-converter/">Unit Converter</a><a href="../color-tool/">Color Converter</a></div>
+      </section>
+    </div>
+  </main>
+  <script src="../../app.js" defer></script>
+</body>
+</html>

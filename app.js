@@ -2,6 +2,20 @@
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+const LANGUAGE = document.documentElement.lang.toLowerCase().startsWith("en") ? "en" : "ko";
+const IS_EN = LANGUAGE === "en";
+const SITE_COPY = {
+  ko: {
+    siteName: "무료 도구함",
+    homeUrl: "https://dhforge.github.io/",
+    inLanguage: "ko-KR"
+  },
+  en: {
+    siteName: "Free Toolbox",
+    homeUrl: "https://dhforge.github.io/en/",
+    inLanguage: "en-US"
+  }
+};
 
 document.addEventListener("DOMContentLoaded", () => {
   initStructuredData();
@@ -19,19 +33,20 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function initStructuredData() {
+  const copy = SITE_COPY[LANGUAGE];
   const canonical = document.querySelector('link[rel="canonical"]');
   const description = document.querySelector('meta[name="description"]');
   const url = canonical ? canonical.href : location.href;
-  const title = document.title.replace(" - 무료 도구함", "");
+  const title = document.title.replace(` - ${copy.siteName}`, "");
   const path = new URL(url).pathname;
-  const isHome = path === "/" || path === "/index.html";
+  const isHome = path === "/" || path === "/index.html" || path === "/en/" || path === "/en/index.html";
   const graph = [
     {
       "@type": "WebSite",
-      "@id": "https://dhforge.github.io/#website",
-      "url": "https://dhforge.github.io/",
-      "name": "무료 도구함",
-      "inLanguage": "ko-KR"
+      "@id": `${copy.homeUrl}#website`,
+      "url": copy.homeUrl,
+      "name": copy.siteName,
+      "inLanguage": copy.inLanguage
     },
     {
       "@type": "WebApplication",
@@ -43,7 +58,7 @@ function initStructuredData() {
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
       "isAccessibleForFree": true,
-      "inLanguage": "ko-KR"
+      "inLanguage": copy.inLanguage
     }
   ];
 
@@ -55,8 +70,8 @@ function initStructuredData() {
         {
           "@type": "ListItem",
           "position": 1,
-          "name": "무료 도구함",
-          "item": "https://dhforge.github.io/"
+          "name": copy.siteName,
+          "item": copy.homeUrl
         },
         {
           "@type": "ListItem",
@@ -143,11 +158,16 @@ function initCharCounter() {
     bytes.textContent = new TextEncoder().encode(text).length.toLocaleString();
     words.textContent = wordList.length.toLocaleString();
     lines.textContent = lineCount.toLocaleString();
-    readTime.textContent = seconds < 60 ? `${seconds}초` : `${Math.ceil(seconds / 60)}분`;
+    readTime.textContent = formatReadTime(seconds);
   }
 
   input.addEventListener("input", update);
   update();
+}
+
+function formatReadTime(seconds) {
+  if (IS_EN) return seconds < 60 ? `${seconds} sec` : `${Math.ceil(seconds / 60)} min`;
+  return seconds < 60 ? `${seconds}초` : `${Math.ceil(seconds / 60)}분`;
 }
 
 function initDateCalculator() {
@@ -167,13 +187,19 @@ function initDateCalculator() {
 
   function updateDiff() {
     if (!start.value || !end.value) {
-      diffResult.textContent = "날짜를 선택하세요.";
+      diffResult.textContent = IS_EN ? "Select both dates." : "날짜를 선택하세요.";
       return;
     }
     const startDate = parseDateInput(start.value);
     const endDate = parseDateInput(end.value);
     const diff = Math.round((endDate - startDate) / 86400000);
     const abs = Math.abs(diff);
+    if (IS_EN) {
+      diffResult.textContent = diff >= 0
+        ? `${start.value} to ${end.value} is ${abs.toLocaleString()} days apart. Including the start date, it is ${(abs + 1).toLocaleString()} days.`
+        : `${end.value} is ${abs.toLocaleString()} days before ${start.value}.`;
+      return;
+    }
     diffResult.textContent = diff >= 0
       ? `${start.value}부터 ${end.value}까지 ${abs.toLocaleString()}일 차이입니다. 시작일을 포함하면 ${(abs + 1).toLocaleString()}일입니다.`
       : `${end.value}가 ${start.value}보다 ${abs.toLocaleString()}일 빠릅니다.`;
@@ -181,11 +207,16 @@ function initDateCalculator() {
 
   function updateOffset() {
     if (!base.value) {
-      offsetResult.textContent = "기준일을 선택하세요.";
+      offsetResult.textContent = IS_EN ? "Select a base date." : "기준일을 선택하세요.";
       return;
     }
     const count = Number(offset.value || 0);
     const result = addDays(parseDateInput(base.value), count);
+    if (IS_EN) {
+      const direction = count >= 0 ? "after" : "before";
+      offsetResult.textContent = `${Math.abs(count).toLocaleString()} days ${direction} ${base.value} is ${toDateInput(result)}.`;
+      return;
+    }
     offsetResult.textContent = `${base.value}에서 ${count.toLocaleString()}일 ${count >= 0 ? "후" : "전"} 날짜는 ${toDateInput(result)}입니다.`;
   }
 
@@ -219,50 +250,7 @@ function initUnitConverter() {
   const value = $("#unitValue");
   const from = $("#unitFrom");
   const results = $("#unitResults");
-  const unitGroups = {
-    length: {
-      label: "길이",
-      base: "m",
-      units: {
-        mm: { label: "밀리미터", toBase: (v) => v / 1000, fromBase: (v) => v * 1000 },
-        cm: { label: "센티미터", toBase: (v) => v / 100, fromBase: (v) => v * 100 },
-        m: { label: "미터", toBase: (v) => v, fromBase: (v) => v },
-        km: { label: "킬로미터", toBase: (v) => v * 1000, fromBase: (v) => v / 1000 },
-        in: { label: "인치", toBase: (v) => v * 0.0254, fromBase: (v) => v / 0.0254 },
-        ft: { label: "피트", toBase: (v) => v * 0.3048, fromBase: (v) => v / 0.3048 }
-      }
-    },
-    weight: {
-      label: "무게",
-      base: "kg",
-      units: {
-        g: { label: "그램", toBase: (v) => v / 1000, fromBase: (v) => v * 1000 },
-        kg: { label: "킬로그램", toBase: (v) => v, fromBase: (v) => v },
-        t: { label: "톤", toBase: (v) => v * 1000, fromBase: (v) => v / 1000 },
-        oz: { label: "온스", toBase: (v) => v * 0.028349523125, fromBase: (v) => v / 0.028349523125 },
-        lb: { label: "파운드", toBase: (v) => v * 0.45359237, fromBase: (v) => v / 0.45359237 }
-      }
-    },
-    temperature: {
-      label: "온도",
-      base: "c",
-      units: {
-        c: { label: "섭씨", toBase: (v) => v, fromBase: (v) => v },
-        f: { label: "화씨", toBase: (v) => (v - 32) * 5 / 9, fromBase: (v) => v * 9 / 5 + 32 },
-        k: { label: "켈빈", toBase: (v) => v - 273.15, fromBase: (v) => v + 273.15 }
-      }
-    },
-    area: {
-      label: "면적",
-      base: "sqm",
-      units: {
-        sqm: { label: "제곱미터", toBase: (v) => v, fromBase: (v) => v },
-        pyeong: { label: "평", toBase: (v) => v * 3.305785, fromBase: (v) => v / 3.305785 },
-        sqft: { label: "제곱피트", toBase: (v) => v * 0.09290304, fromBase: (v) => v / 0.09290304 },
-        acre: { label: "에이커", toBase: (v) => v * 4046.8564224, fromBase: (v) => v / 4046.8564224 }
-      }
-    }
-  };
+  const unitGroups = getUnitGroups();
 
   Object.entries(unitGroups).forEach(([key, group]) => {
     type.append(new Option(group.label, key));
@@ -297,6 +285,101 @@ function initUnitConverter() {
   fillUnits();
 }
 
+function getUnitGroups() {
+  const labels = IS_EN ? {
+    length: "Length",
+    weight: "Weight",
+    temperature: "Temperature",
+    area: "Area",
+    mm: "Millimeter",
+    cm: "Centimeter",
+    m: "Meter",
+    km: "Kilometer",
+    in: "Inch",
+    ft: "Foot",
+    g: "Gram",
+    kg: "Kilogram",
+    t: "Metric ton",
+    oz: "Ounce",
+    lb: "Pound",
+    c: "Celsius",
+    f: "Fahrenheit",
+    k: "Kelvin",
+    sqm: "Square meter",
+    pyeong: "Pyeong",
+    sqft: "Square foot",
+    acre: "Acre"
+  } : {
+    length: "길이",
+    weight: "무게",
+    temperature: "온도",
+    area: "면적",
+    mm: "밀리미터",
+    cm: "센티미터",
+    m: "미터",
+    km: "킬로미터",
+    in: "인치",
+    ft: "피트",
+    g: "그램",
+    kg: "킬로그램",
+    t: "톤",
+    oz: "온스",
+    lb: "파운드",
+    c: "섭씨",
+    f: "화씨",
+    k: "켈빈",
+    sqm: "제곱미터",
+    pyeong: "평",
+    sqft: "제곱피트",
+    acre: "에이커"
+  };
+
+  return {
+    length: {
+      label: labels.length,
+      base: "m",
+      units: {
+        mm: { label: labels.mm, toBase: (v) => v / 1000, fromBase: (v) => v * 1000 },
+        cm: { label: labels.cm, toBase: (v) => v / 100, fromBase: (v) => v * 100 },
+        m: { label: labels.m, toBase: (v) => v, fromBase: (v) => v },
+        km: { label: labels.km, toBase: (v) => v * 1000, fromBase: (v) => v / 1000 },
+        in: { label: labels.in, toBase: (v) => v * 0.0254, fromBase: (v) => v / 0.0254 },
+        ft: { label: labels.ft, toBase: (v) => v * 0.3048, fromBase: (v) => v / 0.3048 }
+      }
+    },
+    weight: {
+      label: labels.weight,
+      base: "kg",
+      units: {
+        g: { label: labels.g, toBase: (v) => v / 1000, fromBase: (v) => v * 1000 },
+        kg: { label: labels.kg, toBase: (v) => v, fromBase: (v) => v },
+        t: { label: labels.t, toBase: (v) => v * 1000, fromBase: (v) => v / 1000 },
+        oz: { label: labels.oz, toBase: (v) => v * 0.028349523125, fromBase: (v) => v / 0.028349523125 },
+        lb: { label: labels.lb, toBase: (v) => v * 0.45359237, fromBase: (v) => v / 0.45359237 }
+      }
+    },
+    temperature: {
+      label: labels.temperature,
+      base: "c",
+      units: {
+        c: { label: labels.c, toBase: (v) => v, fromBase: (v) => v },
+        f: { label: labels.f, toBase: (v) => (v - 32) * 5 / 9, fromBase: (v) => v * 9 / 5 + 32 },
+        k: { label: labels.k, toBase: (v) => v - 273.15, fromBase: (v) => v + 273.15 }
+      }
+    },
+    area: {
+      label: labels.area,
+      base: "sqm",
+      units: {
+        sqm: { label: labels.sqm, toBase: (v) => v, fromBase: (v) => v },
+        pyeong: { label: labels.pyeong, toBase: (v) => v * 3.305785, fromBase: (v) => v / 3.305785 },
+        sqft: { label: labels.sqft, toBase: (v) => v * 0.09290304, fromBase: (v) => v / 0.09290304 },
+        acre: { label: labels.acre, toBase: (v) => v * 4046.8564224, fromBase: (v) => v / 4046.8564224 }
+      }
+    }
+  };
+}
+
 function formatNumber(value) {
   if (!Number.isFinite(value)) return "0";
   return Number.parseFloat(value.toFixed(8)).toLocaleString();
@@ -327,36 +410,40 @@ function initRandomPicker() {
 
   $("#pickOne").addEventListener("click", () => {
     const list = getItems();
-    result.textContent = list.length ? `선택 결과: ${list[Math.floor(Math.random() * list.length)]}` : "항목을 입력하세요.";
+    result.textContent = list.length
+      ? `${IS_EN ? "Picked" : "선택 결과"}: ${list[Math.floor(Math.random() * list.length)]}`
+      : (IS_EN ? "Enter items first." : "항목을 입력하세요.");
   });
 
   $("#shuffleItems").addEventListener("click", () => {
     const list = shuffled(getItems());
     items.value = list.join("\n");
-    result.textContent = list.length ? "목록을 섞었습니다." : "항목을 입력하세요.";
+    result.textContent = list.length
+      ? (IS_EN ? "The list has been shuffled." : "목록을 섞었습니다.")
+      : (IS_EN ? "Enter items first." : "항목을 입력하세요.");
   });
 
   $("#makeTeams").addEventListener("click", () => {
     const list = shuffled(getItems());
     const count = Math.max(2, Math.min(20, Number(teamCount.value || 2)));
     if (!list.length) {
-      result.textContent = "항목을 입력하세요.";
+      result.textContent = IS_EN ? "Enter items first." : "항목을 입력하세요.";
       return;
     }
     const teams = Array.from({ length: count }, () => []);
     list.forEach((item, index) => teams[index % count].push(item));
-    result.textContent = teams.map((team, index) => `${index + 1}팀: ${team.join(", ") || "-"}`).join("\n");
+    result.textContent = teams.map((team, index) => `${IS_EN ? "Team" : ""}${index + 1}${IS_EN ? "" : "팀"}: ${team.join(", ") || "-"}`).join("\n");
   });
 
   $("#pickNumber").addEventListener("click", () => {
     const min = Math.ceil(Number(rangeMin.value || 0));
     const max = Math.floor(Number(rangeMax.value || 0));
     if (min > max) {
-      result.textContent = "최소값이 최대값보다 클 수 없습니다.";
+      result.textContent = IS_EN ? "Minimum cannot be greater than maximum." : "최소값이 최대값보다 클 수 없습니다.";
       return;
     }
     const picked = Math.floor(Math.random() * (max - min + 1)) + min;
-    result.textContent = `번호 추첨 결과: ${picked}`;
+    result.textContent = `${IS_EN ? "Random number" : "번호 추첨 결과"}: ${picked}`;
   });
 }
 
@@ -379,7 +466,7 @@ function initQrGenerator() {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#9b5a00";
       ctx.font = "14px Arial";
-      ctx.fillText("입력이 너무 깁니다.", 80, 140);
+      ctx.fillText(IS_EN ? "Input is too long." : "입력이 너무 깁니다.", 80, 140);
     }
   }
 
@@ -783,8 +870,8 @@ function initColorTool() {
       ["HEX", hex.toLowerCase()],
       ["RGB", `${rgb.r}, ${rgb.g}, ${rgb.b}`],
       ["HSL", `${hsl.h}, ${hsl.s}%, ${hsl.l}%`],
-      ["검정 글자 대비", `${blackContrast.toFixed(2)}:1`],
-      ["흰색 글자 대비", `${whiteContrast.toFixed(2)}:1`]
+      [IS_EN ? "Black text contrast" : "검정 글자 대비", `${blackContrast.toFixed(2)}:1`],
+      [IS_EN ? "White text contrast" : "흰색 글자 대비", `${whiteContrast.toFixed(2)}:1`]
     ].forEach(([label, value]) => {
       const item = document.createElement("output");
       item.className = "result-item";
@@ -903,13 +990,13 @@ function initTimerTool() {
       stopwatchElapsed += Date.now() - stopwatchStart;
       clearInterval(stopwatchId);
       stopwatchId = null;
-      $("#stopwatchStart").textContent = "시작";
+      $("#stopwatchStart").textContent = IS_EN ? "Start" : "시작";
       renderStopwatch();
       return;
     }
     stopwatchStart = Date.now();
     stopwatchId = window.setInterval(renderStopwatch, 100);
-    $("#stopwatchStart").textContent = "정지";
+    $("#stopwatchStart").textContent = IS_EN ? "Stop" : "정지";
   });
 
   $("#stopwatchLap").addEventListener("click", () => {
@@ -923,7 +1010,7 @@ function initTimerTool() {
     stopwatchId = null;
     stopwatchElapsed = 0;
     lapList.innerHTML = "";
-    $("#stopwatchStart").textContent = "시작";
+    $("#stopwatchStart").textContent = IS_EN ? "Start" : "시작";
     renderStopwatch();
   });
 
@@ -1026,7 +1113,7 @@ function initImageResizer() {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#607080";
       ctx.font = "14px Arial";
-      ctx.fillText("이미지를 선택하세요.", 92, 112);
+      ctx.fillText(IS_EN ? "Select an image." : "이미지를 선택하세요.", 92, 112);
       return;
     }
     const targetWidth = Math.max(1, Math.round(Number(widthInput.value || sourceImage.width)));

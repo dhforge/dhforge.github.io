@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Random Picker - Name picker, number picker, teams - Free Toolbox</title>
+  <meta name="description" content="Free random picker for names, numbers, list shuffling, and team splitting. Paste a list and pick a winner or make teams in your browser.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://dhforge.github.io/en/random-picker/">
+  <link rel="alternate" hreflang="ko" href="https://dhforge.github.io/random-picker/">
+  <link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/random-picker/">
+  <link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/random-picker/">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span><strong>Free Toolbox</strong><small>Random Picker</small></span></a>
+    <nav class="top-nav" aria-label="Main links"><a href="../../random-picker/">Korean</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></nav>
+  </header>
+  <main class="tool-shell">
+    <aside class="tool-nav" aria-label="Tool list">
+      <a class="tool-tab" href="../char-counter/">Character Counter</a><a class="tool-tab" href="../date-calculator/">Date Calculator</a><a class="tool-tab" href="../unit-converter/">Unit Converter</a><a class="tool-tab is-active" href="../random-picker/">Random Picker</a><a class="tool-tab" href="../qr-generator/">QR Code Generator</a><a class="tool-tab" href="../text-cleaner/">Text Cleaner</a><a class="tool-tab" href="../color-tool/">Color Converter</a><a class="tool-tab" href="../timer/">Timer</a><a class="tool-tab" href="../ratio-calculator/">Ratio Calculator</a><a class="tool-tab" href="../image-resizer/">Image Resizer</a>
+    </aside>
+    <div class="tool-panels">
+      <section class="tool-panel is-active">
+        <div class="panel-heading"><div><p class="eyebrow">Random Utility</p><h1>Random Picker</h1></div><p>Pick one item, shuffle a list, split teams, or draw a random number.</p></div>
+        <div class="two-column">
+          <div><label class="field"><span>Item list</span><textarea id="randomItems" rows="8" placeholder="One item per line&#10;Alex&#10;Jamie&#10;Taylor"></textarea></label><div class="button-row"><button class="primary-button" id="pickOne" type="button">Pick one</button><button id="shuffleItems" type="button">Shuffle</button></div></div>
+          <div><label class="field"><span>Number of teams</span><input id="teamCount" type="number" value="2" min="2" max="20"></label><button id="makeTeams" type="button">Make teams</button><label class="field inline-range"><span>Number picker</span><input id="rangeMin" type="number" value="1"><input id="rangeMax" type="number" value="100"></label><button id="pickNumber" type="button">Pick number</button></div>
+        </div>
+        <output class="notice tall" id="randomResult">Results will appear here.</output>
+      </section>
+      <section class="content-panel">
+        <h2>How to use this random picker</h2>
+        <p>Enter one item per line to choose a random winner, shuffle the list, or split people into teams. You can also draw a random integer between a minimum and maximum value.</p>
+        <div class="content-grid"><article><h3>Name picker</h3><p>Choose one item from the list at random.</p></article><article><h3>Team splitter</h3><p>Shuffle the list and distribute items across teams as evenly as possible.</p></article><article><h3>Number picker</h3><p>Pick a random whole number inside the selected range.</p></article></div>
+        <h2>Steps</h2>
+        <ol class="step-list"><li>Enter names or items, one per line.</li><li>Choose pick, shuffle, or make teams.</li><li>Use the number range if you need a random number.</li></ol>
+        <h2>Examples</h2>
+        <ul class="example-list"><li>Picking a presentation order</li><li>Splitting a group into teams</li><li>Drawing a giveaway number</li></ul>
+        <details><summary>Will the same list always give the same result?</summary><p>No. Each click uses a fresh random selection from the browser.</p></details>
+        <details><summary>Are entered names saved?</summary><p>No. The list is only used in the current browser tab.</p></details>
+        <details><summary>Can team sizes differ?</summary><p>Yes. If the item count does not divide evenly, some teams can have one extra item.</p></details>
+        <div class="related-tools"><a href="../timer/">Timer</a><a href="../text-cleaner/">Text Cleaner</a><a href="../date-calculator/">Date Calculator</a></div>
+      </section>
+    </div>
+  </main>
+  <script src="../../app.js" defer></script>
+</body>
+</html>

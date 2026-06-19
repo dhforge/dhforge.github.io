@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Timer and Stopwatch - Free online countdown timer - Free Toolbox</title>
+  <meta name="description" content="Use a free online countdown timer and stopwatch for study, presentations, workouts, meetings, and simple time tracking.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://dhforge.github.io/en/timer/">
+  <link rel="alternate" hreflang="ko" href="https://dhforge.github.io/timer/">
+  <link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/timer/">
+  <link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/timer/">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span><strong>Free Toolbox</strong><small>Timer</small></span></a>
+    <nav class="top-nav" aria-label="Main links"><a href="../../timer/">Korean</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></nav>
+  </header>
+  <main class="tool-shell">
+    <aside class="tool-nav" aria-label="Tool list">
+      <a class="tool-tab" href="../char-counter/">Character Counter</a><a class="tool-tab" href="../date-calculator/">Date Calculator</a><a class="tool-tab" href="../unit-converter/">Unit Converter</a><a class="tool-tab" href="../random-picker/">Random Picker</a><a class="tool-tab" href="../qr-generator/">QR Code Generator</a><a class="tool-tab" href="../text-cleaner/">Text Cleaner</a><a class="tool-tab" href="../color-tool/">Color Converter</a><a class="tool-tab is-active" href="../timer/">Timer</a><a class="tool-tab" href="../ratio-calculator/">Ratio Calculator</a><a class="tool-tab" href="../image-resizer/">Image Resizer</a>
+    </aside>
+    <div class="tool-panels">
+      <section class="tool-panel is-active">
+        <div class="panel-heading"><div><p class="eyebrow">Time Utility</p><h1>Timer and Stopwatch</h1></div><p>Run a countdown timer and stopwatch in the browser for simple time tracking.</p></div>
+        <div class="two-column">
+          <div class="time-box"><h2>Countdown</h2><label class="field"><span>Minutes</span><input id="timerMinutes" type="number" value="5" min="0" max="999"></label><div class="time-display" id="timerDisplay">05:00</div><div class="button-row"><button class="primary-button" id="timerStart" type="button">Start</button><button id="timerPause" type="button">Pause</button><button id="timerReset" type="button">Reset</button></div></div>
+          <div class="time-box"><h2>Stopwatch</h2><div class="time-display" id="stopwatchDisplay">00:00.0</div><div class="button-row"><button class="primary-button" id="stopwatchStart" type="button">Start</button><button id="stopwatchLap" type="button">Lap</button><button id="stopwatchReset" type="button">Reset</button></div><ol class="lap-list" id="lapList"></ol></div>
+        </div>
+      </section>
+      <section class="content-panel">
+        <h2>How to use this timer and stopwatch</h2>
+        <p>Use the countdown for focused work, practice sessions, breaks, or workouts. Use the stopwatch when you need elapsed time and lap records.</p>
+        <div class="content-grid"><article><h3>Countdown</h3><p>Enter minutes and track the time remaining.</p></article><article><h3>Stopwatch</h3><p>Measure elapsed time with a tenth-of-a-second display.</p></article><article><h3>Lap records</h3><p>Add lap entries to compare repeated tasks.</p></article></div>
+        <h2>Steps</h2>
+        <ol class="step-list"><li>Enter minutes and click Start for a countdown.</li><li>Click Start on the stopwatch to measure elapsed time.</li><li>Use Lap to save intermediate records.</li></ol>
+        <h2>Examples</h2>
+        <ul class="example-list"><li>Running a 25-minute focus session</li><li>Checking presentation practice time</li><li>Timing workout sets and breaks</li></ul>
+        <details><summary>Does time continue after closing the browser?</summary><p>No. It only runs in the currently open browser tab.</p></details>
+        <details><summary>Does it play an alarm sound?</summary><p>No. This version is a quiet timer without an alarm sound.</p></details>
+        <details><summary>Are lap records saved?</summary><p>No. Refreshing the page clears the lap list.</p></details>
+        <div class="related-tools"><a href="../date-calculator/">Date Calculator</a><a href="../random-picker/">Random Picker</a><a href="../char-counter/">Character Counter</a></div>
+      </section>
+    </div>
+  </main>
+  <script src="../../app.js" defer></script>
+</body>
+</html>

@@ -1,59 +1,200 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://dhforge.github.io/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/"/>
+    <lastmod>2026-06-19</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/en/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/"/>
     <lastmod>2026-06-19</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/char-counter/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/char-counter/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/char-counter/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/char-counter/"/>
+    <lastmod>2026-06-19</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/en/char-counter/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/char-counter/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/char-counter/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/char-counter/"/>
     <lastmod>2026-06-19</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/date-calculator/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/date-calculator/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/date-calculator/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/date-calculator/"/>
+    <lastmod>2026-06-19</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/en/date-calculator/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/date-calculator/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/date-calculator/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/date-calculator/"/>
     <lastmod>2026-06-19</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/unit-converter/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/unit-converter/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/unit-converter/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/unit-converter/"/>
+    <lastmod>2026-06-19</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/en/unit-converter/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/unit-converter/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/unit-converter/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/unit-converter/"/>
     <lastmod>2026-06-19</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/random-picker/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/random-picker/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/random-picker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/random-picker/"/>
+    <lastmod>2026-06-19</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/en/random-picker/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/random-picker/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/random-picker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/random-picker/"/>
     <lastmod>2026-06-19</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/qr-generator/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/qr-generator/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/qr-generator/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/qr-generator/"/>
+    <lastmod>2026-06-19</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/en/qr-generator/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/qr-generator/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/qr-generator/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/qr-generator/"/>
     <lastmod>2026-06-19</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/text-cleaner/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/text-cleaner/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/text-cleaner/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/text-cleaner/"/>
+    <lastmod>2026-06-19</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/en/text-cleaner/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/text-cleaner/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/text-cleaner/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/text-cleaner/"/>
     <lastmod>2026-06-19</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/color-tool/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/color-tool/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/color-tool/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/color-tool/"/>
+    <lastmod>2026-06-19</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/en/color-tool/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/color-tool/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/color-tool/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/color-tool/"/>
     <lastmod>2026-06-19</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/timer/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/timer/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/timer/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/timer/"/>
+    <lastmod>2026-06-19</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/en/timer/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/timer/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/timer/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/timer/"/>
     <lastmod>2026-06-19</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/ratio-calculator/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/ratio-calculator/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/ratio-calculator/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/ratio-calculator/"/>
+    <lastmod>2026-06-19</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/en/ratio-calculator/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/ratio-calculator/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/ratio-calculator/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/ratio-calculator/"/>
     <lastmod>2026-06-19</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/image-resizer/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/image-resizer/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/image-resizer/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/image-resizer/"/>
+    <lastmod>2026-06-19</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/en/image-resizer/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/image-resizer/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/image-resizer/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/image-resizer/"/>
     <lastmod>2026-06-19</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/privacy.html"/>
+    <lastmod>2026-06-19</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/en/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/privacy.html"/>
     <lastmod>2026-06-19</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/terms.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/terms.html"/>
+    <lastmod>2026-06-19</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/en/terms.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/terms.html"/>
     <lastmod>2026-06-19</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/contact.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/contact.html"/>
+    <lastmod>2026-06-19</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/en/contact.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/contact.html"/>
     <lastmod>2026-06-19</lastmod>
   </url>
 </urlset>
