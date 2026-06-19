@@ -45,6 +45,35 @@
         </div>
         <label class="field small-field"><span>새 높이로 너비 계산</span><input id="ratioTargetHeight" type="number" value="1080" min="1"></label>
       </section>
+      <section class="content-panel">
+        <h2>화면 비율 계산기를 쓰는 방법</h2>
+        <p>이미지, 영상, 썸네일 크기를 같은 비율로 줄이거나 키울 때 사용합니다. 원본 너비와 높이를 입력하면 간단한 비율과 새 크기를 계산합니다.</p>
+        <div class="content-grid">
+          <article><h3>비율 단순화</h3><p>1920x1080 같은 해상도를 16:9처럼 보기 쉬운 비율로 표시합니다.</p></article>
+          <article><h3>너비 기준 계산</h3><p>새 너비를 입력하면 같은 비율의 새 높이를 계산합니다.</p></article>
+          <article><h3>높이 기준 계산</h3><p>새 높이를 기준으로 필요한 너비도 확인할 수 있습니다.</p></article>
+        </div>
+        <h2>사용 순서</h2>
+        <ol class="step-list">
+          <li>원본 너비와 높이를 입력합니다.</li>
+          <li>새 너비 또는 새 높이를 입력합니다.</li>
+          <li>계산된 크기를 이미지 편집이나 영상 편집에 사용합니다.</li>
+        </ol>
+        <h2>예시</h2>
+        <ul class="example-list">
+          <li>유튜브 썸네일을 같은 비율로 줄일 때</li>
+          <li>웹 배너 이미지를 특정 너비에 맞출 때</li>
+          <li>사진을 찌그러지지 않게 리사이즈할 때</li>
+        </ul>
+        <details><summary>소수점 크기는 어떻게 처리되나요?</summary><p>화면에서는 픽셀 단위로 쓰기 쉽도록 반올림한 정수 값을 보여줍니다.</p></details>
+        <details><summary>16:9 외의 비율도 계산되나요?</summary><p>네. 입력한 원본 크기에 맞춰 어떤 비율이든 계산합니다.</p></details>
+        <details><summary>이미지 파일을 직접 바꾸나요?</summary><p>아니요. 이 페이지는 숫자 계산만 합니다. 실제 이미지 크기 변경은 이미지 리사이즈 도구를 사용하세요.</p></details>
+        <div class="related-tools">
+          <a href="../image-resizer/">이미지 리사이즈</a>
+          <a href="../unit-converter/">단위 변환기</a>
+          <a href="../color-tool/">색상 변환기</a>
+        </div>
+      </section>
     </div>
   </main>
   <script src="../app.js" defer></script>

@@ -4,6 +4,7 @@ const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 
 document.addEventListener("DOMContentLoaded", () => {
+  initStructuredData();
   initNavigation();
   initCharCounter();
   initDateCalculator();
@@ -16,6 +17,86 @@ document.addEventListener("DOMContentLoaded", () => {
   initRatioTool();
   initImageResizer();
 });
+
+function initStructuredData() {
+  const canonical = document.querySelector('link[rel="canonical"]');
+  const description = document.querySelector('meta[name="description"]');
+  const url = canonical ? canonical.href : location.href;
+  const title = document.title.replace(" - 무료 도구함", "");
+  const path = new URL(url).pathname;
+  const isHome = path === "/" || path === "/index.html";
+  const graph = [
+    {
+      "@type": "WebSite",
+      "@id": "https://dhforge.github.io/#website",
+      "url": "https://dhforge.github.io/",
+      "name": "무료 도구함",
+      "inLanguage": "ko-KR"
+    },
+    {
+      "@type": "WebApplication",
+      "@id": `${url}#app`,
+      "url": url,
+      "name": title,
+      "description": description ? description.content : title,
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "isAccessibleForFree": true,
+      "inLanguage": "ko-KR"
+    }
+  ];
+
+  if (!isHome) {
+    graph.push({
+      "@type": "BreadcrumbList",
+      "@id": `${url}#breadcrumb`,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "무료 도구함",
+          "item": "https://dhforge.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": title,
+          "item": url
+        }
+      ]
+    });
+  }
+
+  const faqItems = Array.from(document.querySelectorAll(".content-panel details, .faq-band details")).map((detail) => {
+    const summary = detail.querySelector("summary");
+    const answer = detail.querySelector("p");
+    return summary && answer ? {
+      "@type": "Question",
+      "name": summary.textContent.trim(),
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": answer.textContent.trim()
+      }
+    } : null;
+  }).filter(Boolean);
+
+  if (faqItems.length) {
+    graph.push({
+      "@type": "FAQPage",
+      "@id": `${url}#faq`,
+      "mainEntity": faqItems
+    });
+  }
+
+  const script = document.createElement("script");
+  script.type = "application/ld+json";
+  script.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": graph
+  });
+  document.head.appendChild(script);
+}
 
 function initNavigation() {
   const tabs = $$(".tool-tab");

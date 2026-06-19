@@ -254,6 +254,79 @@ a:focus-visible {
   display: block;
 }
 
+.content-panel {
+  max-width: 1040px;
+  margin: 18px auto 0;
+  padding: clamp(18px, 4vw, 34px);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.content-panel h2 {
+  margin: 0 0 12px;
+  font-size: clamp(22px, 3vw, 30px);
+}
+
+.content-panel h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.content-panel p,
+.content-panel li {
+  color: var(--muted);
+}
+
+.content-panel > p {
+  max-width: 780px;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 18px 0 30px;
+}
+
+.content-grid article,
+.note-box {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-2);
+}
+
+.step-list,
+.example-list {
+  margin: 0 0 26px;
+  padding-left: 22px;
+}
+
+.related-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.related-tools a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--primary);
+  background: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.related-tools a:hover {
+  border-color: var(--primary);
+}
+
 .panel-heading {
   display: flex;
   align-items: flex-end;
@@ -647,6 +720,7 @@ summary {
   .two-column,
   .converter-row,
   .tool-directory,
+  .content-grid,
   .info-grid {
     grid-template-columns: 1fr;
   }
