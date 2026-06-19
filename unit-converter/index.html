@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>단위 변환기 - 길이, 무게, 온도, 면적 변환</title>
+  <meta name="description" content="길이, 무게, 온도, 면적 단위를 브라우저에서 무료로 변환하세요. cm, m, inch, kg, lb, 섭씨, 화씨, 평, 제곱미터를 지원합니다.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://dhforge.github.io/unit-converter/">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span><strong>무료 도구함</strong><small>단위 변환기</small></span></a>
+    <nav class="top-nav" aria-label="주요 링크"><a href="../privacy.html">개인정보처리방침</a><a href="../terms.html">이용 안내</a><a href="../contact.html">문의</a></nav>
+  </header>
+  <main class="tool-shell">
+    <aside class="tool-nav" aria-label="도구 목록">
+      <a class="tool-tab" href="../char-counter/">글자 수 계산기</a>
+      <a class="tool-tab" href="../date-calculator/">날짜 계산기</a>
+      <a class="tool-tab is-active" href="../unit-converter/">단위 변환기</a>
+      <a class="tool-tab" href="../random-picker/">랜덤 추첨기</a>
+      <a class="tool-tab" href="../qr-generator/">QR 코드 생성기</a>
+      <a class="tool-tab" href="../text-cleaner/">텍스트 정리 도구</a>
+      <a class="tool-tab" href="../color-tool/">색상 변환기</a>
+      <a class="tool-tab" href="../timer/">타이머</a>
+      <a class="tool-tab" href="../ratio-calculator/">비율 계산기</a>
+      <a class="tool-tab" href="../image-resizer/">이미지 리사이즈</a>
+    </aside>
+    <div class="tool-panels">
+      <section class="tool-panel is-active">
+        <div class="panel-heading">
+          <div><p class="eyebrow">Converter</p><h1>단위 변환기</h1></div>
+          <p>길이, 무게, 온도, 면적을 자주 쓰는 단위로 변환합니다.</p>
+        </div>
+        <div class="converter-row">
+          <label class="field"><span>종류</span><select id="unitType"></select></label>
+          <label class="field"><span>값</span><input id="unitValue" type="number" value="1" step="any"></label>
+          <label class="field"><span>현재 단위</span><select id="unitFrom"></select></label>
+        </div>
+        <div class="result-list" id="unitResults"></div>
+      </section>
+    </div>
+  </main>
+  <script src="../app.js" defer></script>
+</body>
+</html>

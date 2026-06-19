@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>타이머와 스톱워치 - 무료 카운트다운 타이머</title>
+  <meta name="description" content="공부, 발표, 운동에 쓸 수 있는 무료 타이머와 스톱워치입니다. 브라우저에서 바로 시간을 측정하세요.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://dhforge.github.io/timer/">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span><strong>무료 도구함</strong><small>타이머</small></span></a>
+    <nav class="top-nav" aria-label="주요 링크"><a href="../privacy.html">개인정보처리방침</a><a href="../terms.html">이용 안내</a><a href="../contact.html">문의</a></nav>
+  </header>
+  <main class="tool-shell">
+    <aside class="tool-nav" aria-label="도구 목록">
+      <a class="tool-tab" href="../char-counter/">글자 수 계산기</a>
+      <a class="tool-tab" href="../date-calculator/">날짜 계산기</a>
+      <a class="tool-tab" href="../unit-converter/">단위 변환기</a>
+      <a class="tool-tab" href="../random-picker/">랜덤 추첨기</a>
+      <a class="tool-tab" href="../qr-generator/">QR 코드 생성기</a>
+      <a class="tool-tab" href="../text-cleaner/">텍스트 정리 도구</a>
+      <a class="tool-tab" href="../color-tool/">색상 변환기</a>
+      <a class="tool-tab is-active" href="../timer/">타이머</a>
+      <a class="tool-tab" href="../ratio-calculator/">비율 계산기</a>
+      <a class="tool-tab" href="../image-resizer/">이미지 리사이즈</a>
+    </aside>
+    <div class="tool-panels">
+      <section class="tool-panel is-active">
+        <div class="panel-heading">
+          <div><p class="eyebrow">Time Utility</p><h1>타이머와 스톱워치</h1></div>
+          <p>공부, 발표, 운동 시간을 브라우저에서 바로 측정합니다.</p>
+        </div>
+        <div class="two-column">
+          <div class="time-box">
+            <h2>카운트다운</h2>
+            <label class="field"><span>분</span><input id="timerMinutes" type="number" value="5" min="0" max="999"></label>
+            <div class="time-display" id="timerDisplay">05:00</div>
+            <div class="button-row"><button class="primary-button" id="timerStart" type="button">시작</button><button id="timerPause" type="button">일시정지</button><button id="timerReset" type="button">초기화</button></div>
+          </div>
+          <div class="time-box">
+            <h2>스톱워치</h2>
+            <div class="time-display" id="stopwatchDisplay">00:00.0</div>
+            <div class="button-row"><button class="primary-button" id="stopwatchStart" type="button">시작</button><button id="stopwatchLap" type="button">랩</button><button id="stopwatchReset" type="button">초기화</button></div>
+            <ol class="lap-list" id="lapList"></ol>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="../app.js" defer></script>
+</body>
+</html>
