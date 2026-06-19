@@ -5,11 +5,13 @@
 - Korean Free Toolbox: https://dhforge.github.io/
 - English Free Toolbox: https://dhforge.github.io/en/
 - Printable Paper Lab: https://dhforge.github.io/paper/
+- Printable Paper Lab blog: https://printablepaperlab.blogspot.com/
 
 ## Sitemaps
 
 - Free Toolbox sitemap: https://dhforge.github.io/sitemap.xml
 - Printable Paper Lab sitemap: https://dhforge.github.io/paper/sitemap.xml
+- Printable Paper Lab blog sitemap: https://printablepaperlab.blogspot.com/sitemap.xml
 
 ## Search Console Property
 
