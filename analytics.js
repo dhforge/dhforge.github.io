@@ -1,6 +1,6 @@
 "use strict";
 
-const DHFORGE_GA_MEASUREMENT_ID = "G-F92KK5D5VW";
+const DHFORGE_GA_MEASUREMENT_ID = "G-NKGW4MK8DT";
 
 (() => {
   const measurementId = DHFORGE_GA_MEASUREMENT_ID.trim();
