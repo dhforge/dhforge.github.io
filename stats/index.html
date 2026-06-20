@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Private Stats - DH Forge</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f7f9;
+      --panel: #ffffff;
+      --text: #16202a;
+      --muted: #647386;
+      --border: #d9e1ea;
+      --primary: #1f6feb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px clamp(16px, 4vw, 40px);
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    a {
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    main {
+      padding: clamp(16px, 4vw, 32px);
+    }
+
+    .notice {
+      max-width: 1100px;
+      margin: 0 auto 16px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .frame-wrap {
+      overflow: hidden;
+      max-width: 1100px;
+      height: min(82vh, 900px);
+      min-height: 620px;
+      margin: 0 auto;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: var(--panel);
+    }
+
+    @media (max-width: 720px) {
+      header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>DH Forge Private Stats</h1>
+      <p>GitHub Pages and Blogger traffic from Google Analytics.</p>
+    </div>
+    <a href="https://lookerstudio.google.com/reporting/aefae81b-f98c-4538-a84f-799cde318b82/page/lFq1F" rel="noopener">Open full report</a>
+  </header>
+  <main>
+    <p class="notice">
+      This hidden page is not linked from the public site and is excluded from search indexing.
+      Google Analytics data can take several minutes to 24 hours to appear after visits.
+      The dashboard tracks both https://dhforge.github.io/ and https://printablepaperlab.blogspot.com/.
+    </p>
+    <div class="frame-wrap">
+      <iframe title="DH Forge analytics report" src="https://lookerstudio.google.com/embed/reporting/aefae81b-f98c-4538-a84f-799cde318b82/page/lFq1F" allowfullscreen></iframe>
+    </div>
+  </main>
+</body>
+</html>

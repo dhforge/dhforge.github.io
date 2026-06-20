@@ -18,8 +18,15 @@
 - Property URL: https://dhforge.github.io/
 - Google account used: dhforge00@gmail.com
 
+## Private Analytics
+
+- Site dashboard: https://dhforge.github.io/stats/
+- Full Looker Studio report: https://lookerstudio.google.com/reporting/aefae81b-f98c-4538-a84f-799cde318b82/page/lFq1F
+- Google Analytics measurement ID: G-NKGW4MK8DT
+
 ## Notes
 
 - `/sitemap.xml` includes the Korean and English Free Toolbox pages.
 - `/paper/sitemap.xml` includes the Printable Paper Lab pages.
 - Both sitemaps have been submitted in Google Search Console.
+- The stats page is intentionally not linked from public navigation or submitted in a sitemap.

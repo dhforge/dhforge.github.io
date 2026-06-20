@@ -1,6 +1,6 @@
 # Analytics setup
 
-This site is prepared for Google Analytics 4, but tracking is off until a real measurement ID is added.
+This site uses Google Analytics 4 through the free GA tag.
 
 ## What it can track
 
@@ -11,25 +11,13 @@ This site is prepared for Google Analytics 4, but tracking is off until a real m
 - Tool name through the `tool_name` event parameter
 - Tool action through the `tool_action` event parameter
 
-## Enable Google Analytics
+## Current Google Analytics setup
 
-1. Create a free Google Analytics 4 property.
-2. Add a Web data stream for `https://dhforge.github.io/`.
-3. Copy the Measurement ID. It looks like `G-XXXXXXXXXX`.
-4. Open `analytics.js`.
-5. Replace the empty value:
-
-```js
-const DHFORGE_GA_MEASUREMENT_ID = "";
-```
-
-with the real ID:
-
-```js
-const DHFORGE_GA_MEASUREMENT_ID = "G-XXXXXXXXXX";
-```
-
-6. Commit and push the change.
+- Property: `DH Forge Sites`
+- Web stream: `DH Forge GitHub Pages`
+- Measurement ID: `G-NKGW4MK8DT`
+- GitHub Pages and Blogger both use this same measurement ID.
+- Free internal dashboard: `https://dhforge.github.io/stats/`
 
 ## Where to check stats
 
@@ -38,6 +26,8 @@ const DHFORGE_GA_MEASUREMENT_ID = "G-XXXXXXXXXX";
 - Monthly and yearly views: change the date range in the top-right date picker
 - Tool usage: Google Analytics > Reports > Engagement > Events > `tool_use`
 - Per-tool usage: open the `tool_use` event and inspect `tool_name` and `tool_action`
+
+Data can take several minutes to 24 hours to appear in standard reports.
 
 ## Current event names
 
