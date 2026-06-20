@@ -131,6 +131,7 @@ function initStructuredData() {
       "@id": "https://dhforge.github.io/paper/#website",
       "url": "https://dhforge.github.io/paper/",
       "name": "Printable Paper Lab",
+      "sameAs": "https://printablepaperlab.blogspot.com/",
       "inLanguage": "en-US"
     },
     {

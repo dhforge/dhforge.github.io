@@ -233,6 +233,23 @@ p {
   padding: clamp(16px, 3vw, 28px);
 }
 
+.link-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.link-list a {
+  color: var(--primary);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.link-list a:hover {
+  text-decoration: underline;
+}
+
 .tool-layout {
   display: grid;
   grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
