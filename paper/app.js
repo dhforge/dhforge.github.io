@@ -14,8 +14,42 @@ const TEMPLATE_CONFIG = {
   "habit-tracker": { label: "Habit Tracker", spacing: 30 },
   "checklist": { label: "Checklist", spacing: 30 }
 };
+const trackedTemplateActions = new Set();
+
+function trackAnalyticsEvent(eventName, params = {}) {
+  if (typeof window.gtag !== "function") return;
+  window.gtag("event", eventName, {
+    language: "en-US",
+    site_section: "printable_paper_lab",
+    ...params
+  });
+}
+
+function trackTemplateUse(templateName, action = "use", options = {}) {
+  const key = `${templateName}:${action}`;
+  if (options.once && trackedTemplateActions.has(key)) return;
+  if (options.once) trackedTemplateActions.add(key);
+  trackAnalyticsEvent("tool_use", {
+    tool_name: templateName,
+    tool_action: action
+  });
+}
+
+function initAnalytics() {
+  if (window.DHFORGE_ANALYTICS_LOADED) return;
+  window.DHFORGE_ANALYTICS_LOADED = true;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function gtag() {
+    window.dataLayer.push(arguments);
+  };
+  const script = document.createElement("script");
+  script.src = "/analytics.js";
+  script.defer = true;
+  document.head.append(script);
+}
 
 document.addEventListener("DOMContentLoaded", () => {
+  initAnalytics();
   initTemplateTool();
   initStructuredData();
 });
@@ -40,9 +74,16 @@ function initTemplateTool() {
     renderTemplate(template, sheet, title.value.trim());
   }
 
-  [size, spacing, color, title].forEach((input) => input.addEventListener("input", update));
-  $("#printTemplate").addEventListener("click", () => window.print());
+  [size, spacing, color, title].forEach((input) => {
+    input.addEventListener("input", () => trackTemplateUse(template, "customize", { once: true }));
+    input.addEventListener("input", update);
+  });
+  $("#printTemplate").addEventListener("click", () => {
+    trackTemplateUse(template, "print_or_save_pdf");
+    window.print();
+  });
   $("#resetTemplate").addEventListener("click", () => {
+    trackTemplateUse(template, "reset");
     size.value = "letter";
     spacing.value = TEMPLATE_CONFIG[template].spacing;
     color.value = "#86a5b8";

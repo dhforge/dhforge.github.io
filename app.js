@@ -16,8 +16,50 @@ const SITE_COPY = {
     inLanguage: "en-US"
   }
 };
+const trackedToolActions = new Set();
+
+function trackAnalyticsEvent(eventName, params = {}) {
+  if (typeof window.gtag !== "function") return;
+  window.gtag("event", eventName, {
+    language: LANGUAGE,
+    site_section: IS_EN ? "free_toolbox_en" : "free_toolbox_ko",
+    ...params
+  });
+}
+
+function trackToolUse(toolName, action = "use", options = {}) {
+  const key = `${toolName}:${action}`;
+  if (options.once && trackedToolActions.has(key)) return;
+  if (options.once) trackedToolActions.add(key);
+  trackAnalyticsEvent("tool_use", {
+    tool_name: toolName,
+    tool_action: action
+  });
+}
+
+function trackFirstInput(input, toolName, action = "input") {
+  if (!input) return;
+  input.addEventListener("input", () => {
+    const value = "value" in input ? String(input.value || "").trim() : "";
+    if (value) trackToolUse(toolName, action, { once: true });
+  });
+}
+
+function initAnalytics() {
+  if (window.DHFORGE_ANALYTICS_LOADED) return;
+  window.DHFORGE_ANALYTICS_LOADED = true;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function gtag() {
+    window.dataLayer.push(arguments);
+  };
+  const script = document.createElement("script");
+  script.src = "/analytics.js";
+  script.defer = true;
+  document.head.append(script);
+}
 
 document.addEventListener("DOMContentLoaded", () => {
+  initAnalytics();
   initStructuredData();
   initNavigation();
   initCharCounter();
@@ -162,6 +204,7 @@ function initCharCounter() {
   }
 
   input.addEventListener("input", update);
+  trackFirstInput(input, "char-counter");
   update();
 }
 
@@ -222,6 +265,7 @@ function initDateCalculator() {
 
   [start, end].forEach((input) => input.addEventListener("input", updateDiff));
   [base, offset].forEach((input) => input.addEventListener("input", updateOffset));
+  [start, end, base, offset].forEach((input) => trackFirstInput(input, "date-calculator"));
   updateDiff();
   updateOffset();
 }
@@ -282,6 +326,7 @@ function initUnitConverter() {
   type.addEventListener("change", fillUnits);
   value.addEventListener("input", update);
   from.addEventListener("change", update);
+  [type, value, from].forEach((input) => trackFirstInput(input, "unit-converter"));
   fillUnits();
 }
 
@@ -409,6 +454,7 @@ function initRandomPicker() {
   }
 
   $("#pickOne").addEventListener("click", () => {
+    trackToolUse("random-picker", "pick_one");
     const list = getItems();
     result.textContent = list.length
       ? `${IS_EN ? "Picked" : "선택 결과"}: ${list[Math.floor(Math.random() * list.length)]}`
@@ -416,6 +462,7 @@ function initRandomPicker() {
   });
 
   $("#shuffleItems").addEventListener("click", () => {
+    trackToolUse("random-picker", "shuffle");
     const list = shuffled(getItems());
     items.value = list.join("\n");
     result.textContent = list.length
@@ -424,6 +471,7 @@ function initRandomPicker() {
   });
 
   $("#makeTeams").addEventListener("click", () => {
+    trackToolUse("random-picker", "make_teams");
     const list = shuffled(getItems());
     const count = Math.max(2, Math.min(20, Number(teamCount.value || 2)));
     if (!list.length) {
@@ -436,6 +484,7 @@ function initRandomPicker() {
   });
 
   $("#pickNumber").addEventListener("click", () => {
+    trackToolUse("random-picker", "pick_number");
     const min = Math.ceil(Number(rangeMin.value || 0));
     const max = Math.floor(Number(rangeMax.value || 0));
     if (min > max) {
@@ -472,7 +521,9 @@ function initQrGenerator() {
 
   $("#makeQr").addEventListener("click", render);
   text.addEventListener("input", render);
+  trackFirstInput(text, "qr-generator");
   download.addEventListener("click", () => {
+    trackToolUse("qr-generator", "download_png");
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
     link.download = "qr-code.png";
@@ -812,6 +863,7 @@ function initTextCleaner() {
 
   $$("[data-clean]").forEach((button) => {
     button.addEventListener("click", () => {
+      trackToolUse("text-cleaner", button.dataset.clean || "clean");
       const text = input.value;
       const lines = text.split(/\r?\n/);
       switch (button.dataset.clean) {
@@ -840,6 +892,7 @@ function initTextCleaner() {
   });
 
   $("#copyCleanText").addEventListener("click", async () => {
+    trackToolUse("text-cleaner", "copy_result");
     output.select();
     try {
       await navigator.clipboard.writeText(output.value);
@@ -882,6 +935,7 @@ function initColorTool() {
 
   colorInput.addEventListener("input", () => updateFromHex(colorInput.value));
   hexInput.addEventListener("input", () => updateFromHex(hexInput.value.trim()));
+  [colorInput, hexInput].forEach((input) => trackFirstInput(input, "color-tool"));
   updateFromHex(colorInput.value);
 }
 
@@ -949,8 +1003,10 @@ function initTimerTool() {
     timerRemaining = Math.max(0, Number(timerMinutes.value || 0) * 60);
     setTimerDisplay();
   });
+  trackFirstInput(timerMinutes, "timer", "set_minutes");
 
   $("#timerStart").addEventListener("click", () => {
+    trackToolUse("timer", "countdown_start");
     if (timerId) return;
     timerId = window.setInterval(() => {
       timerRemaining = Math.max(0, timerRemaining - 1);
@@ -963,11 +1019,13 @@ function initTimerTool() {
   });
 
   $("#timerPause").addEventListener("click", () => {
+    trackToolUse("timer", "countdown_pause");
     clearInterval(timerId);
     timerId = null;
   });
 
   $("#timerReset").addEventListener("click", () => {
+    trackToolUse("timer", "countdown_reset");
     clearInterval(timerId);
     timerId = null;
     timerRemaining = Math.max(0, Number(timerMinutes.value || 0) * 60);
@@ -986,6 +1044,7 @@ function initTimerTool() {
   }
 
   $("#stopwatchStart").addEventListener("click", () => {
+    trackToolUse("timer", "stopwatch_toggle");
     if (stopwatchId) {
       stopwatchElapsed += Date.now() - stopwatchStart;
       clearInterval(stopwatchId);
@@ -1000,12 +1059,14 @@ function initTimerTool() {
   });
 
   $("#stopwatchLap").addEventListener("click", () => {
+    trackToolUse("timer", "stopwatch_lap");
     const li = document.createElement("li");
     li.textContent = stopwatchDisplay.textContent;
     lapList.prepend(li);
   });
 
   $("#stopwatchReset").addEventListener("click", () => {
+    trackToolUse("timer", "stopwatch_reset");
     clearInterval(stopwatchId);
     stopwatchId = null;
     stopwatchElapsed = 0;
@@ -1052,6 +1113,7 @@ function initRatioTool() {
   }
 
   [width, height, newWidth, targetHeight].forEach((input) => input.addEventListener("input", update));
+  [width, height, newWidth, targetHeight].forEach((input) => trackFirstInput(input, "ratio-calculator"));
   update();
 }
 
@@ -1077,6 +1139,7 @@ function initImageResizer() {
   let sourceRatio = 1;
 
   fileInput.addEventListener("change", () => {
+    trackToolUse("image-resizer", "select_image");
     const file = fileInput.files && fileInput.files[0];
     if (!file) return;
     const image = new Image();
@@ -1103,8 +1166,12 @@ function initImageResizer() {
     }
   });
 
-  $("#resizeImage").addEventListener("click", drawResizedImage);
+  $("#resizeImage").addEventListener("click", () => {
+    trackToolUse("image-resizer", "resize");
+    drawResizedImage();
+  });
   format.addEventListener("change", drawResizedImage);
+  download.addEventListener("click", () => trackToolUse("image-resizer", "download"));
 
   function drawResizedImage() {
     const ctx = canvas.getContext("2d");
