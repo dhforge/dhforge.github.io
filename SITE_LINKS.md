@@ -5,12 +5,15 @@
 - Korean Free Toolbox: https://dhforge.github.io/
 - English Free Toolbox: https://dhforge.github.io/en/
 - Printable Paper Lab: https://dhforge.github.io/paper/
+- Kids Practice Lab: https://dhforge.github.io/kids/
+- Kids Practice Lab English: https://dhforge.github.io/kids/en/
 - Printable Paper Lab blog: https://printablepaperlab.blogspot.com/
 
 ## Sitemaps
 
 - Free Toolbox sitemap: https://dhforge.github.io/sitemap.xml
 - Printable Paper Lab sitemap: https://dhforge.github.io/paper/sitemap.xml
+- Kids Practice Lab sitemap: https://dhforge.github.io/kids/sitemap.xml
 - Printable Paper Lab blog sitemap: https://printablepaperlab.blogspot.com/sitemap.xml
 
 ## Search Console Property
@@ -28,5 +31,6 @@
 
 - `/sitemap.xml` includes the Korean and English Free Toolbox pages.
 - `/paper/sitemap.xml` includes the Printable Paper Lab pages.
+- `/kids/sitemap.xml` includes the Kids Practice Lab Korean and English pages.
 - Both sitemaps have been submitted in Google Search Console.
 - The stats page is intentionally not linked from public navigation or submitted in a sitemap.

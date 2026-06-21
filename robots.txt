@@ -3,3 +3,4 @@ Allow: /
 
 Sitemap: https://dhforge.github.io/sitemap.xml
 Sitemap: https://dhforge.github.io/paper/sitemap.xml
+Sitemap: https://dhforge.github.io/kids/sitemap.xml
