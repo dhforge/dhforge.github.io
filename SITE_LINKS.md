@@ -5,6 +5,7 @@
 - Korean Free Toolbox: https://dhforge.github.io/
 - English Free Toolbox: https://dhforge.github.io/en/
 - Printable Paper Lab: https://dhforge.github.io/paper/
+- Printable Paper Lab Korean: https://dhforge.github.io/paper/ko/
 - Kids Practice Lab: https://dhforge.github.io/kids/
 - Kids Practice Lab English: https://dhforge.github.io/kids/en/
 - Printable Paper Lab companion blog: https://printablepaperlab.blogspot.com/
@@ -30,7 +31,7 @@
 ## Notes
 
 - `/sitemap.xml` includes the Korean and English Free Toolbox pages.
-- `/paper/sitemap.xml` includes the Printable Paper Lab tool pages.
+- `/paper/sitemap.xml` includes the Printable Paper Lab English and Korean tool pages with hreflang alternates.
 - `/kids/sitemap.xml` includes the Kids Practice Lab Korean and English pages.
 - The Blogspot URL is not one of the three GitHub Pages sections; it is a companion blog for Printable Paper Lab.
 - Both sitemaps have been submitted in Google Search Console.

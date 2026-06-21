@@ -129,6 +129,21 @@ button:hover,
   color: var(--primary);
 }
 
+.language-link {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 10px;
+  background: var(--surface-2);
+  color: var(--primary) !important;
+  font-weight: 800;
+}
+
+.language-link.is-current {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff !important;
+}
+
 .home-main,
 .page-main {
   max-width: 1180px;
@@ -319,10 +334,19 @@ input[type="color"] {
   color: #24302b;
   --paper-color: #86a5b8;
   --spacing: 32px;
+  --line-weight: 1px;
 }
 
 .sheet[data-size="a4"] {
   aspect-ratio: 210 / 297;
+}
+
+.sheet[data-orientation="landscape"] {
+  aspect-ratio: 11 / 8.5;
+}
+
+.sheet[data-size="a4"][data-orientation="landscape"] {
+  aspect-ratio: 297 / 210;
 }
 
 .sheet-title {
@@ -342,31 +366,31 @@ input[type="color"] {
 
 .paper-grid {
   background-image:
-    linear-gradient(var(--paper-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--paper-color) 1px, transparent 1px);
+    linear-gradient(var(--paper-color) var(--line-weight), transparent var(--line-weight)),
+    linear-gradient(90deg, var(--paper-color) var(--line-weight), transparent var(--line-weight));
   background-size: var(--spacing) var(--spacing);
 }
 
 .paper-dot {
-  background-image: radial-gradient(var(--paper-color) 1.35px, transparent 1.5px);
+  background-image: radial-gradient(var(--paper-color) calc(var(--line-weight) * 1.35), transparent calc(var(--line-weight) * 1.65));
   background-size: var(--spacing) var(--spacing);
 }
 
 .paper-lined {
-  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--spacing) - 1px), var(--paper-color) calc(var(--spacing) - 1px), var(--paper-color) var(--spacing));
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--spacing) - var(--line-weight)), var(--paper-color) calc(var(--spacing) - var(--line-weight)), var(--paper-color) var(--spacing));
 }
 
 .paper-handwriting {
   background-image:
-    repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--spacing) - 1px), var(--paper-color) calc(var(--spacing) - 1px), var(--paper-color) var(--spacing)),
-    repeating-linear-gradient(to bottom, transparent 0, transparent calc((var(--spacing) / 2) - 1px), rgba(154, 107, 31, 0.45) calc((var(--spacing) / 2) - 1px), rgba(154, 107, 31, 0.45) calc(var(--spacing) / 2), transparent calc(var(--spacing) / 2), transparent var(--spacing));
+    repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--spacing) - var(--line-weight)), var(--paper-color) calc(var(--spacing) - var(--line-weight)), var(--paper-color) var(--spacing)),
+    repeating-linear-gradient(to bottom, transparent 0, transparent calc((var(--spacing) / 2) - var(--line-weight)), rgba(154, 107, 31, 0.45) calc((var(--spacing) / 2) - var(--line-weight)), rgba(154, 107, 31, 0.45) calc(var(--spacing) / 2), transparent calc(var(--spacing) / 2), transparent var(--spacing));
 }
 
 .paper-isometric {
   background-image:
-    linear-gradient(30deg, var(--paper-color) 1px, transparent 1px),
-    linear-gradient(150deg, var(--paper-color) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(134, 165, 184, 0.5) 1px, transparent 1px);
+    linear-gradient(30deg, var(--paper-color) var(--line-weight), transparent var(--line-weight)),
+    linear-gradient(150deg, var(--paper-color) var(--line-weight), transparent var(--line-weight)),
+    linear-gradient(90deg, rgba(134, 165, 184, 0.5) var(--line-weight), transparent var(--line-weight));
   background-size: var(--spacing) var(--spacing);
 }
 
@@ -382,12 +406,12 @@ input[type="color"] {
   gap: 0;
   height: calc(100% - 64px);
   margin-top: 54px;
-  border: 2px solid var(--paper-color);
+  border: calc(var(--line-weight) * 2) solid var(--paper-color);
 }
 
 .cornell div {
   padding: 14px;
-  border: 1px solid var(--paper-color);
+  border: var(--line-weight) solid var(--paper-color);
   color: #617069;
   font-weight: 800;
 }
@@ -400,7 +424,7 @@ input[type="color"] {
 
 .staff {
   height: 46px;
-  background-image: repeating-linear-gradient(to bottom, var(--paper-color) 0, var(--paper-color) 1px, transparent 1px, transparent 9px);
+  background-image: repeating-linear-gradient(to bottom, var(--paper-color) 0, var(--paper-color) var(--line-weight), transparent var(--line-weight), transparent 9px);
 }
 
 .planner-grid {
@@ -414,7 +438,7 @@ input[type="color"] {
 .planner-cell,
 .habit-row,
 .check-row {
-  border: 1px solid var(--paper-color);
+  border: var(--line-weight) solid var(--paper-color);
   background: rgba(255, 255, 255, 0.72);
 }
 
@@ -458,7 +482,7 @@ input[type="color"] {
   top: 7px;
   width: 14px;
   height: 14px;
-  border: 1px solid var(--paper-color);
+  border: var(--line-weight) solid var(--paper-color);
 }
 
 .check-row::after {
@@ -467,7 +491,7 @@ input[type="color"] {
   left: 32px;
   right: 8px;
   bottom: 7px;
-  border-bottom: 1px solid var(--paper-color);
+  border-bottom: var(--line-weight) solid var(--paper-color);
 }
 
 .related-tools {

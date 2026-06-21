@@ -1,64 +1,214 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://dhforge.github.io/paper/</loc>
-    <lastmod>2026-06-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/"/>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/paper/ko/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/"/>
+    <lastmod>2026-06-21</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/paper/graph-paper/</loc>
-    <lastmod>2026-06-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/graph-paper/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/graph-paper/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/graph-paper/"/>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/paper/ko/graph-paper/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/graph-paper/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/graph-paper/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/graph-paper/"/>
+    <lastmod>2026-06-21</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/paper/dot-grid-paper/</loc>
-    <lastmod>2026-06-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/dot-grid-paper/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/dot-grid-paper/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/dot-grid-paper/"/>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/paper/ko/dot-grid-paper/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/dot-grid-paper/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/dot-grid-paper/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/dot-grid-paper/"/>
+    <lastmod>2026-06-21</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/paper/lined-paper/</loc>
-    <lastmod>2026-06-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/lined-paper/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/lined-paper/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/lined-paper/"/>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/paper/ko/lined-paper/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/lined-paper/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/lined-paper/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/lined-paper/"/>
+    <lastmod>2026-06-21</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/paper/cornell-notes/</loc>
-    <lastmod>2026-06-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/cornell-notes/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/cornell-notes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/cornell-notes/"/>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/paper/ko/cornell-notes/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/cornell-notes/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/cornell-notes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/cornell-notes/"/>
+    <lastmod>2026-06-21</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/paper/handwriting-paper/</loc>
-    <lastmod>2026-06-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/handwriting-paper/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/handwriting-paper/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/handwriting-paper/"/>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/paper/ko/handwriting-paper/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/handwriting-paper/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/handwriting-paper/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/handwriting-paper/"/>
+    <lastmod>2026-06-21</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/paper/music-staff-paper/</loc>
-    <lastmod>2026-06-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/music-staff-paper/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/music-staff-paper/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/music-staff-paper/"/>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/paper/ko/music-staff-paper/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/music-staff-paper/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/music-staff-paper/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/music-staff-paper/"/>
+    <lastmod>2026-06-21</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/paper/weekly-planner/</loc>
-    <lastmod>2026-06-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/weekly-planner/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/weekly-planner/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/weekly-planner/"/>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/paper/ko/weekly-planner/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/weekly-planner/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/weekly-planner/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/weekly-planner/"/>
+    <lastmod>2026-06-21</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/paper/habit-tracker/</loc>
-    <lastmod>2026-06-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/habit-tracker/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/habit-tracker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/habit-tracker/"/>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/paper/ko/habit-tracker/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/habit-tracker/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/habit-tracker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/habit-tracker/"/>
+    <lastmod>2026-06-21</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/paper/checklist/</loc>
-    <lastmod>2026-06-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/checklist/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/checklist/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/checklist/"/>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/paper/ko/checklist/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/checklist/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/checklist/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/checklist/"/>
+    <lastmod>2026-06-21</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/paper/isometric-paper/</loc>
-    <lastmod>2026-06-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/isometric-paper/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/isometric-paper/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/isometric-paper/"/>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/paper/ko/isometric-paper/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/isometric-paper/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/isometric-paper/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/isometric-paper/"/>
+    <lastmod>2026-06-21</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/paper/privacy.html</loc>
-    <lastmod>2026-06-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/privacy.html"/>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/paper/ko/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/privacy.html"/>
+    <lastmod>2026-06-21</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/paper/terms.html</loc>
-    <lastmod>2026-06-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/terms.html"/>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/paper/ko/terms.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/terms.html"/>
+    <lastmod>2026-06-21</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/paper/contact.html</loc>
-    <lastmod>2026-06-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/contact.html"/>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/paper/ko/contact.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/contact.html"/>
+    <lastmod>2026-06-21</lastmod>
   </url>
   <url>
     <loc>https://dhforge.github.io/paper/blog.html</loc>
-    <lastmod>2026-06-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/blog.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/blog.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/blog.html"/>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/paper/ko/blog.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/blog.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/blog.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/blog.html"/>
+    <lastmod>2026-06-21</lastmod>
   </url>
 </urlset>
-

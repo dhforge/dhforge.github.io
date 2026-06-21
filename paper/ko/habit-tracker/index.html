@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>습관 기록표 - 무료 출력용 템플릿 - 인쇄용 종이 연구소</title>
+  <meta name="description" content="습관 기록표의 종이 크기, 칸 간격, 선 색상, 제목을 브라우저에서 조정하고 바로 인쇄하거나 PDF로 저장하세요.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://dhforge.github.io/paper/ko/habit-tracker/">
+  <link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/habit-tracker/">
+  <link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/habit-tracker/">
+  <link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/habit-tracker/">
+  <link rel="stylesheet" href="../../styles.css">
+</head><body data-template="habit-tracker">
+  <header class="site-header">
+    <a class="brand" href="../" aria-label="인쇄용 종이 연구소 홈"><span class="brand-mark" aria-hidden="true"></span><span><strong>인쇄용 종이 연구소</strong><small>습관 기록표</small></span></a>
+    <nav class="top-nav" aria-label="주요 링크"><a href="../">템플릿</a><a href="../../habit-tracker/">English</a><a href="../privacy.html">개인정보처리방침</a><a href="../terms.html">이용 안내</a><a href="../contact.html">문의</a><a href="../blog.html">블로그</a></nav>
+  </header>
+  <main class="page-main">
+    <section class="tool-heading">
+      <p class="eyebrow">출력용 템플릿</p>
+      <h1>습관 기록표</h1>
+      <p>운동, 공부, 물 마시기, 독서처럼 반복할 습관을 체크하는 격자 기록표를 만듭니다. 종이 크기, 간격, 선 색상, 제목을 조정한 뒤 바로 출력하거나 PDF로 저장할 수 있습니다.</p>
+    </section>
+    <section class="tool-layout">
+      <div class="tool-card">
+        <label class="field"><span>종이 크기</span><select id="paperSize"><option value="letter">Letter</option><option value="a4">A4</option></select></label>
+        <label class="field"><span>방향</span><select id="paperOrientation"><option value="portrait" selected>세로</option><option value="landscape">가로</option></select></label>
+        <label class="field"><span>선 굵기</span><select id="lineWeight"><option value="1" selected>얇게</option><option value="1.5">보통</option><option value="2">굵게</option></select></label>
+        <label class="field"><span>칸 기준</span><select id="lineSpacing"><option value="20">작게</option><option value="28" selected>보통</option><option value="36">크게</option></select></label>
+        <label class="field"><span>선 색상</span><input id="lineColor" type="color" value="#86a5b8"></label>
+        <label class="field"><span>선택 제목</span><input id="titleText" type="text" maxlength="80" placeholder="6월 습관 기록, 공부 루틴, 건강 체크"></label>
+        <div class="button-row"><button class="primary-button" id="printTemplate" type="button">인쇄 또는 PDF 저장</button><button id="resetTemplate" type="button">초기화</button></div>
+      </div>
+      <div class="preview-wrap"><div class="sheet" id="paperSheet" aria-label="습관 기록표 미리보기"></div></div>
+    </section>
+    <section class="content-panel">
+      <h2>습관 기록표 사용 방법</h2>
+      <p>원하는 종이 크기와 간격을 선택하고, 필요하면 제목을 넣은 뒤 인쇄 버튼을 누르세요. 브라우저 인쇄 창에서 프린터를 선택하거나 PDF로 저장할 수 있습니다.</p>
+      <div class="content-grid"><article><h3>바로 출력</h3><p>설정 변경이 미리보기에 즉시 반영되어 출력 전에 결과를 확인할 수 있습니다.</p></article><article><h3>개인정보 부담 감소</h3><p>제목과 설정은 현재 브라우저 탭에서 처리되며 사이트 자체 서버에 저장하지 않습니다.</p></article><article><h3>반복 사용</h3><p>자주 쓰는 양식은 PDF로 저장해 두고 필요할 때 다시 출력하면 편합니다.</p></article></div>
+      <details><summary>무료로 사용할 수 있나요?</summary><p>네. 개인, 학습, 일반적인 수업과 업무 정리 용도로 무료로 사용할 수 있습니다.</p></details>
+      <details><summary>PDF로 저장할 수 있나요?</summary><p>인쇄 버튼을 누른 뒤 브라우저 인쇄 창에서 PDF 저장을 선택하세요.</p></details>
+      <details><summary>설정이 서버에 저장되나요?</summary><p>아니요. 템플릿 설정은 현재 브라우저 탭에서만 사용됩니다.</p></details>
+      <div class="related-tools"><a href="../weekly-planner/">주간 계획표</a><a href="../checklist/">체크리스트 양식</a><a href="../lined-paper/">줄 노트 양식</a></div>
+    </section>
+  </main>
+  <footer class="site-footer"><p>인쇄용 종이 연구소</p><nav aria-label="하단 링크"><a href="../privacy.html">개인정보처리방침</a><a href="../terms.html">이용 안내</a><a href="../contact.html">문의</a><a href="../blog.html">블로그</a></nav></footer>
+  <script src="../../app.js?v=paper-ko-20260621" defer></script>
+</body>
+</html>

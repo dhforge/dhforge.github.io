@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -8,6 +8,9 @@
   <meta name="robots" content="index,follow">
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <link rel="canonical" href="https://dhforge.github.io/paper/isometric-paper/">
+  <link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/isometric-paper/">
+  <link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/isometric-paper/">
+  <link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/isometric-paper/">
   <link rel="stylesheet" href="../styles.css">
   <script type="application/ld+json">
 {
@@ -30,12 +33,14 @@
   </script>
 </head>
 <body data-template="isometric-paper">
-  <header class="site-header"><a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span><strong>Printable Paper Lab</strong><small>Isometric Paper</small></span></a><nav class="top-nav" aria-label="Main links"><a href="../">Templates</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a><a href="../blog.html">Blog</a></nav></header>
+  <header class="site-header"><a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span><strong>Printable Paper Lab</strong><small>Isometric Paper</small></span></a><nav class="top-nav" aria-label="Main links"><a href="../">Templates</a><a href="../ko/isometric-paper/">한국어</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a><a href="../blog.html">Blog</a></nav></header>
   <main class="page-main">
     <section class="tool-heading"><p class="eyebrow">Printable Triangle Grid</p><h1>Isometric Paper</h1><p>I use isometric grids for rough 3D shapes, block diagrams, pixel art planning, and game map ideas. Choose a lighter color if you want the drawing to stand out.</p></section>
     <section class="tool-layout">
       <div class="tool-card">
         <label class="field"><span>Paper size</span><select id="paperSize"><option value="letter">Letter</option><option value="a4">A4</option></select></label>
+        <label class="field"><span>Orientation</span><select id="paperOrientation"><option value="portrait" selected>Portrait</option><option value="landscape">Landscape</option></select></label>
+        <label class="field"><span>Line weight</span><select id="lineWeight"><option value="1" selected>Thin</option><option value="1.5">Medium</option><option value="2">Bold</option></select></label>
         <label class="field"><span>Grid spacing</span><select id="lineSpacing"><option value="22">Small</option><option value="28" selected>Medium</option><option value="36">Large</option></select></label>
         <label class="field"><span>Grid color</span><input id="lineColor" type="color" value="#86a5b8"></label>
         <label class="field"><span>Optional title</span><input id="titleText" type="text" maxlength="80" placeholder="3D sketch, design draft, block plan"></label>

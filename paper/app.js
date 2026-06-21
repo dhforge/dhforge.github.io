@@ -2,7 +2,6 @@
 
 const $ = (selector) => document.querySelector(selector);
 const LANGUAGE = document.documentElement.lang.toLowerCase().startsWith("ko") ? "ko" : "en";
-const IS_KO = LANGUAGE === "ko";
 const SITE_COPY = {
   en: {
     siteName: "Printable Paper Lab",
@@ -92,21 +91,34 @@ function initTemplateTool() {
   if (!template || !sheet) return;
 
   const size = $("#paperSize");
+  const orientation = $("#paperOrientation");
   const spacing = $("#lineSpacing");
+  const lineWeight = $("#lineWeight");
   const color = $("#lineColor");
   const title = $("#titleText");
+
+  function getDefaultSpacingValue() {
+    const configValue = String(TEMPLATE_CONFIG[template].spacing);
+    const options = Array.from(spacing.options);
+    if (options.some((option) => option.value === configValue)) return configValue;
+    const selected = options.find((option) => option.defaultSelected);
+    return selected ? selected.value : (options[0] ? options[0].value : configValue);
+  }
 
   function update() {
     const config = TEMPLATE_CONFIG[template];
     const spacingValue = Number(spacing.value || config.spacing);
+    const lineWeightValue = Number(lineWeight ? lineWeight.value || 1 : 1);
     sheet.className = `sheet ${config.className || ""}`.trim();
     sheet.dataset.size = size.value;
+    sheet.dataset.orientation = orientation ? orientation.value : "portrait";
     sheet.style.setProperty("--spacing", `${spacingValue}px`);
+    sheet.style.setProperty("--line-weight", `${lineWeightValue}px`);
     sheet.style.setProperty("--paper-color", color.value);
     renderTemplate(template, sheet, title.value.trim());
   }
 
-  [size, spacing, color, title].forEach((input) => {
+  [size, orientation, spacing, lineWeight, color, title].filter(Boolean).forEach((input) => {
     input.addEventListener("input", () => trackTemplateUse(template, "customize", { once: true }));
     input.addEventListener("input", update);
   });
@@ -117,7 +129,9 @@ function initTemplateTool() {
   $("#resetTemplate").addEventListener("click", () => {
     trackTemplateUse(template, "reset");
     size.value = "letter";
-    spacing.value = TEMPLATE_CONFIG[template].spacing;
+    if (orientation) orientation.value = "portrait";
+    spacing.value = getDefaultSpacingValue();
+    if (lineWeight) lineWeight.value = "1";
     color.value = "#86a5b8";
     title.value = "";
     update();
