@@ -18,7 +18,7 @@ const TEXT = {
     print: "Print / save PDF",
     reset: "Reset",
     name: "Kids Practice Lab",
-    note: "Free printable practice sheets for home and classroom use.",
+    note: "Practice sheets for short home or classroom sessions.",
     answer: "Answer",
     noAnswer: "No answer"
   }
