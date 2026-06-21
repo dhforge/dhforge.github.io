@@ -197,5 +197,19 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/contact.html"/>
     <lastmod>2026-06-21</lastmod>
   </url>
+  <url>
+    <loc>https://dhforge.github.io/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/about.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/about.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/about.html"/>
+    <lastmod>2026-06-21</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/en/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dhforge.github.io/about.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/about.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/about.html"/>
+    <lastmod>2026-06-21</lastmod>
+  </url>
 </urlset>
 

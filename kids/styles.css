@@ -92,18 +92,27 @@ textarea {
   font-weight: 700;
 }
 
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  outline: 3px solid rgba(47, 111, 115, 0.24);
+  outline-offset: 2px;
+}
+
 .language-link {
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 6px 10px;
-  background: var(--surface-2);
-  color: var(--primary) !important;
+  background: var(--soft);
+  color: var(--brand-dark) !important;
   font-weight: 800;
 }
 
 .language-link.is-current {
-  background: var(--primary);
-  border-color: var(--primary);
+  background: var(--brand);
+  border-color: var(--brand);
   color: #fff !important;
 }
 
