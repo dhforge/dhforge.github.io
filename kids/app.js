@@ -230,11 +230,9 @@ function renderClockReading() {
 
 function generateMaze(size) {
   const grid = Array.from({ length: size }, () => Array.from({ length: size }, () => true));
-  const path = [];
   let x = 0;
   let y = 0;
   grid[y][x] = false;
-  path.push([x, y]);
   while (x < size - 1 || y < size - 1) {
     const choices = [];
     if (x < size - 1) choices.push([x + 1, y]);
@@ -243,25 +241,45 @@ function generateMaze(size) {
     x = next[0];
     y = next[1];
     grid[y][x] = false;
-    path.push([x, y]);
   }
   for (let row = 0; row < size; row++) {
     for (let col = 0; col < size; col++) {
       if (Math.random() > 0.35) grid[row][col] = false;
     }
   }
-  const cell = 26;
-  const rects = [];
+  grid[0][0] = false;
+  grid[size - 1][size - 1] = false;
+
+  const cell = Math.floor(500 / size);
+  const offsetX = Math.floor((760 - (cell * size)) / 2);
+  const offsetY = 38;
+  const wallRects = [];
+  const guides = [];
   for (let row = 0; row < size; row++) {
     for (let col = 0; col < size; col++) {
-      if (grid[row][col]) rects.push(`<rect x="${col * cell}" y="${row * cell}" width="${cell}" height="${cell}" fill="#1b2430" />`);
+      const cellX = offsetX + col * cell;
+      const cellY = offsetY + row * cell;
+      guides.push(`<rect x="${cellX}" y="${cellY}" width="${cell}" height="${cell}" fill="none" stroke="#e5e7eb" stroke-width="1" />`);
+      if (grid[row][col]) {
+        wallRects.push(`<rect x="${cellX + 2}" y="${cellY + 2}" width="${cell - 4}" height="${cell - 4}" rx="5" fill="#2f3a46" />`);
+      }
     }
   }
-  return `<svg viewBox="0 0 ${size * cell} ${size * cell}">
-    <rect width="${size * cell}" height="${size * cell}" fill="#fffdf8" />
-    ${rects.join("")}
-    <text x="4" y="18" font-size="12" fill="#16a34a">START</text>
-    <text x="${size * cell - 42}" y="${size * cell - 8}" font-size="12" fill="#2563eb">END</text>
+  const startLabel = LANG === "ko" ? "시작" : "START";
+  const endLabel = LANG === "ko" ? "도착" : "END";
+  const startCx = offsetX + cell / 2;
+  const startCy = offsetY + cell / 2;
+  const endCx = offsetX + (size - 0.5) * cell;
+  const endCy = offsetY + (size - 0.5) * cell;
+  return `<svg viewBox="0 0 760 560" role="img" aria-label="maze worksheet">
+    <rect width="760" height="560" fill="#fffdf8" />
+    <rect x="${offsetX - 12}" y="${offsetY - 12}" width="${cell * size + 24}" height="${cell * size + 24}" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="3" />
+    ${guides.join("")}
+    ${wallRects.join("")}
+    <circle cx="${startCx}" cy="${startCy}" r="${Math.max(10, cell * 0.28)}" fill="#e8f6ef" stroke="#2f6f73" stroke-width="3" />
+    <text x="${startCx}" y="${startCy + 4}" text-anchor="middle" font-size="${Math.max(10, cell * 0.28)}" font-weight="800" fill="#214f52">${startLabel}</text>
+    <circle cx="${endCx}" cy="${endCy}" r="${Math.max(10, cell * 0.28)}" fill="#fff2df" stroke="#e28b43" stroke-width="3" />
+    <text x="${endCx}" y="${endCy + 4}" text-anchor="middle" font-size="${Math.max(10, cell * 0.28)}" font-weight="800" fill="#8a4d1f">${endLabel}</text>
   </svg>`;
 }
 
@@ -276,29 +294,53 @@ function renderMaze() {
 
 function renderLineTracing() {
   const pattern = getValue("linePattern", "waves");
-  const paths = {
-    straight: "M30 80 H700 M30 170 H700 M30 260 H700 M30 350 H700 M30 440 H700",
-    waves: "M30 80 C120 20 180 140 270 80 S430 140 520 80 S650 20 720 80 M30 190 C120 130 180 250 270 190 S430 250 520 190 S650 130 720 190 M30 300 C120 240 180 360 270 300 S430 360 520 300 S650 240 720 300 M30 410 C120 350 180 470 270 410 S430 470 520 410 S650 350 720 410",
-    shapes: "M80 90 H220 V230 H80 Z M310 90 C410 20 520 70 520 180 C520 290 350 290 320 190 C300 140 280 120 310 90 M130 360 L220 250 L310 360 Z M430 260 L560 260 L610 360 L480 360 Z"
+  const rows = {
+    straight: [
+      "M90 95 H680",
+      "M90 185 H680",
+      "M90 275 H680",
+      "M90 365 H680",
+      "M90 455 H680"
+    ],
+    waves: [
+      "M90 95 C150 35 210 155 270 95 S390 35 450 95 S570 155 680 95",
+      "M90 185 C150 125 210 245 270 185 S390 125 450 185 S570 245 680 185",
+      "M90 275 C150 215 210 335 270 275 S390 215 450 275 S570 335 680 275",
+      "M90 365 C150 305 210 425 270 365 S390 305 450 365 S570 425 680 365",
+      "M90 455 C150 395 210 515 270 455 S390 395 450 455 S570 515 680 455"
+    ],
+    shapes: [
+      "M115 115 H250 V250 H115 Z",
+      "M370 115 C465 45 585 100 565 215 C550 305 395 300 365 210 C345 160 340 135 370 115",
+      "M135 425 L245 300 L355 425 Z",
+      "M465 315 L620 315 L675 425 L520 425 Z"
+    ]
   };
+  const selected = rows[pattern] || rows.waves;
+  const paths = selected.map((d) => `<path d="${d}" fill="none" stroke="#2f3a46" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 18" />`).join("");
+  const startDots = selected.map((d) => {
+    const match = d.match(/M(\d+) (\d+)/);
+    if (!match) return "";
+    return `<circle cx="${match[1]}" cy="${match[2]}" r="8" fill="#e28b43" />`;
+  }).join("");
   return sheet(
     LANG === "ko" ? "선 긋기 연습지" : "Line Tracing Practice",
-    LANG === "ko" ? "점선을 따라 선과 도형을 그려 보세요." : "Trace the dotted lines and shapes.",
-    `<div class="line-wrap"><svg viewBox="0 0 760 560"><rect width="760" height="560" fill="#fffdf8"/><path d="${paths[pattern] || paths.waves}" fill="none" stroke="#64748b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="10 14"/></svg></div>`
+    LANG === "ko" ? "주황색 점에서 시작해 점선을 천천히 따라 그려 보세요." : "Start at each orange dot and trace the dotted line slowly.",
+    `<div class="line-wrap"><svg viewBox="0 0 760 560" role="img" aria-label="line tracing worksheet"><rect width="760" height="560" fill="#fffdf8"/><g opacity="0.42"><path d="M55 50 H705 M55 140 H705 M55 230 H705 M55 320 H705 M55 410 H705 M55 500 H705" stroke="#d7dfe8" stroke-width="1"/></g>${paths}${startDots}</svg></div>`
   );
 }
 
 function renderColoringPage() {
   const theme = getValue("colorTheme", "garden");
   const svgs = {
-    garden: '<circle cx="150" cy="170" r="55"/><circle cx="105" cy="130" r="35"/><circle cx="195" cy="130" r="35"/><circle cx="105" cy="210" r="35"/><circle cx="195" cy="210" r="35"/><line x1="150" y1="225" x2="150" y2="410"/><path d="M150 305 C90 260 70 330 140 345"/><path d="M150 330 C230 280 250 360 160 370"/><path d="M390 390 C450 260 560 260 620 390 Z"/><circle cx="500" cy="250" r="45"/>',
-    space: '<circle cx="170" cy="150" r="70"/><circle cx="145" cy="130" r="10"/><circle cx="190" cy="165" r="14"/><path d="M390 390 C350 260 390 145 500 85 C610 145 650 260 610 390 Z"/><circle cx="500" cy="190" r="35"/><path d="M440 390 L390 480 L500 430 L610 480 L560 390 Z"/><path d="M80 420 L150 360 L220 420 L290 360 L360 420"/><polygon points="645,105 660,135 693,140 670,162 675,195 645,178 615,195 620,162 597,140 630,135"/>',
-    shapes: '<rect x="80" y="80" width="150" height="150" rx="18"/><circle cx="390" cy="155" r="80"/><polygon points="595,75 700,230 490,230"/><path d="M120 370 C170 290 260 300 310 370 C250 470 170 470 120 370 Z"/><rect x="420" y="310" width="220" height="130" rx="65"/>'
+    garden: '<circle cx="150" cy="160" r="46"/><circle cx="108" cy="116" r="30"/><circle cx="192" cy="116" r="30"/><circle cx="102" cy="200" r="30"/><circle cx="198" cy="200" r="30"/><circle cx="150" cy="160" r="18"/><line x1="150" y1="218" x2="150" y2="430"/><path d="M150 305 C85 255 65 335 142 350"/><path d="M150 335 C235 275 258 365 160 385"/><path d="M380 425 C445 270 575 270 640 425 Z"/><path d="M420 425 C460 330 560 330 600 425"/><circle cx="505" cy="238" r="44"/><circle cx="590" cy="135" r="34"/><path d="M590 80 V190 M535 135 H645"/>',
+    space: '<circle cx="160" cy="145" r="66"/><circle cx="132" cy="125" r="10"/><circle cx="190" cy="165" r="14"/><circle cx="155" cy="185" r="7"/><path d="M390 392 C350 260 392 145 500 82 C608 145 650 260 610 392 Z"/><circle cx="500" cy="190" r="35"/><path d="M440 392 L390 482 L500 432 L610 482 L560 392 Z"/><path d="M455 300 H545"/><path d="M82 430 L150 365 L220 430 L292 365 L360 430"/><polygon points="645,100 660,132 694,137 670,162 676,196 645,179 614,196 620,162 596,137 630,132"/><circle cx="665" cy="300" r="38"/><path d="M615 300 C645 276 685 276 715 300"/>',
+    shapes: '<rect x="80" y="80" width="150" height="150" rx="18"/><line x1="105" y1="130" x2="205" y2="130"/><line x1="105" y1="180" x2="205" y2="180"/><circle cx="390" cy="155" r="80"/><circle cx="390" cy="155" r="38"/><polygon points="595,75 700,230 490,230"/><line x1="595" y1="75" x2="595" y2="230"/><path d="M120 370 C170 290 260 300 310 370 C250 470 170 470 120 370 Z"/><path d="M150 370 C185 335 240 340 280 375"/><rect x="420" y="310" width="220" height="130" rx="65"/><line x1="465" y1="350" x2="595" y2="350"/><line x1="465" y1="395" x2="595" y2="395"/>'
   };
   return sheet(
     LANG === "ko" ? "색칠 도안" : "Coloring Page",
     LANG === "ko" ? "선 안쪽을 자유롭게 색칠해 보세요." : "Color inside the outlines.",
-    `<div class="coloring-wrap"><svg viewBox="0 0 760 560"><rect width="760" height="560" fill="#fffdf8"/><g fill="none" stroke="#1b2430" stroke-width="5" stroke-linejoin="round">${svgs[theme] || svgs.garden}</g></svg></div>`
+    `<div class="coloring-wrap"><svg viewBox="0 0 760 560" role="img" aria-label="coloring worksheet"><rect width="760" height="560" fill="#fffdf8"/><rect x="34" y="34" width="692" height="492" rx="22" fill="#fff" stroke="#d7dfe8" stroke-width="3"/><g fill="none" stroke="#1b2430" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">${svgs[theme] || svgs.garden}</g></svg></div>`
   );
 }
 
