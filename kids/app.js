@@ -66,22 +66,42 @@ function getValue(id, fallback = "") {
 }
 
 function sheet(title, note, body) {
+  const nameLabel = LANG === "ko" ? "이름" : "Name";
+  const dateLabel = LANG === "ko" ? "날짜" : "Date";
   return `
     <article class="worksheet">
       <h2>${escapeHtml(title)}</h2>
       <p class="sheet-note">${escapeHtml(note)}</p>
+      <div class="sheet-meta">
+        <span>${nameLabel}: __________________</span>
+        <span>${dateLabel}: __________________</span>
+      </div>
       ${body}
     </article>
   `;
 }
 
-function traceRows(items, repeat = 1) {
-  return `<div class="trace-grid">${items.map((item) => `
-    <div class="trace-row">
-      <div class="trace-symbol">${escapeHtml(item)}</div>
-      <div class="trace-line" aria-label="${escapeHtml(item)} tracing line"></div>
-    </div>
-  `.repeat(repeat)).join("")}</div>`;
+function traceRows(items, options = {}) {
+  const copyCells = options.copyCells ?? 3;
+  const blankCells = options.blankCells ?? 2;
+  const cells = copyCells + blankCells;
+  return `<div class="trace-grid">${items.map((item) => {
+    const safe = escapeHtml(item);
+    const practiceCells = range(cells).map((index) => `
+      <div class="trace-cell ${index >= copyCells ? "is-blank" : ""}">
+        <span class="trace-guide top"></span>
+        <span class="trace-guide mid"></span>
+        <span class="trace-guide base"></span>
+        ${index < copyCells ? `<span class="trace-ghost">${safe}</span>` : ""}
+      </div>
+    `).join("");
+    return `
+      <div class="trace-row">
+        <div class="trace-symbol">${safe}</div>
+        <div class="trace-cells" aria-label="${safe} tracing practice">${practiceCells}</div>
+      </div>
+    `;
+  }).join("")}</div>`;
 }
 
 function renderNumberTracing() {

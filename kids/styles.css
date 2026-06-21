@@ -1,15 +1,17 @@
 :root {
   color-scheme: light;
-  --bg: #f6f8fb;
+  --bg: #f7f4ee;
   --panel: #ffffff;
-  --ink: #1b2430;
-  --muted: #647184;
-  --line: #d8e0ea;
-  --soft: #eef3f8;
-  --brand: #2563eb;
-  --brand-dark: #1e40af;
-  --accent: #16a34a;
-  --paper: #fffdf8;
+  --ink: #20242c;
+  --muted: #667085;
+  --line: #ded8cc;
+  --soft: #f0f6f2;
+  --brand: #2f6f73;
+  --brand-dark: #214f52;
+  --accent: #e28b43;
+  --paper: #fffdf6;
+  --blue: #356fd4;
+  --rose: #d95d76;
 }
 
 * {
@@ -20,7 +22,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
 }
 
 a {
@@ -41,8 +43,9 @@ textarea {
   justify-content: space-between;
   gap: 18px;
   padding: 18px clamp(16px, 4vw, 44px);
-  background: var(--panel);
+  background: rgba(255, 255, 255, 0.96);
   border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 0 rgba(32, 36, 44, 0.04);
 }
 
 .brand {
@@ -52,14 +55,15 @@ textarea {
 }
 
 .brand-mark {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border-radius: 8px;
   background:
-    linear-gradient(90deg, transparent 46%, #2563eb 46% 54%, transparent 54%),
-    linear-gradient(transparent 46%, #16a34a 46% 54%, transparent 54%),
-    #eef6ff;
-  border: 1px solid #bad0f5;
+    linear-gradient(90deg, transparent 48%, #b7c8df 48% 52%, transparent 52%),
+    repeating-linear-gradient(#ffffff 0 8px, #e3edf6 8px 10px),
+    #fff;
+  border: 2px solid #2f6f73;
+  box-shadow: inset 0 -7px 0 #f9d889;
 }
 
 .brand strong,
@@ -92,7 +96,7 @@ textarea {
 .page-main {
   width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 28px 0 42px;
+  padding: 34px 0 46px;
 }
 
 .home-hero {
@@ -100,13 +104,13 @@ textarea {
   grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
   gap: 28px;
   align-items: center;
-  padding: 22px 0 30px;
+  padding: 28px 0 36px;
 }
 
 .hero-copy h1,
 .tool-heading h1 {
   margin: 0;
-  font-size: clamp(30px, 5vw, 52px);
+  font-size: clamp(32px, 5vw, 58px);
   line-height: 1.08;
   letter-spacing: 0;
 }
@@ -120,7 +124,7 @@ textarea {
 
 .eyebrow {
   margin: 0 0 10px;
-  color: var(--brand-dark);
+  color: var(--accent);
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0;
@@ -134,6 +138,7 @@ textarea {
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 8px;
+  box-shadow: 0 14px 34px rgba(72, 63, 49, 0.08);
 }
 
 .hero-preview {
@@ -142,10 +147,11 @@ textarea {
 
 .mini-sheet {
   min-height: 260px;
-  padding: 22px;
+  padding: 24px;
   background: var(--paper);
   border: 1px solid #eadfc9;
-  box-shadow: 0 12px 26px rgba(20, 35, 55, 0.08);
+  border-radius: 6px;
+  box-shadow: 0 18px 34px rgba(72, 63, 49, 0.14);
 }
 
 .mini-row {
@@ -158,7 +164,7 @@ textarea {
 }
 
 .mini-number {
-  color: var(--brand);
+  color: var(--blue);
   font-weight: 800;
 }
 
@@ -170,7 +176,7 @@ textarea {
 .tool-directory {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 14px;
 }
 
 .tool-directory a {
@@ -179,14 +185,16 @@ textarea {
   justify-content: space-between;
   gap: 14px;
   min-height: 92px;
-  padding: 18px;
+  padding: 20px;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 8px;
+  box-shadow: 0 8px 22px rgba(72, 63, 49, 0.06);
 }
 
 .tool-directory a:hover {
-  border-color: #9bb9f4;
+  border-color: #91bbb5;
+  transform: translateY(-1px);
 }
 
 .tool-directory span {
@@ -205,7 +213,7 @@ textarea {
 
 .arrow {
   flex: 0 0 auto;
-  color: var(--brand);
+  color: var(--accent);
   font-weight: 900;
 }
 
@@ -226,6 +234,7 @@ textarea {
 .content-grid article {
   padding: 16px;
   background: var(--soft);
+  border: 1px solid #dce8df;
   border-radius: 8px;
 }
 
@@ -254,7 +263,7 @@ textarea {
 }
 
 .tool-card {
-  padding: 16px;
+  padding: 18px;
   position: sticky;
   top: 12px;
 }
@@ -275,7 +284,7 @@ textarea {
   padding: 9px 10px;
   color: var(--ink);
   background: #fff;
-  border: 1px solid var(--line);
+  border: 1px solid #cfc7b8;
   border-radius: 6px;
 }
 
@@ -301,26 +310,31 @@ textarea {
 
 .secondary-button {
   color: var(--brand-dark);
-  background: #eaf1ff;
+  background: #eaf4f0;
 }
 
 .preview-card {
   overflow: hidden;
-  padding: 16px;
+  padding: clamp(14px, 3vw, 24px);
 }
 
 .worksheet {
-  width: min(100%, 760px);
-  min-height: 920px;
+  width: min(100%, 794px);
+  min-height: 1123px;
   margin: 0 auto;
-  padding: 34px;
-  background: var(--paper);
+  padding: 42px;
+  background:
+    linear-gradient(90deg, rgba(226, 139, 67, 0.14) 0 10px, transparent 10px),
+    var(--paper);
   border: 1px solid #eadfc9;
+  border-radius: 4px;
+  box-shadow: 0 18px 34px rgba(72, 63, 49, 0.14);
 }
 
 .worksheet h2 {
   margin: 0 0 6px;
-  font-size: 28px;
+  color: #1d3f42;
+  font-size: 30px;
 }
 
 .worksheet .sheet-note {
@@ -328,37 +342,99 @@ textarea {
   color: #647184;
 }
 
+.sheet-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin: 0 0 26px;
+  padding: 12px 14px;
+  color: #475569;
+  background: #ffffff;
+  border: 1px solid #d7dfe8;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
 .trace-grid {
   display: grid;
-  gap: 14px;
+  gap: 12px;
 }
 
 .trace-row {
   display: grid;
-  grid-template-columns: 84px 1fr;
-  gap: 16px;
+  grid-template-columns: 86px 1fr;
+  gap: 14px;
   align-items: center;
-  min-height: 70px;
-  border-bottom: 1px solid #dbe3ee;
+  min-height: 78px;
 }
 
 .trace-symbol {
-  font-size: 42px;
+  display: grid;
+  place-items: center;
+  min-height: 70px;
+  color: #214f52;
+  background: #f1f8f5;
+  border: 1px solid #c8ded6;
+  border-radius: 6px;
+  font-size: 40px;
   font-weight: 800;
 }
 
-.trace-line {
-  min-height: 48px;
-  background:
-    linear-gradient(#dbe3ee 1px, transparent 1px) 0 50% / 100% 24px,
-    repeating-linear-gradient(90deg, #a7b4c4 0 13px, transparent 13px 24px);
+.trace-cells {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.trace-cell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 70px;
+  overflow: hidden;
+  background: #fffefd;
+  border: 1px solid #cfd8e3;
+  border-radius: 6px;
+}
+
+.trace-cell.is-blank {
+  background: #ffffff;
+}
+
+.trace-guide {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  border-top: 1px solid #d7dfe8;
+}
+
+.trace-guide.top {
+  top: 18px;
+}
+
+.trace-guide.mid {
+  top: 50%;
+  border-top-style: dashed;
+}
+
+.trace-guide.base {
+  bottom: 18px;
+}
+
+.trace-ghost {
+  position: relative;
+  color: rgba(32, 36, 44, 0.24);
+  font-size: 36px;
+  font-weight: 800;
 }
 
 .problem-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px 30px;
-  font-size: 22px;
+  font-size: 24px;
 }
 
 .problem {
@@ -366,7 +442,7 @@ textarea {
   justify-content: space-between;
   gap: 14px;
   padding: 12px 0;
-  border-bottom: 1px solid #dbe3ee;
+  border-bottom: 1px solid #cfd8e3;
 }
 
 .answer-line {
@@ -387,7 +463,8 @@ textarea {
 .shape-item {
   min-height: 160px;
   padding: 14px;
-  border: 1px solid #dbe3ee;
+  background: #fffefd;
+  border: 1px solid #cfd8e3;
   border-radius: 6px;
   text-align: center;
 }
@@ -414,7 +491,7 @@ textarea {
 .related-tools a {
   padding: 8px 10px;
   color: var(--brand-dark);
-  background: #eaf1ff;
+  background: #eaf4f0;
   border-radius: 6px;
   font-weight: 800;
 }
@@ -436,6 +513,11 @@ textarea {
 }
 
 @media print {
+  @page {
+    size: auto;
+    margin: 12mm;
+  }
+
   body {
     background: #fff;
   }
@@ -461,6 +543,26 @@ textarea {
 
   .tool-layout {
     display: block;
+  }
+
+  .worksheet {
+    min-height: auto;
+    background: #fff;
+    box-shadow: none;
+  }
+
+  .trace-cell {
+    break-inside: avoid;
+  }
+
+  .trace-row {
+    break-inside: avoid;
+  }
+}
+
+@media screen and (min-width: 1180px) {
+  .tool-directory {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -494,6 +596,14 @@ textarea {
 
   .worksheet {
     min-height: 720px;
-    padding: 18px;
+    padding: 20px;
+  }
+
+  .trace-row {
+    grid-template-columns: 1fr;
+  }
+
+  .trace-cells {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
