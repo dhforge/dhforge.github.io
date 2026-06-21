@@ -140,6 +140,21 @@ a:focus-visible {
   color: var(--primary);
 }
 
+.language-link {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 10px;
+  background: var(--surface-2);
+  color: var(--primary) !important;
+  font-weight: 800;
+}
+
+.language-link.is-current {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff !important;
+}
+
 .tool-shell {
   display: grid;
   grid-template-columns: 260px minmax(0, 1fr);

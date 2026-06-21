@@ -514,6 +514,16 @@ input[type="color"] {
   text-decoration: none;
 }
 
+.tip-list {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0 24px;
+}
+
+.tip-list li {
+  color: var(--muted);
+}
+
 details {
   padding: 14px 16px;
   margin-bottom: 10px;

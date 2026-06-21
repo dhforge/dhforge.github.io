@@ -92,6 +92,21 @@ textarea {
   font-weight: 700;
 }
 
+.language-link {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 10px;
+  background: var(--surface-2);
+  color: var(--primary) !important;
+  font-weight: 800;
+}
+
+.language-link.is-current {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff !important;
+}
+
 .home-main,
 .page-main {
   width: min(1180px, calc(100% - 32px));
