@@ -14,7 +14,11 @@ $Checks = @(
   @{ Path = "/paper/ko/guides/graph-paper.html"; Text = "Guide" },
   @{ Path = "/kids/"; Text = "Kids Practice Lab" },
   @{ Path = "/kids/en/"; Text = "Kids Practice Lab" },
-  @{ Path = "/paper/sitemap.xml"; Text = "hreflang" }
+  @{ Path = "/paper/sitemap.xml"; Text = "hreflang" },
+  @{ Path = "/kids/sitemap.xml"; Text = "hreflang" },
+  @{ Path = "/assets/og-toolbox.png"; Text = "" },
+  @{ Path = "/assets/og-paper.png"; Text = "" },
+  @{ Path = "/assets/og-kids.png"; Text = "" }
 )
 
 foreach ($Check in $Checks) {
@@ -27,7 +31,7 @@ foreach ($Check in $Checks) {
   $Bytes = New-Object byte[] $Response.RawContentStream.Length
   [void]$Response.RawContentStream.Read($Bytes, 0, $Bytes.Length)
   $Text = [System.Text.Encoding]::UTF8.GetString($Bytes)
-  if (-not $Text.Contains($Check.Text)) {
+  if ($Check.Text -and -not $Text.Contains($Check.Text)) {
     throw "$Uri did not include expected text: $($Check.Text)"
   }
   Write-Output "OK $($Check.Path)"

@@ -6,10 +6,12 @@
   <title>무료 도구함 - 브라우저에서 바로 쓰는 무료 계산기와 변환기</title>
   <meta name="description" content="글자 수 계산기, 날짜 계산기, 단위 변환기, 랜덤 추첨기, QR 코드 생성기, 텍스트 정리, 색상 변환, 타이머, 비율 계산, 이미지 리사이즈를 무료로 사용할 수 있습니다.">
   <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#2563eb">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="무료 도구함">
   <meta property="og:description" content="설치 없이 브라우저에서 사용하는 무료 생활 도구 모음">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dhforge.github.io/">
   <meta property="og:image" content="https://dhforge.github.io/assets/og-toolbox.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -20,9 +22,24 @@
   <link rel="alternate" hreflang="ko" href="https://dhforge.github.io/">
   <link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/">
   <link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "무료 도구함",
+    "alternateName": "Free Toolbox",
+    "url": "https://dhforge.github.io/",
+    "inLanguage": "ko",
+    "publisher": {
+      "@type": "Organization",
+      "name": "DH Forge"
+    }
+  }
+  </script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">본문으로 이동</a>
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="무료 도구함 홈">
       <span class="brand-mark" aria-hidden="true"></span>
@@ -42,11 +59,17 @@
     </nav>
   </header>
 
-  <main class="home-main">
+  <main class="home-main" id="main-content">
     <section class="home-hero">
       <p class="eyebrow">Free Browser Tools</p>
       <h1>무료 계산기와 변환기를 한 곳에서 바로 사용하세요</h1>
       <p>회원가입, 설치, 서버 업로드 없이 브라우저에서 실행되는 정적 도구 모음입니다. 일반 도구, 프린터블 종이, 키즈 학습지는 같은 도메인 안의 독립 섹션으로 운영됩니다.</p>
+    </section>
+
+    <section class="content-panel">
+      <p class="eyebrow">운영 메모</p>
+      <h2>실제로 자주 쓰는 작업부터 다듬습니다</h2>
+      <p>마지막 검토일: 2026-06-21. 새 기능보다 링크가 잘 열리는지, 모바일에서 입력이 불편하지 않은지, 결과를 복사하거나 출력하기 쉬운지를 우선으로 점검합니다.</p>
     </section>
 
     <section class="tool-directory" aria-label="도구 목록">
@@ -145,6 +168,7 @@
   <footer class="site-footer">
     <p>무료 도구함</p>
     <nav aria-label="하단 링크">
+      <a href="about.html">소개</a>
       <a href="privacy.html">개인정보처리방침</a>
       <a href="terms.html">이용 안내</a>
       <a href="contact.html">문의</a>
