@@ -19,6 +19,7 @@
       --accent: #e28b43;
       --soft: #eef6f2;
       --warn: #fff5df;
+      --danger: #fff1f2;
     }
 
     * {
@@ -35,6 +36,10 @@
     a {
       color: inherit;
       text-decoration: none;
+    }
+
+    code {
+      font-family: Consolas, "Courier New", monospace;
     }
 
     .page-header {
@@ -60,10 +65,26 @@
       letter-spacing: 0;
     }
 
+    h2 {
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+
+    h3 {
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
     .page-header p,
     .muted {
       color: var(--muted);
       line-height: 1.6;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .button-link,
@@ -90,29 +111,31 @@
     }
 
     main {
-      width: min(1180px, calc(100% - 32px));
+      width: min(1220px, calc(100% - 32px));
       margin: 0 auto;
       padding: 28px 0 46px;
     }
 
-    .overview {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .site-card,
-    .guide-card,
-    .report-card {
+    .panel {
+      margin-bottom: 16px;
+      padding: 18px;
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 8px;
       box-shadow: 0 12px 28px rgba(57, 71, 60, 0.06);
     }
 
+    .site-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
     .site-card {
-      padding: 18px;
+      padding: 16px;
+      background: #fbfdfb;
+      border: 1px solid #e3eadf;
+      border-radius: 8px;
     }
 
     .site-card strong {
@@ -134,36 +157,63 @@
       font-size: 13px;
     }
 
-    .guide-grid {
+    .metric-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-      gap: 14px;
-      margin-bottom: 18px;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
     }
 
-    .guide-card {
-      padding: 18px;
+    .metric-card {
+      min-height: 118px;
+      padding: 14px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
     }
 
-    .guide-card h2 {
-      margin-bottom: 10px;
-      font-size: 18px;
+    .metric-card b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--brand-dark);
+      font-size: 14px;
     }
 
-    .check-list {
-      display: grid;
-      gap: 9px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .check-list li {
-      padding: 10px 12px;
-      background: #fbfdfb;
-      border: 1px solid #e3eadf;
-      border-radius: 7px;
+    .metric-card span {
+      display: block;
+      color: var(--muted);
       line-height: 1.45;
+      font-size: 13px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 860px;
+      border-collapse: collapse;
+      background: #ffffff;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: #334155;
+      background: #f8fafc;
+      font-size: 13px;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
     }
 
     .notice {
@@ -174,8 +224,17 @@
       line-height: 1.6;
     }
 
+    .hard-limit {
+      padding: 14px 16px;
+      background: var(--danger);
+      border: 1px solid #fecdd3;
+      border-radius: 8px;
+      line-height: 1.6;
+    }
+
     .report-card {
       overflow: hidden;
+      padding: 0;
     }
 
     .report-head {
@@ -189,7 +248,6 @@
 
     .report-head h2 {
       margin-bottom: 4px;
-      font-size: 18px;
     }
 
     .frame-wrap {
@@ -205,15 +263,15 @@
       background: #ffffff;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 980px) {
       .page-header,
       .report-head {
         align-items: flex-start;
         flex-direction: column;
       }
 
-      .overview,
-      .guide-grid {
+      .site-grid,
+      .metric-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -223,60 +281,137 @@
   <header class="page-header">
     <div>
       <h1>DH Forge 비공개 통계</h1>
-      <p>메인 도구, Printable Paper, Kids Practice 방문과 사용 이벤트를 Google Analytics 보고서로 확인합니다.</p>
+      <p>사이트별 조회수, 방문자 수, 평균 방문시간, 실제 사용 횟수를 Google Analytics 보고서로 확인합니다.</p>
     </div>
-    <a class="button-link" href="https://lookerstudio.google.com/reporting/aefae81b-f98c-4538-a84f-799cde318b82/page/lFq1F" rel="noopener">전체 보고서 열기</a>
+    <div class="button-row">
+      <a class="button-link" href="https://lookerstudio.google.com/reporting/aefae81b-f98c-4538-a84f-799cde318b82/page/lFq1F" rel="noopener">전체 보고서 열기</a>
+      <a class="plain-link" href="https://analytics.google.com/" rel="noopener">GA 열기</a>
+    </div>
   </header>
 
   <main>
-    <section class="overview" aria-label="추적 중인 사이트">
-      <article class="site-card">
-        <strong>1. DH Forge Tools</strong>
-        <p class="muted">텍스트, 날짜, 색상, QR 등 일반 웹 도구 묶음입니다.</p>
-        <code>https://dhforge.github.io/</code>
-        <a class="plain-link" href="../">사이트 열기</a>
-      </article>
-      <article class="site-card">
-        <strong>2. Printable Paper Lab</strong>
-        <p class="muted">그래프지, 줄노트, 플래너 등 출력용 종이 템플릿 사이트입니다.</p>
-        <code>https://dhforge.github.io/paper/</code>
-        <a class="plain-link" href="../paper/">사이트 열기</a>
-      </article>
-      <article class="site-card">
-        <strong>3. Kids Practice Lab</strong>
-        <p class="muted">유아·초등 학습지와 활동지를 만드는 출력용 사이트입니다.</p>
-        <code>https://dhforge.github.io/kids/</code>
-        <a class="plain-link" href="../kids/">사이트 열기</a>
-      </article>
+    <section class="panel">
+      <h2>추적 중인 3개 사이트</h2>
+      <div class="site-grid">
+        <article class="site-card">
+          <strong>DH Forge Tools</strong>
+          <p class="muted">메인 유틸리티 사이트</p>
+          <code>경로: /, /char-counter/, /timer/ ...</code>
+          <a class="plain-link" href="../">사이트 열기</a>
+        </article>
+        <article class="site-card">
+          <strong>Printable Paper Lab</strong>
+          <p class="muted">종이 템플릿 사이트</p>
+          <code>경로: /paper/</code>
+          <a class="plain-link" href="../paper/">사이트 열기</a>
+        </article>
+        <article class="site-card">
+          <strong>Kids Practice Lab</strong>
+          <p class="muted">유아·초등 학습지 사이트</p>
+          <code>경로: /kids/</code>
+          <a class="plain-link" href="../kids/">사이트 열기</a>
+        </article>
+      </div>
     </section>
 
-    <section class="guide-grid" aria-label="통계 확인 안내">
-      <article class="guide-card">
-        <h2>여기서 보면 되는 것</h2>
-        <ul class="check-list">
-          <li><strong>방문자 수:</strong> 보고서의 사용자 또는 활성 사용자 지표를 봅니다.</li>
-          <li><strong>조회수:</strong> 페이지 경로별 조회수로 어떤 기능이 검색되는지 봅니다.</li>
-          <li><strong>사용 횟수:</strong> `tool_use` 이벤트로 생성/인쇄 버튼 사용을 봅니다.</li>
-          <li><strong>사이트별 비교:</strong> `/paper/`, `/kids/`, 그 외 경로로 나눠 확인합니다.</li>
-        </ul>
-      </article>
-      <article class="guide-card">
-        <h2>안 보일 때</h2>
-        <p class="notice">
-          아래 보고서가 쿠키 문제로 막히면 <strong>전체 보고서 열기</strong>를 누르세요.
-          방문 데이터는 바로 안 뜰 수 있고 보통 몇 분에서 24시간까지 늦게 보일 수 있습니다.
-        </p>
-        <p class="muted">이 페이지는 검색엔진에 색인되지 않도록 `noindex,nofollow`로 설정했습니다.</p>
-      </article>
+    <section class="panel">
+      <h2>보고서에 반드시 나와야 하는 숫자</h2>
+      <div class="metric-grid" aria-label="필수 통계 지표">
+        <div class="metric-card">
+          <b>날짜별 조회수</b>
+          <span>몇 월 며칠에 몇 번 페이지가 열렸는지 확인합니다.</span>
+        </div>
+        <div class="metric-card">
+          <b>사이트별 방문자 수</b>
+          <span>메인, Paper, Kids 각각 사용자가 몇 명인지 봅니다.</span>
+        </div>
+        <div class="metric-card">
+          <b>평균 방문시간</b>
+          <span>GA4의 평균 참여 시간으로 사람이 실제로 머문 시간을 봅니다.</span>
+        </div>
+        <div class="metric-card">
+          <b>실제 사용 횟수</b>
+          <span><code>tool_use</code> 이벤트로 생성, 인쇄, 도구 사용을 봅니다.</span>
+        </div>
+        <div class="metric-card">
+          <b>사용률</b>
+          <span>사용 횟수 ÷ 방문자 수로 어느 사이트가 실제로 쓰이는지 비교합니다.</span>
+        </div>
+      </div>
     </section>
 
-    <section class="report-card" aria-label="Google Analytics report">
+    <section class="panel">
+      <h2>사이트별 표 구성</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>날짜</th>
+              <th>사이트</th>
+              <th>경로 조건</th>
+              <th>조회수</th>
+              <th>방문자 수</th>
+              <th>평균 방문시간</th>
+              <th>실제 사용 횟수</th>
+              <th>사용률</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>일별</td>
+              <td>DH Forge Tools</td>
+              <td><code>/paper/</code>, <code>/kids/</code> 제외</td>
+              <td>Views</td>
+              <td>Active users</td>
+              <td>Average engagement time</td>
+              <td><code>tool_use</code> Event count</td>
+              <td>Event count / Active users</td>
+            </tr>
+            <tr>
+              <td>일별</td>
+              <td>Printable Paper Lab</td>
+              <td><code>Page path starts with /paper/</code></td>
+              <td>Views</td>
+              <td>Active users</td>
+              <td>Average engagement time</td>
+              <td><code>tool_use</code> Event count</td>
+              <td>Event count / Active users</td>
+            </tr>
+            <tr>
+              <td>일별</td>
+              <td>Kids Practice Lab</td>
+              <td><code>Page path starts with /kids/</code></td>
+              <td>Views</td>
+              <td>Active users</td>
+              <td>Average engagement time</td>
+              <td><code>tool_use</code> Event count</td>
+              <td>Event count / Active users</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>중요한 제한</h2>
+      <p class="hard-limit">
+        GitHub Pages는 서버가 없는 정적 사이트라서 GA 실제 숫자를 이 HTML 파일이 직접 가져올 수 없습니다.
+        GA API 비밀키를 공개 저장소에 넣으면 계정 보안 문제가 생깁니다.
+        그래서 실제 숫자는 아래 Looker Studio 보고서 안에 표와 카드로 만들어야 합니다.
+      </p>
+      <p class="notice">
+        지금 스크린샷처럼 조회수 카드 1개만 보이면 Looker Studio 보고서 편집 화면에서 카드와 표가 아직 추가되지 않은 상태입니다.
+        보고서에는 위 표의 항목대로 <strong>날짜, 사이트, 조회수, 방문자 수, 평균 방문시간, tool_use 이벤트 수, 사용률</strong>을 넣어야 합니다.
+      </p>
+    </section>
+
+    <section class="panel report-card" aria-label="Google Analytics report">
       <div class="report-head">
         <div>
-          <h2>Google Analytics 보고서</h2>
-          <p class="muted">오늘, 최근 7일, 최근 30일, 페이지별 조회수와 이벤트를 확인하는 영역입니다.</p>
+          <h2>실제 Google Analytics 보고서</h2>
+          <p class="muted">여기 안쪽 보고서가 실제 숫자를 표시합니다. 안 보이면 전체 보고서 열기를 누르세요.</p>
         </div>
-        <a class="plain-link" href="https://analytics.google.com/" rel="noopener">GA 열기</a>
+        <a class="plain-link" href="https://lookerstudio.google.com/reporting/aefae81b-f98c-4538-a84f-799cde318b82/page/lFq1F" rel="noopener">새 창으로 보기</a>
       </div>
       <div class="frame-wrap">
         <iframe title="DH Forge analytics report" src="https://lookerstudio.google.com/embed/reporting/aefae81b-f98c-4538-a84f-799cde318b82/page/lFq1F" allowfullscreen></iframe>

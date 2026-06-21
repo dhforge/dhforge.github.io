@@ -1,6 +1,36 @@
 "use strict";
 
 const $ = (selector) => document.querySelector(selector);
+const LANGUAGE = document.documentElement.lang.toLowerCase().startsWith("ko") ? "ko" : "en";
+const IS_KO = LANGUAGE === "ko";
+const SITE_COPY = {
+  en: {
+    siteName: "Printable Paper Lab",
+    homeUrl: "https://dhforge.github.io/paper/",
+    inLanguage: "en-US",
+    section: "printable_paper_lab_en"
+  },
+  ko: {
+    siteName: "인쇄용 종이 연구소",
+    homeUrl: "https://dhforge.github.io/paper/ko/",
+    inLanguage: "ko-KR",
+    section: "printable_paper_lab_ko"
+  }
+};
+const TEMPLATE_LABELS = {
+  en: {
+    cues: "Cues",
+    notes: "Notes",
+    summary: "Summary",
+    days: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+  },
+  ko: {
+    cues: "단서",
+    notes: "노트",
+    summary: "요약",
+    days: ["월", "화", "수", "목", "금", "토", "일"]
+  }
+};
 
 const TEMPLATE_CONFIG = {
   "graph-paper": { label: "Graph Paper", className: "paper-grid", spacing: 24 },
@@ -18,9 +48,10 @@ const trackedTemplateActions = new Set();
 
 function trackAnalyticsEvent(eventName, params = {}) {
   if (typeof window.gtag !== "function") return;
+  const copy = SITE_COPY[LANGUAGE];
   window.gtag("event", eventName, {
-    language: "en-US",
-    site_section: "printable_paper_lab",
+    language: copy.inLanguage,
+    site_section: copy.section,
     ...params
   });
 }
@@ -30,6 +61,7 @@ function trackTemplateUse(templateName, action = "use", options = {}) {
   if (options.once && trackedTemplateActions.has(key)) return;
   if (options.once) trackedTemplateActions.add(key);
   trackAnalyticsEvent("tool_use", {
+    tool_site: "printable-paper-lab",
     tool_name: templateName,
     tool_action: action
   });
@@ -94,6 +126,7 @@ function initTemplateTool() {
 }
 
 function renderTemplate(template, sheet, titleText) {
+  const labels = TEMPLATE_LABELS[LANGUAGE];
   sheet.innerHTML = "";
   const title = document.createElement("div");
   title.className = "sheet-title";
@@ -109,7 +142,7 @@ function renderTemplate(template, sheet, titleText) {
   sheet.append(content);
 
   if (template === "cornell-notes") {
-    content.innerHTML = '<div class="cornell"><div>Cues</div><div>Notes</div><div style="grid-column:1 / -1">Summary</div></div>';
+    content.innerHTML = `<div class="cornell"><div>${labels.cues}</div><div>${labels.notes}</div><div style="grid-column:1 / -1">${labels.summary}</div></div>`;
   }
 
   if (template === "music-staff-paper") {
@@ -124,10 +157,9 @@ function renderTemplate(template, sheet, titleText) {
   }
 
   if (template === "weekly-planner") {
-    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     const grid = document.createElement("div");
     grid.className = "planner-grid";
-    days.forEach((day) => {
+    labels.days.forEach((day) => {
       const cell = document.createElement("div");
       cell.className = "planner-cell";
       cell.innerHTML = `<strong>${day}</strong><span></span>`;
@@ -162,18 +194,21 @@ function renderTemplate(template, sheet, titleText) {
 }
 
 function initStructuredData() {
+  const copy = SITE_COPY[LANGUAGE];
   const canonical = document.querySelector('link[rel="canonical"]');
   const description = document.querySelector('meta[name="description"]');
   const url = canonical ? canonical.href : location.href;
-  const title = document.title.replace(" - Printable Paper Lab", "");
+  const title = document.title
+    .replace(` - ${copy.siteName}`, "")
+    .replace(" - Printable Paper Lab", "");
   const graph = [
     {
       "@type": "WebSite",
-      "@id": "https://dhforge.github.io/paper/#website",
-      "url": "https://dhforge.github.io/paper/",
-      "name": "Printable Paper Lab",
+      "@id": `${copy.homeUrl}#website`,
+      "url": copy.homeUrl,
+      "name": copy.siteName,
       "sameAs": "https://printablepaperlab.blogspot.com/",
-      "inLanguage": "en-US"
+      "inLanguage": copy.inLanguage
     },
     {
       "@type": "WebApplication",
@@ -185,7 +220,7 @@ function initStructuredData() {
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
       "isAccessibleForFree": true,
-      "inLanguage": "en-US"
+      "inLanguage": copy.inLanguage
     }
   ];
 

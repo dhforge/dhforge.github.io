@@ -32,6 +32,7 @@ function trackToolUse(toolName, action = "use", options = {}) {
   if (options.once && trackedToolActions.has(key)) return;
   if (options.once) trackedToolActions.add(key);
   trackAnalyticsEvent("tool_use", {
+    tool_site: "dhforge-tools",
     tool_name: toolName,
     tool_action: action
   });

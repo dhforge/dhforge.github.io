@@ -26,6 +26,23 @@ This site uses Google Analytics 4 through the free GA tag.
 - Monthly and yearly views: change the date range in the top-right date picker
 - Tool usage: Google Analytics > Reports > Engagement > Events > `tool_use`
 - Per-tool usage: open the `tool_use` event and inspect `tool_name` and `tool_action`
+- Per-site usage: use the `tool_site` event parameter:
+  - `dhforge-tools`
+  - `printable-paper-lab`
+  - `kids-practice-lab`
+
+## Looker Studio dashboard fields
+
+Use these charts so the private dashboard shows more than one view card:
+
+- Scorecards by date range: Views, Active users, Average engagement time, Event count filtered to `tool_use`
+- Table dimensions: Date, Page path, Event name, `tool_site`, `tool_name`, `tool_action`
+- Table metrics: Views, Active users, Average engagement time, Event count
+- Site filters:
+  - DH Forge Tools: page path does not start with `/paper/` or `/kids/`
+  - Printable Paper Lab: page path starts with `/paper/`
+  - Kids Practice Lab: page path starts with `/kids/`
+- Usage rate calculated field: `Event count / Active users`
 
 Data can take several minutes to 24 hours to appear in standard reports.
 
