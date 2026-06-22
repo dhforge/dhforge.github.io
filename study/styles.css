@@ -346,7 +346,7 @@ textarea {
 
 .word-bank-controls {
   display: grid;
-  grid-template-columns: 160px minmax(0, 1fr) auto;
+  grid-template-columns: 130px 130px minmax(0, 1fr) auto;
   gap: 10px;
   align-items: end;
   margin-bottom: 12px;

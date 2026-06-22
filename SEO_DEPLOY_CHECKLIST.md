@@ -43,5 +43,5 @@ Use this after publishing changes to GitHub Pages.
 - Confirm line weight changes are visible.
 - Confirm all About, Privacy, Terms, Contact pages are reachable from navigation.
 - Search the home directory on Free Toolbox, Printable Paper Lab, and Kids Practice Lab.
-- Add Study Card & Planner Lab to the iPhone and Galaxy home screen.
+- Add Word & Hanja Memory Lab to the iPhone and Galaxy home screen.
 - Check manifest and touch icons in browser DevTools.

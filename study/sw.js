@@ -1,4 +1,4 @@
-const STUDY_CACHE = "study-lab-v2";
+const STUDY_CACHE = "study-lab-v3";
 const STUDY_ASSETS = [
   "/study/",
   "/study/index.html",
@@ -19,7 +19,9 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.filter((key) => key !== STUDY_CACHE).map((key) => caches.delete(key))))
+    caches.keys().then((keys) => Promise.all(
+      keys.filter((key) => key.startsWith("study-lab-") && key !== STUDY_CACHE).map((key) => caches.delete(key))
+    ))
   );
   self.clients.claim();
 });

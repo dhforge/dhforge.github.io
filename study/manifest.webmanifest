@@ -1,7 +1,7 @@
 {
-  "name": "Study Card & Planner Lab",
-  "short_name": "Study Lab",
-  "description": "Flash cards, spaced review, focus timer, mistake notes, and exam D-day planner.",
+  "name": "Word & Hanja Memory Lab",
+  "short_name": "Word Hanja",
+  "description": "English vocabulary and basic hanja spaced review app.",
   "start_url": "/study/",
   "scope": "/study/",
   "display": "standalone",

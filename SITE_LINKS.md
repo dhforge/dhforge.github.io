@@ -18,7 +18,7 @@
 - Kids Practice Lab English: https://dhforge.github.io/kids/en/
 - Kids Practice Lab About: https://dhforge.github.io/kids/about.html
 - Kids Practice Lab English About: https://dhforge.github.io/kids/en/about.html
-- Study Card & Planner Lab: https://dhforge.github.io/study/
+- Word & Hanja Memory Lab: https://dhforge.github.io/study/
 - Printable Paper Lab companion blog: https://printablepaperlab.blogspot.com/
 
 ## Sitemaps

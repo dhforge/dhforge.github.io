@@ -1,6 +1,6 @@
 "use strict";
 
-// Original DH Forge starter word bank. Keep entries short so cards stay useful on phones.
+// Original DH Forge starter banks. Keep entries short so cards stay useful on phones.
 const WORD_BANK_RAW = `
 elementary|apple|사과|I eat an apple.
 elementary|banana|바나나|The banana is yellow.
@@ -298,13 +298,132 @@ high|whereas|반면에|He likes math, whereas I like art.
 high|widespread|널리 퍼진|The idea became widespread.
 `.trim();
 
-window.STUDY_WORD_BANK = WORD_BANK_RAW.split("\n").map((line, index) => {
+const HANJA_BANK_RAW = `
+basic|一|일|하나|一日은 하루라는 뜻입니다.
+basic|二|이|둘|二月은 2월입니다.
+basic|三|삼|셋|三角形은 세 각이 있는 도형입니다.
+basic|四|사|넷|四方은 네 방향입니다.
+basic|五|오|다섯|五感은 다섯 가지 감각입니다.
+basic|六|육|여섯|六月은 6월입니다.
+basic|七|칠|일곱|七夕은 칠월 칠석입니다.
+basic|八|팔|여덟|八方은 여러 방향을 뜻합니다.
+basic|九|구|아홉|九月은 9월입니다.
+basic|十|십|열|十字는 십자 모양입니다.
+basic|百|백|일백|百年은 백 년입니다.
+basic|千|천|일천|千里는 먼 거리를 뜻합니다.
+basic|萬|만|일만|萬歲는 오래 살기를 바라는 말입니다.
+basic|日|일|해, 날|日記는 하루 일을 적은 글입니다.
+basic|月|월|달|月曜日은 월요일입니다.
+basic|火|화|불|火山은 불을 뿜는 산입니다.
+basic|水|수|물|水道는 물이 흐르는 길입니다.
+basic|木|목|나무|木材는 나무로 된 재료입니다.
+basic|金|금|쇠, 돈|金色은 금빛입니다.
+basic|土|토|흙|土地는 땅입니다.
+basic|山|산|산|山脈은 산줄기입니다.
+basic|川|천|내|河川은 강과 내를 뜻합니다.
+basic|田|전|밭|田園은 논밭과 마을입니다.
+basic|人|인|사람|人間은 사람을 뜻합니다.
+basic|口|구|입|人口는 사람 수입니다.
+basic|目|목|눈|目的은 이루려는 바입니다.
+basic|耳|이|귀|耳目은 귀와 눈입니다.
+basic|手|수|손|手足은 손과 발입니다.
+basic|足|족|발|足跡은 발자취입니다.
+basic|心|심|마음|中心은 가운데입니다.
+basic|力|력|힘|努力은 힘써 애쓰는 일입니다.
+basic|大|대|크다|大門은 큰 문입니다.
+basic|小|소|작다|小人은 작은 사람 또는 아이입니다.
+basic|中|중|가운데|中心은 가운데입니다.
+basic|上|상|위|上下는 위와 아래입니다.
+basic|下|하|아래|地下는 땅 아래입니다.
+basic|左|좌|왼쪽|左右는 왼쪽과 오른쪽입니다.
+basic|右|우|오른쪽|右側은 오른쪽입니다.
+basic|東|동|동쪽|東海는 동쪽 바다입니다.
+basic|西|서|서쪽|西洋은 서쪽 나라를 뜻합니다.
+basic|南|남|남쪽|南山은 남쪽 산입니다.
+basic|北|북|북쪽|北風은 북쪽에서 부는 바람입니다.
+basic|生|생|나다, 살다|生活은 살아가는 일입니다.
+basic|學|학|배우다|學校는 배우는 곳입니다.
+basic|校|교|학교|校門은 학교 문입니다.
+basic|先|선|먼저|先生은 선생님입니다.
+basic|友|우|벗|友人은 친구입니다.
+basic|父|부|아버지|父母는 부모입니다.
+basic|母|모|어머니|母國은 어머니의 나라입니다.
+basic|兄|형|형|兄弟는 형과 아우입니다.
+basic|弟|제|아우|兄弟는 형제입니다.
+basic|女|녀|여자|女子는 여자입니다.
+basic|男|남|남자|男子는 남자입니다.
+basic|子|자|아이|子女는 자녀입니다.
+basic|年|년|해|今年은 올해입니다.
+basic|時|시|때|時間은 시간입니다.
+basic|分|분|나누다|分數는 나눈 수입니다.
+basic|間|간|사이|空間은 빈 자리입니다.
+basic|今|금|이제|今年은 올해입니다.
+basic|古|고|옛|古典은 오래된 책이나 작품입니다.
+basic|新|신|새롭다|新聞은 새 소식입니다.
+basic|長|장|길다|長所는 좋은 점입니다.
+basic|短|단|짧다|短點은 부족한 점입니다.
+basic|高|고|높다|高度는 높이입니다.
+basic|低|저|낮다|低音은 낮은 소리입니다.
+basic|明|명|밝다|明日은 내일입니다.
+basic|暗|암|어둡다|暗記는 외워 기억하는 일입니다.
+basic|白|백|희다|白紙는 흰 종이입니다.
+basic|黑|흑|검다|黑色은 검은색입니다.
+basic|赤|적|붉다|赤字는 손해를 뜻하기도 합니다.
+basic|靑|청|푸르다|靑年은 젊은 사람입니다.
+basic|正|정|바르다|正答은 바른 답입니다.
+basic|不|불|아니다|不足은 충분하지 않음입니다.
+basic|有|유|있다|有名은 이름이 알려짐입니다.
+basic|無|무|없다|無心은 마음이 없음입니다.
+basic|名|명|이름|名字는 이름 글자입니다.
+basic|字|자|글자|漢字는 한자입니다.
+basic|文|문|글|文章은 글입니다.
+basic|語|어|말|英語는 영어입니다.
+basic|書|서|글, 책|書店은 책방입니다.
+basic|讀|독|읽다|讀書는 책 읽기입니다.
+basic|言|언|말|言語는 말과 글입니다.
+basic|見|견|보다|意見은 생각입니다.
+basic|聞|문|듣다|新聞은 새 소식을 전합니다.
+basic|行|행|가다|旅行은 여행입니다.
+basic|來|래|오다|未來는 앞으로 올 때입니다.
+basic|食|식|먹다|食事는 밥 먹는 일입니다.
+basic|飮|음|마시다|飮料는 마실 것입니다.
+basic|家|가|집|家族은 가족입니다.
+basic|室|실|방|敎室은 교실입니다.
+basic|門|문|문|校門은 학교 문입니다.
+basic|車|차|수레, 차|自動車는 자동차입니다.
+basic|空|공|비다, 하늘|空氣는 공기입니다.
+basic|氣|기|기운|天氣는 날씨입니다.
+basic|天|천|하늘|天才는 뛰어난 재능을 가진 사람입니다.
+basic|雨|우|비|雨傘은 우산입니다.
+basic|電|전|번개, 전기|電話는 전화입니다.
+basic|話|화|말하다|對話는 서로 이야기함입니다.
+`.trim();
+
+const englishWords = WORD_BANK_RAW.split("\n").map((line, index) => {
   const [level, word, meaning, example] = line.split("|");
   return {
-    id: `${level}-${index}-${word}`,
+    id: `english-${level}-${index}-${word}`,
+    type: "english",
     level,
+    term: word,
     word,
     meaning,
     example
   };
 });
+
+const hanjaWords = HANJA_BANK_RAW.split("\n").map((line, index) => {
+  const [level, character, reading, meaning, example] = line.split("|");
+  return {
+    id: `hanja-${level}-${index}-${character}`,
+    type: "hanja",
+    level,
+    term: character,
+    word: character,
+    reading,
+    meaning: `${reading} / ${meaning}`,
+    example
+  };
+});
+
+window.STUDY_WORD_BANK = [...englishWords, ...hanjaWords];

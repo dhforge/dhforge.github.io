@@ -6,7 +6,7 @@ Main sections:
 - Free Toolbox: text, date, unit, color, ratio, timer, QR, random picker, and image tools.
 - Printable Paper Lab: graph paper, dot grid paper, lined paper, Cornell notes, handwriting paper, music staff paper, weekly planner, habit tracker, checklist, and isometric paper generators.
 - Kids Practice Lab: printable worksheets for number tracing, letters, Hangul, arithmetic, clocks, mazes, line tracing, and coloring.
-- Study Card & Planner Lab: installable flash cards, review planner, focus timer, mistake notes, D-day checklist, and JSON backup.
+- Word & Hanja Memory Lab: installable English vocabulary and basic hanja spaced review app with local storage and JSON backup.
 
 Language versions:
 - Korean Free Toolbox: https://dhforge.github.io/
@@ -15,7 +15,7 @@ Language versions:
 - Korean Printable Paper Lab: https://dhforge.github.io/paper/ko/
 - Korean Kids Practice Lab: https://dhforge.github.io/kids/
 - English Kids Practice Lab: https://dhforge.github.io/kids/en/
-- Study Card & Planner Lab: https://dhforge.github.io/study/
+- Word & Hanja Memory Lab: https://dhforge.github.io/study/
 
 Machine-readable files:
 - Sitemap index: https://dhforge.github.io/sitemap-index.xml

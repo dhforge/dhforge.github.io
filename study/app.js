@@ -5,7 +5,7 @@ const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 
 const state = loadState();
-const wordBankFilters = { level: "all", query: "" };
+const wordBankFilters = { type: "all", level: "all", query: "" };
 let reviewIndex = 0;
 let flipped = false;
 let deferredInstallPrompt = null;
@@ -59,8 +59,8 @@ function todayKey() {
 function track(action, detail = {}) {
   if (typeof window.gtag !== "function") return;
   window.gtag("event", "tool_use", {
-    tool_site: "study-card-planner-lab",
-    tool_name: "study_pwa",
+    tool_site: "word-hanja-memory-lab",
+    tool_name: "word_hanja_pwa",
     tool_action: action,
     ...detail
   });
@@ -143,9 +143,15 @@ function bindCards() {
 }
 
 function bindWordBank() {
+  const typeSelect = $("[data-word-type]");
   const levelSelect = $("[data-word-level]");
   const searchInput = $("[data-word-search]");
   const list = $("[data-word-bank-list]");
+
+  typeSelect?.addEventListener("change", () => {
+    wordBankFilters.type = typeSelect.value || "all";
+    renderWordBank();
+  });
 
   levelSelect?.addEventListener("change", () => {
     wordBankFilters.level = levelSelect.value || "all";
@@ -184,10 +190,12 @@ function getWordBank() {
 function getFilteredWords() {
   const query = wordBankFilters.query;
   return getWordBank().filter((word) => {
+    const typeMatch = wordBankFilters.type === "all" || word.type === wordBankFilters.type;
     const levelMatch = wordBankFilters.level === "all" || word.level === wordBankFilters.level;
-    if (!levelMatch) return false;
+    if (!typeMatch || !levelMatch) return false;
     if (!query) return true;
     return [word.word, word.meaning, word.example, levelLabel(word.level)]
+      .concat(word.reading || "", typeLabel(word.type))
       .join(" ")
       .toLowerCase()
       .includes(query);
@@ -196,12 +204,16 @@ function getFilteredWords() {
 
 function addWordCard(word) {
   if (state.cards.some((card) => card.sourceWordId === word.id)) return false;
+  const back = word.type === "hanja"
+    ? `음/뜻: ${word.meaning}\n예: ${word.example}`
+    : `${word.meaning}\n${word.example}`;
   state.cards.unshift({
     id: uid(),
     sourceWordId: word.id,
-    deck: `${levelLabel(word.level)} 단어`,
-    front: word.word,
-    back: `${word.meaning}\n${word.example}`,
+    cardType: word.type || "english",
+    deck: `${levelLabel(word.level)} ${typeLabel(word.type)}`,
+    front: word.term || word.word,
+    back,
     createdAt: Date.now(),
     dueAt: Date.now(),
     level: 0
@@ -210,11 +222,19 @@ function addWordCard(word) {
   return true;
 }
 
+function typeLabel(type) {
+  return {
+    english: "영단어",
+    hanja: "한자"
+  }[type] || "단어";
+}
+
 function levelLabel(level) {
   return {
     elementary: "초등",
     middle: "중등",
-    high: "고등"
+    high: "고등",
+    basic: "기초"
   }[level] || "기본";
 }
 
@@ -387,7 +407,7 @@ function bindBackup() {
   });
 
   $("[data-clear]")?.addEventListener("click", () => {
-    if (!confirm("이 브라우저에 저장된 Study Lab 데이터를 모두 삭제할까요?")) return;
+    if (!confirm("이 브라우저에 저장된 영단어·한자 학습 데이터를 모두 삭제할까요?")) return;
     state.cards = [];
     state.mistakes = [];
     state.exams = [];
@@ -420,8 +440,7 @@ function renderStats() {
     .reduce((sum, item) => sum + Number(item.minutes || 0), 0);
   setText('[data-stat="cards"]', state.cards.length);
   setText('[data-stat="due"]', getDueCards().length);
-  setText('[data-stat="mistakes"]', state.mistakes.length);
-  setText('[data-stat="focus"]', `${focusToday}분`);
+  setText('[data-stat="words"]', getWordBank().length);
 }
 
 function renderCards() {
@@ -430,7 +449,7 @@ function renderCards() {
   list.innerHTML = state.cards.length ? state.cards.map((card) => `
     <article class="item">
       <div class="item-head">
-        <div><h3>${escapeHtml(card.front)}</h3><p class="muted">${escapeHtml(card.deck)} · 복습 단계 ${card.level || 0}</p></div>
+        <div><h3>${escapeHtml(card.front)}</h3><p class="muted">${escapeHtml(card.deck)} · 기억 단계 ${card.level || 0}</p></div>
         <button type="button" data-delete-card="${card.id}">삭제</button>
       </div>
       <p>${escapeHtml(card.back)}</p>
@@ -467,7 +486,7 @@ function renderWordBank() {
     return `
       <article class="word-row">
         <div>
-          <div class="word-title"><strong>${escapeHtml(word.word)}</strong><span>${levelLabel(word.level)}</span></div>
+          <div class="word-title"><strong>${escapeHtml(word.term || word.word)}</strong><span>${typeLabel(word.type)}</span><span>${levelLabel(word.level)}</span></div>
           <p>${escapeHtml(word.meaning)}</p>
           <p class="muted">${escapeHtml(word.example)}</p>
         </div>
@@ -488,7 +507,7 @@ function renderReview() {
   if (!reviewCard) return;
   const card = dueCards[reviewIndex] || dueCards[0];
   if (!card) {
-    reviewCard.innerHTML = '<p class="muted">오늘 복습할 카드가 없습니다. 새 카드를 만들거나 내일 다시 확인하세요.</p>';
+    reviewCard.innerHTML = '<p class="muted">오늘 복습할 항목이 없습니다. 단어장에서 영단어나 한자를 추가하거나 내일 다시 확인하세요.</p>';
     return;
   }
   reviewCard.innerHTML = `
@@ -496,9 +515,9 @@ function renderReview() {
     <p class="muted">${escapeHtml(card.deck)} · ${flipped ? "뒷면" : "앞면"}</p>
     <div class="item-actions">
       <button type="button" data-review-action="flip">${flipped ? "앞면 보기" : "정답 보기"}</button>
-      <button type="button" data-review-action="again">다시</button>
+      <button type="button" data-review-action="again">모름</button>
       <button type="button" data-review-action="hard">헷갈림</button>
-      <button class="primary-button" type="button" data-review-action="good">외움</button>
+      <button class="primary-button" type="button" data-review-action="good">알고 있음</button>
     </div>
   `;
 }
@@ -557,7 +576,7 @@ function renderExams() {
 function renderBackup() {
   const preview = $("[data-backup-preview]");
   if (!preview) return;
-  preview.textContent = `카드 ${state.cards.length}개, 오답 ${state.mistakes.length}개, 시험 ${state.exams.length}개, 집중 기록 ${state.focusLog.length}개가 이 브라우저에 저장되어 있습니다.`;
+  preview.textContent = `학습 항목 ${state.cards.length}개, 오답 ${state.mistakes.length}개, 시험 ${state.exams.length}개, 집중 기록 ${state.focusLog.length}개가 이 브라우저에 저장되어 있습니다.`;
 }
 
 function setText(selector, value) {
