@@ -563,7 +563,11 @@ a:focus-visible {
 .line-wrap svg,
 .coloring-wrap svg {
   width: 100%;
-  min-height: 560px;
+  min-height: 700px;
+}
+
+.maze-wrap svg {
+  min-height: 720px;
 }
 
 .related-tools {
