@@ -5,5 +5,6 @@ Sitemap: https://dhforge.github.io/sitemap.xml
 Sitemap: https://dhforge.github.io/sitemap-index.xml
 Sitemap: https://dhforge.github.io/paper/sitemap.xml
 Sitemap: https://dhforge.github.io/kids/sitemap.xml
+Sitemap: https://dhforge.github.io/study/sitemap.xml
 
 # Site operator notes: https://dhforge.github.io/humans.txt

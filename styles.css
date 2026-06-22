@@ -6,9 +6,9 @@
   --text: #1f2933;
   --muted: #607080;
   --line: #d7dee5;
-  --primary: #2563eb;
-  --primary-dark: #1746a2;
-  --accent: #0f8b8d;
+  --primary: #2f6f73;
+  --primary-dark: #1f4f52;
+  --accent: #b35f2a;
   --warn: #9b5a00;
   --ok: #217346;
   --shadow: 0 12px 28px rgba(31, 41, 51, 0.08);
@@ -91,7 +91,7 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 a:focus-visible {
-  outline: 3px solid rgba(37, 99, 235, 0.22);
+  outline: 3px solid rgba(47, 111, 115, 0.24);
   outline-offset: 2px;
 }
 
@@ -266,11 +266,11 @@ a:focus-visible {
 }
 
 .tool-directory a:hover {
-  border-color: var(--primary);
+  border-color: var(--accent);
 }
 
 .tool-directory span {
-  color: var(--primary);
+  color: var(--text);
   font-size: 20px;
   font-weight: 800;
 }
@@ -590,7 +590,7 @@ canvas {
   min-height: 116px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #2563eb;
+  background: var(--primary);
 }
 
 .time-box {

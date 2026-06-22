@@ -10,6 +10,7 @@ Use this after publishing changes to GitHub Pages.
 - Open `https://dhforge.github.io/paper/ko/`
 - Open `https://dhforge.github.io/kids/`
 - Open `https://dhforge.github.io/kids/en/`
+- Open `https://dhforge.github.io/study/`
 - Confirm `https://dhforge.github.io/assets/og-toolbox.png`
 - Confirm `https://dhforge.github.io/assets/og-paper.png`
 - Confirm `https://dhforge.github.io/assets/og-kids.png`
@@ -23,7 +24,9 @@ Use this after publishing changes to GitHub Pages.
 - Submit or refresh `https://dhforge.github.io/sitemap-index.xml`
 - Submit or refresh `https://dhforge.github.io/paper/sitemap.xml`
 - Submit or refresh `https://dhforge.github.io/kids/sitemap.xml`
+- Submit or refresh `https://dhforge.github.io/study/sitemap.xml`
 - Check that `/paper/ko/` and Korean guide URLs are discovered.
+- Check that `/study/` is discovered.
 
 ## Search Console
 
@@ -40,4 +43,5 @@ Use this after publishing changes to GitHub Pages.
 - Confirm line weight changes are visible.
 - Confirm all About, Privacy, Terms, Contact pages are reachable from navigation.
 - Search the home directory on Free Toolbox, Printable Paper Lab, and Kids Practice Lab.
+- Add Study Card & Planner Lab to the iPhone and Galaxy home screen.
 - Check manifest and touch icons in browser DevTools.

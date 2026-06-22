@@ -207,7 +207,7 @@ function clockSvg(hour, minute) {
     ${marks}
     ${hand(hourAngle, 34, 4)}
     ${hand(minuteAngle, 50, 2)}
-    <circle cx="70" cy="70" r="4" fill="#2563eb" />
+    <circle cx="70" cy="70" r="4" fill="#2f6f73" />
   </svg>`;
 }
 

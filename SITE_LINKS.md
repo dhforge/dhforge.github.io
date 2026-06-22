@@ -18,6 +18,7 @@
 - Kids Practice Lab English: https://dhforge.github.io/kids/en/
 - Kids Practice Lab About: https://dhforge.github.io/kids/about.html
 - Kids Practice Lab English About: https://dhforge.github.io/kids/en/about.html
+- Study Card & Planner Lab: https://dhforge.github.io/study/
 - Printable Paper Lab companion blog: https://printablepaperlab.blogspot.com/
 
 ## Sitemaps
@@ -26,6 +27,7 @@
 - Sitemap index: https://dhforge.github.io/sitemap-index.xml
 - Printable Paper Lab sitemap: https://dhforge.github.io/paper/sitemap.xml
 - Kids Practice Lab sitemap: https://dhforge.github.io/kids/sitemap.xml
+- Study sitemap: https://dhforge.github.io/study/sitemap.xml
 - Web app manifest: https://dhforge.github.io/site.webmanifest
 - Printable Paper Lab companion blog sitemap: https://printablepaperlab.blogspot.com/sitemap.xml
 

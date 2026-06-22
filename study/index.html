@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Study Card & Planner Lab - 설치형 암기 카드와 공부 플래너</title>
+  <meta name="description" content="아이폰과 갤럭시 홈 화면에 추가해서 쓰는 무료 암기 카드, 복습 플래너, 공부 타이머, 오답 노트, 시험 D-day 웹앱입니다.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#315f72">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Study Lab">
+  <meta name="format-detection" content="telephone=no">
+  <meta property="og:title" content="Study Card & Planner Lab">
+  <meta property="og:description" content="홈 화면에 추가해서 쓰는 무료 암기 카드와 공부 플래너 웹앱">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dhforge.github.io/study/">
+  <meta property="og:image" content="https://dhforge.github.io/assets/og-toolbox.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="canonical" href="https://dhforge.github.io/study/">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#app">본문으로 이동</a>
+  <header class="app-header">
+    <a class="brand" href="./" aria-label="Study Card & Planner Lab 홈">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span><strong>Study Card & Planner Lab</strong><small>홈 화면에 추가해서 쓰는 공부 웹앱</small></span>
+    </a>
+    <nav class="top-nav" aria-label="주요 링크">
+      <a href="../">무료 도구함</a>
+      <a href="../paper/ko/">인쇄용 종이</a>
+      <a href="../kids/">학습지</a>
+      <button class="install-button" type="button" data-install>앱처럼 추가</button>
+    </nav>
+  </header>
+
+  <main id="app" class="app-shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Offline-ready PWA</p>
+        <h1>암기 카드, 복습, 타이머, 오답 노트를 한 곳에 저장하세요</h1>
+        <p>계정 없이 현재 브라우저에 저장됩니다. 아이폰은 Safari 공유 메뉴에서 홈 화면에 추가하고, 갤럭시는 Chrome 메뉴에서 앱 설치 또는 홈 화면에 추가를 선택하면 됩니다.</p>
+      </div>
+      <div class="install-note" data-install-note>
+        <strong>설치 안내</strong>
+        <span>iPhone: Safari 공유 버튼 > 홈 화면에 추가</span>
+        <span>Galaxy: Chrome 메뉴 > 앱 설치 또는 홈 화면에 추가</span>
+      </div>
+    </section>
+
+    <section class="summary-grid" aria-label="오늘의 공부 요약">
+      <article><b data-stat="cards">0</b><span>암기 카드</span></article>
+      <article><b data-stat="due">0</b><span>오늘 복습</span></article>
+      <article><b data-stat="mistakes">0</b><span>오답 노트</span></article>
+      <article><b data-stat="focus">0분</b><span>오늘 집중</span></article>
+    </section>
+
+    <section class="workspace">
+      <aside class="side-nav" aria-label="학습 메뉴">
+        <button class="tab-button is-active" type="button" data-tab="cards">암기 카드</button>
+        <button class="tab-button" type="button" data-tab="review">오늘 복습</button>
+        <button class="tab-button" type="button" data-tab="timer">공부 타이머</button>
+        <button class="tab-button" type="button" data-tab="mistakes">오답 노트</button>
+        <button class="tab-button" type="button" data-tab="exams">시험 D-day</button>
+        <button class="tab-button" type="button" data-tab="backup">백업/복원</button>
+      </aside>
+
+      <section class="panel is-active" data-panel="cards" aria-labelledby="cardsTitle">
+        <div class="panel-head"><div><p class="eyebrow">Flash Cards</p><h2 id="cardsTitle">암기 카드 만들기</h2></div><button type="button" data-sample>샘플 추가</button></div>
+        <form class="form-grid" data-card-form>
+          <label><span>묶음</span><input name="deck" type="text" placeholder="영단어, 한국사, 과학" maxlength="40"></label>
+          <label><span>앞면</span><textarea name="front" rows="3" required placeholder="질문, 단어, 개념"></textarea></label>
+          <label><span>뒷면</span><textarea name="back" rows="3" required placeholder="정답, 뜻, 설명"></textarea></label>
+          <button class="primary-button" type="submit">카드 저장</button>
+        </form>
+        <div class="list" data-card-list></div>
+      </section>
+
+      <section class="panel" data-panel="review" aria-labelledby="reviewTitle">
+        <div class="panel-head"><div><p class="eyebrow">Spaced Review</p><h2 id="reviewTitle">오늘 볼 카드</h2></div><span class="pill" data-review-count>0개</span></div>
+        <div class="review-card" data-review-card>
+          <p class="muted">오늘 복습할 카드가 없으면 암기 카드를 먼저 추가하세요.</p>
+        </div>
+      </section>
+
+      <section class="panel" data-panel="timer" aria-labelledby="timerTitle">
+        <div class="panel-head"><div><p class="eyebrow">Focus Timer</p><h2 id="timerTitle">공부 타이머</h2></div><span class="pill" data-timer-mode>집중</span></div>
+        <div class="timer-face" data-timer-display>25:00</div>
+        <div class="timer-controls">
+          <button type="button" data-preset="25">25분</button>
+          <button type="button" data-preset="50">50분</button>
+          <button class="primary-button" type="button" data-timer-toggle>시작</button>
+          <button type="button" data-timer-reset>초기화</button>
+          <button type="button" data-timer-log>집중 기록</button>
+        </div>
+      </section>
+
+      <section class="panel" data-panel="mistakes" aria-labelledby="mistakesTitle">
+        <div class="panel-head"><div><p class="eyebrow">Mistake Notes</p><h2 id="mistakesTitle">오답 노트</h2></div></div>
+        <form class="form-grid" data-mistake-form>
+          <label><span>과목</span><input name="subject" type="text" placeholder="수학, 영어, 과학" maxlength="40"></label>
+          <label><span>문제</span><textarea name="question" rows="3" required></textarea></label>
+          <label><span>내 답</span><textarea name="myAnswer" rows="2"></textarea></label>
+          <label><span>정답/해설</span><textarea name="correctAnswer" rows="3" required></textarea></label>
+          <button class="primary-button" type="submit">오답 저장</button>
+        </form>
+        <div class="list" data-mistake-list></div>
+      </section>
+
+      <section class="panel" data-panel="exams" aria-labelledby="examsTitle">
+        <div class="panel-head"><div><p class="eyebrow">D-day Planner</p><h2 id="examsTitle">시험 D-day와 할 일</h2></div></div>
+        <form class="form-grid compact" data-exam-form>
+          <label><span>시험/목표</span><input name="title" type="text" required placeholder="중간고사, 자격증, 발표"></label>
+          <label><span>날짜</span><input name="date" type="date" required></label>
+          <label><span>할 일</span><input name="todo" type="text" placeholder="단어 30개, 1단원 복습"></label>
+          <button class="primary-button" type="submit">추가</button>
+        </form>
+        <div class="list" data-exam-list></div>
+      </section>
+
+      <section class="panel" data-panel="backup" aria-labelledby="backupTitle">
+        <div class="panel-head"><div><p class="eyebrow">Backup</p><h2 id="backupTitle">백업과 복원</h2></div></div>
+        <p class="muted">데이터는 이 브라우저에만 저장됩니다. 휴대폰 변경이나 브라우저 데이터 삭제에 대비해 JSON 백업을 저장해 두세요.</p>
+        <div class="backup-row">
+          <button class="primary-button" type="button" data-export>JSON 백업 저장</button>
+          <label class="file-button"><span>JSON 복원</span><input type="file" accept="application/json" data-import></label>
+          <button class="danger-button" type="button" data-clear>전체 삭제</button>
+        </div>
+        <pre class="backup-preview" data-backup-preview aria-live="polite"></pre>
+      </section>
+    </section>
+  </main>
+
+  <script src="../analytics.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
