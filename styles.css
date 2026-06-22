@@ -170,6 +170,21 @@ a:focus-visible {
   color: var(--primary);
 }
 
+.install-button {
+  padding: 8px 12px;
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.install-button:hover {
+  background: var(--primary-dark);
+}
+
 .language-link {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -247,6 +262,27 @@ a:focus-visible {
   font-size: 18px;
 }
 
+.install-note {
+  margin-top: 18px;
+  padding: 16px;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.install-note strong,
+.install-note span {
+  display: block;
+}
+
+.install-note strong {
+  margin-bottom: 8px;
+  color: var(--primary);
+  font-size: 17px;
+}
+
 .tool-directory {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -278,6 +314,136 @@ a:focus-visible {
 .tool-directory strong {
   color: var(--muted);
   font-size: 14px;
+}
+
+.site-gateway {
+  margin: clamp(30px, 5vw, 50px) 0 0;
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid #c6d2d5;
+  border-radius: 8px;
+  background: #eaf1f0;
+}
+
+.gateway-heading {
+  max-width: 720px;
+  margin-bottom: 18px;
+}
+
+.gateway-heading h2 {
+  margin: 0 0 10px;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.15;
+}
+
+.gateway-heading p:not(.eyebrow) {
+  margin: 0;
+  color: var(--muted);
+}
+
+.gateway-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.gateway-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-height: 190px;
+  padding: 22px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  text-decoration: none;
+  overflow: hidden;
+  transition: transform 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.gateway-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 7px;
+}
+
+.gateway-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(31, 41, 51, 0.12);
+}
+
+.gateway-card small {
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.gateway-card span {
+  color: var(--text);
+  font-size: 21px;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.gateway-card strong {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.gateway-card em {
+  width: fit-content;
+  align-self: end;
+  margin-top: 8px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78);
+  font-style: normal;
+  font-weight: 900;
+}
+
+.gateway-study {
+  border-color: #7d9bd0;
+  background: #e8f0ff;
+}
+
+.gateway-study::before {
+  background: #4267b2;
+}
+
+.gateway-study small,
+.gateway-study em {
+  color: #27477d;
+}
+
+.gateway-paper {
+  border-color: #91b57c;
+  background: #eef8e6;
+}
+
+.gateway-paper::before {
+  background: #5f8d4e;
+}
+
+.gateway-paper small,
+.gateway-paper em {
+  color: #3e6633;
+}
+
+.gateway-kids {
+  border-color: #e2b64a;
+  background: #fff1bd;
+}
+
+.gateway-kids::before {
+  background: #d69c20;
+}
+
+.gateway-kids small,
+.gateway-kids em {
+  color: #7a5200;
 }
 
 .tool-panels {
@@ -797,6 +963,7 @@ summary {
   .two-column,
   .converter-row,
   .tool-directory,
+  .gateway-grid,
   .content-grid,
   .info-grid {
     grid-template-columns: 1fr;

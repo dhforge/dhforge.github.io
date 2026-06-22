@@ -66,11 +66,14 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=pwa-install-20260622">
   <meta name="color-scheme" content="light">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="search" type="application/opensearchdescription+xml" title="DH Forge" href="/opensearch.xml">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
 </head>
 <body><noscript class="noscript-notice">이 페이지의 계산, 검색, 학습지 미리보기, 출력용 종이 미리보기 기능은 JavaScript가 켜져 있어야 완전히 작동합니다.</noscript>
   <a class="skip-link" href="#main-content">본문으로 이동</a>
@@ -99,12 +102,6 @@
       <p class="eyebrow">Free Browser Tools</p>
       <h1>이미지, 색상, 출력 작업을 브라우저에서 바로 정리하세요</h1>
       <p>회원가입, 설치, 서버 업로드 없이 이미지 크기 조정, 화면 비율 계산, 색상 변환, QR 코드 생성, 텍스트 정리를 처리하는 정적 도구 모음입니다.</p>
-    </section>
-
-    <section class="content-panel">
-      <p class="eyebrow">사용 팁</p>
-      <h2>자주 쓰는 작업을 빠르게 끝내세요</h2>
-      <p>마지막 검토일: 2026-06-22. 이미지와 디자인 보조 도구를 중심으로 두고, 문서 정리와 출력용 콘텐츠로 이어지는 흐름을 간단하게 유지했습니다.</p>
     </section>
 
     <section class="tool-directory" aria-label="도구 목록">
@@ -140,18 +137,34 @@
         <span>단위 변환기</span>
         <strong>길이, 무게, 온도, 면적 변환</strong>
       </a>
-      <a href="study/">
-        <span>공부 카드와 플래너</span>
-        <strong>홈 화면에 추가해서 쓰는 암기 카드, 복습, 타이머, 오답 노트</strong>
-      </a>
-      <a href="paper/ko/">
-        <span>인쇄용 종이 템플릿</span>
-        <strong>모눈종이, 줄노트, 계획표, 체크리스트를 PDF로 출력</strong>
-      </a>
-      <a href="kids/">
-        <span>유아·초등 학습지</span>
-        <strong>숫자, 알파벳, 한글, 덧셈, 미로, 색칠 도안 출력</strong>
-      </a>
+    </section>
+
+    <section class="site-gateway" aria-label="다른 도움 사이트">
+      <div class="gateway-heading">
+        <p class="eyebrow">다른 사이트로 이동</p>
+        <h2>공부, 출력물, 어린이 자료는 별도 사이트에서 도와드려요</h2>
+        <p>아래 3개는 현재 도구 목록이 아니라 각각 다른 도움 사이트로 연결됩니다.</p>
+      </div>
+      <div class="gateway-grid">
+        <a class="gateway-card gateway-study" href="study/">
+          <small>다른 사이트</small>
+          <span>공부 카드와 플래너</span>
+          <strong>홈 화면에 추가해서 쓰는 암기 카드, 복습, 타이머, 오답 노트</strong>
+          <em>공부 앱 열기 →</em>
+        </a>
+        <a class="gateway-card gateway-paper" href="paper/ko/">
+          <small>다른 사이트</small>
+          <span>인쇄용 종이 템플릿</span>
+          <strong>모눈종이, 줄노트, 계획표, 체크리스트를 PDF로 출력</strong>
+          <em>템플릿 보기 →</em>
+        </a>
+        <a class="gateway-card gateway-kids" href="kids/">
+          <small>다른 사이트</small>
+          <span>유아·초등 학습지</span>
+          <strong>숫자, 알파벳, 한글, 덧셈, 미로, 색칠 도안 출력</strong>
+          <em>학습지 만들기 →</em>
+        </a>
+      </div>
     </section>
 
     <section class="info-band">
@@ -205,6 +218,6 @@
       <a href="contact.html">문의</a>
     </nav>
   </footer>
-  <script src="app.js?v=stats-site-20260621" defer></script>
+  <script src="app.js?v=pwa-install-20260622" defer></script>
 </body>
 </html>
