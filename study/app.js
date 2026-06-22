@@ -18,6 +18,7 @@ let timer = {
 
 document.addEventListener("DOMContentLoaded", () => {
   bindTabs();
+  bindHeroActions();
   bindInstall();
   bindCards();
   bindWordBank();
@@ -29,6 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
   registerServiceWorker();
   renderAll();
 });
+
+function activateTab(tab) {
+  $$(".tab-button").forEach((item) => item.classList.toggle("is-active", item.dataset.tab === tab));
+  $$("[data-panel]").forEach((panel) => panel.classList.toggle("is-active", panel.dataset.panel === tab));
+}
 
 function loadState() {
   try {
@@ -70,10 +76,22 @@ function bindTabs() {
   $$(".tab-button").forEach((button) => {
     button.addEventListener("click", () => {
       const tab = button.dataset.tab;
-      $$(".tab-button").forEach((item) => item.classList.toggle("is-active", item === button));
-      $$("[data-panel]").forEach((panel) => panel.classList.toggle("is-active", panel.dataset.panel === tab));
+      activateTab(tab);
       track("open_tab", { tab });
     });
+  });
+}
+
+function bindHeroActions() {
+  $("[data-start-review]")?.addEventListener("click", () => {
+    activateTab("review");
+    document.querySelector(".workspace")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    track("start_review_from_hero");
+  });
+  $("[data-start-wordbank]")?.addEventListener("click", () => {
+    activateTab("wordbank");
+    document.querySelector(".workspace")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    track("open_wordbank_from_hero");
   });
 }
 
@@ -463,7 +481,8 @@ function renderCards() {
       </div>
       <p>${escapeHtml(card.back)}</p>
     </article>
-  `).join("") : '<p class="muted">아직 저장된 카드가 없습니다.</p>';
+  `).join("") : '<div class="empty-state"><b>아직 저장된 카드가 없습니다</b><p>단어장에서 필요한 영단어나 한자를 골라 카드로 추가하세요.</p><button class="primary-button" type="button" data-empty-wordbank>단어 고르기</button></div>';
+  list.querySelector("[data-empty-wordbank]")?.addEventListener("click", () => activateTab("wordbank"));
   $$("[data-delete-card]").forEach((button) => {
     button.addEventListener("click", () => {
       state.cards = state.cards.filter((card) => card.id !== button.dataset.deleteCard);
@@ -481,14 +500,14 @@ function renderWordBank() {
   setText("[data-word-bank-count]", `${words.length}개`);
 
   if (!getWordBank().length) {
-    list.innerHTML = '<p class="muted">단어장 데이터를 불러오지 못했습니다. 잠시 후 새로고침해 주세요.</p>';
+    list.innerHTML = '<div class="empty-state"><b>단어장 데이터를 불러오지 못했습니다</b><p>잠시 후 새로고침해 주세요.</p></div>';
     return;
   }
 
   if (!words.length) {
     list.innerHTML = wordBankFilters.type === "hanja" && wordBankFilters.level !== "hanja10"
-      ? '<p class="muted">이 한자 급수는 시험 기관 기준을 확정한 뒤 배정 한자를 넣어야 합니다. 기준 기관을 정하면 해당 급수 전체를 정확히 추가하겠습니다.</p>'
-      : '<p class="muted">검색 조건에 맞는 단어가 없습니다.</p>';
+      ? '<div class="empty-state"><b>아직 배정 전인 한자 급수입니다</b><p>기준 기관을 정하면 해당 급수 전체를 정확히 추가할 수 있습니다.</p></div>'
+      : '<div class="empty-state"><b>검색 결과가 없습니다</b><p>검색어를 줄이거나 종류와 수준을 전체로 바꿔 보세요.</p></div>';
     return;
   }
 
@@ -518,7 +537,8 @@ function renderReview() {
   if (!reviewCard) return;
   const card = dueCards[reviewIndex] || dueCards[0];
   if (!card) {
-    reviewCard.innerHTML = '<p class="muted">오늘 복습할 항목이 없습니다. 단어장에서 영단어나 한자를 추가하거나 내일 다시 확인하세요.</p>';
+    reviewCard.innerHTML = '<div class="empty-state review-complete"><b>오늘 복습할 항목이 없습니다</b><p>단어장에서 새 카드를 추가하거나 내일 다시 확인하세요.</p><button class="primary-button" type="button" data-empty-wordbank>단어 고르기</button></div>';
+    reviewCard.querySelector("[data-empty-wordbank]")?.addEventListener("click", () => activateTab("wordbank"));
     return;
   }
   reviewCard.innerHTML = `
@@ -549,7 +569,7 @@ function renderMistakes() {
       ${item.myAnswer ? `<p><b>내 답:</b> ${escapeHtml(item.myAnswer)}</p>` : ""}
       <p><b>정답/해설:</b> ${escapeHtml(item.correctAnswer)}</p>
     </article>
-  `).join("") : '<p class="muted">아직 저장된 오답이 없습니다.</p>';
+  `).join("") : '<div class="empty-state"><b>아직 저장된 오답이 없습니다</b><p>틀린 문제를 짧게 적어 두면 다음 복습 때 바로 찾기 쉽습니다.</p></div>';
   $$("[data-delete-mistake]").forEach((button) => {
     button.addEventListener("click", () => {
       state.mistakes = state.mistakes.filter((item) => item.id !== button.dataset.deleteMistake);
@@ -574,7 +594,7 @@ function renderExams() {
         <div class="list">${todos}</div>
       </article>
     `;
-  }).join("") : '<p class="muted">아직 등록된 시험이나 목표가 없습니다.</p>';
+  }).join("") : '<div class="empty-state"><b>아직 등록된 시험이나 목표가 없습니다</b><p>시험일이나 발표일을 등록하면 남은 날짜를 한눈에 볼 수 있습니다.</p></div>';
   $$("[data-delete-exam]").forEach((button) => {
     button.addEventListener("click", () => {
       state.exams = state.exams.filter((item) => item.id !== button.dataset.deleteExam);

@@ -203,6 +203,17 @@ h1 {
   font-size: 18px;
 }
 
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.hero-actions button {
+  min-width: 150px;
+}
+
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -404,6 +415,32 @@ textarea {
   background: #fbfdfc;
 }
 
+.empty-state {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  min-height: 150px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfdfc;
+  color: var(--muted);
+}
+
+.empty-state b {
+  color: var(--primary-dark);
+  font-size: 18px;
+}
+
+.empty-state p {
+  margin: 0;
+}
+
+.review-complete {
+  place-content: center;
+  text-align: left;
+}
+
 .flash-face {
   display: grid;
   place-items: center;
@@ -414,6 +451,7 @@ textarea {
   border-radius: 8px;
   background: #ffffff;
   font-size: clamp(22px, 4vw, 34px);
+  line-height: 1.35;
   text-align: center;
 }
 
@@ -478,5 +516,16 @@ textarea {
   .tab-button {
     min-width: max-content;
     margin-bottom: 0;
+  }
+
+  .hero-actions button,
+  .item-actions button,
+  .backup-row button,
+  .backup-row .file-button {
+    flex: 1 1 150px;
+  }
+
+  .flash-face {
+    min-height: 150px;
   }
 }
