@@ -1,4 +1,4 @@
-const STUDY_CACHE = "study-lab-v5";
+const STUDY_CACHE = "study-lab-v6";
 const STUDY_ASSETS = [
   "/study/",
   "/study/index.html",
@@ -28,6 +28,19 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+  const destination = event.request.destination;
+  const networkFirst = event.request.mode === "navigate" || ["document", "script", "style"].includes(destination);
+  if (networkFirst) {
+    event.respondWith(
+      fetch(event.request).then((response) => {
+        const clone = response.clone();
+        caches.open(STUDY_CACHE).then((cache) => cache.put(event.request, clone));
+        return response;
+      }).catch(() => caches.match(event.request).then((cached) => cached || caches.match("/study/")))
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then((cached) => cached || fetch(event.request).then((response) => {
       const clone = response.clone();
