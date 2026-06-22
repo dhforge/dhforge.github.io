@@ -234,7 +234,16 @@ function levelLabel(level) {
     elementary: "초등",
     middle: "중등",
     high: "고등",
-    basic: "기초"
+    hanja10: "10급",
+    hanja9: "9급",
+    hanja8: "8급",
+    hanja7: "7급",
+    hanja6: "6급",
+    hanja5: "5급",
+    hanja4: "4급",
+    hanja3: "3급",
+    hanja2: "2급",
+    hanja1: "1급"
   }[level] || "기본";
 }
 
@@ -477,7 +486,9 @@ function renderWordBank() {
   }
 
   if (!words.length) {
-    list.innerHTML = '<p class="muted">검색 조건에 맞는 단어가 없습니다.</p>';
+    list.innerHTML = wordBankFilters.type === "hanja" && wordBankFilters.level !== "hanja10"
+      ? '<p class="muted">이 한자 급수는 시험 기관 기준을 확정한 뒤 배정 한자를 넣어야 합니다. 기준 기관을 정하면 해당 급수 전체를 정확히 추가하겠습니다.</p>'
+      : '<p class="muted">검색 조건에 맞는 단어가 없습니다.</p>';
     return;
   }
 
