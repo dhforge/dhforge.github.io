@@ -17,6 +17,7 @@ const SITE_COPY = {
   }
 };
 const trackedToolActions = new Set();
+let deferredInstallPrompt = null;
 
 function trackAnalyticsEvent(eventName, params = {}) {
   if (typeof window.gtag !== "function") return;
@@ -61,6 +62,8 @@ function initAnalytics() {
 
 document.addEventListener("DOMContentLoaded", () => {
   initAnalytics();
+  registerServiceWorker();
+  bindInstallPrompt();
   initStructuredData();
   initNavigation();
   initDirectorySearch();
@@ -72,10 +75,74 @@ document.addEventListener("DOMContentLoaded", () => {
   initQrGenerator();
   initTextCleaner();
   initColorTool();
+  initColorPalette();
+  initGradientGenerator();
   initTimerTool();
   initRatioTool();
   initImageResizer();
+  initImageCompressor();
+  initImageConverter();
+  initThumbnailMaker();
+  initFaviconGenerator();
 });
+
+function registerServiceWorker() {
+  if (!("serviceWorker" in navigator)) return;
+  navigator.serviceWorker.register("/sw.js").catch(() => {});
+}
+
+function bindInstallPrompt() {
+  const labels = IS_EN
+    ? {
+      button: "Add app",
+      title: "Use it like an app",
+      ios: "iPhone: Safari share button > Add to Home Screen",
+      android: "Galaxy: Chrome menu > Install app or Add to Home screen"
+    }
+    : {
+      button: "앱처럼 추가",
+      title: "앱처럼 사용하기",
+      ios: "iPhone: Safari 공유 버튼 > 홈 화면에 추가",
+      android: "Galaxy: Chrome 메뉴 > 앱 설치 또는 홈 화면에 추가"
+    };
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+  let installButton = document.querySelector("[data-install]");
+  if (!installButton) {
+    installButton = document.createElement("button");
+    installButton.className = "install-button";
+    installButton.type = "button";
+    installButton.dataset.install = "";
+    installButton.textContent = labels.button;
+    header.append(installButton);
+  }
+
+  let note = document.querySelector("[data-install-note]");
+  if (!note) {
+    note = document.createElement("div");
+    note.className = "install-note";
+    note.dataset.installNote = "";
+    note.innerHTML = `<strong>${labels.title}</strong><span>${labels.ios}</span><span>${labels.android}</span>`;
+    const target = document.querySelector(".home-hero") || document.querySelector(".tool-heading") || document.querySelector("main");
+    if (target) target.append(note);
+  }
+
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+  });
+
+  installButton.addEventListener("click", async () => {
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+      await deferredInstallPrompt.userChoice;
+      deferredInstallPrompt = null;
+      trackToolUse("pwa", "install_prompt");
+      return;
+    }
+    note.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+}
 
 function initDirectorySearch() {
   const input = document.querySelector("[data-directory-search]");
@@ -1239,4 +1306,272 @@ function initImageResizer() {
   }
 
   drawResizedImage();
+}
+
+function loadImageFromInput(input, callback) {
+  const file = input.files && input.files[0];
+  if (!file) return;
+  const image = new Image();
+  image.onload = () => {
+    callback(image, file);
+    URL.revokeObjectURL(image.src);
+  };
+  image.src = URL.createObjectURL(file);
+}
+
+function drawImageFit(ctx, image, width, height, fit = "contain", background = "#ffffff") {
+  ctx.fillStyle = background;
+  ctx.fillRect(0, 0, width, height);
+  const imageRatio = image.width / image.height;
+  const targetRatio = width / height;
+  let drawWidth = width;
+  let drawHeight = height;
+  if ((fit === "cover" && imageRatio > targetRatio) || (fit === "contain" && imageRatio < targetRatio)) {
+    drawHeight = height;
+    drawWidth = height * imageRatio;
+  } else {
+    drawWidth = width;
+    drawHeight = width / imageRatio;
+  }
+  const x = (width - drawWidth) / 2;
+  const y = (height - drawHeight) / 2;
+  ctx.drawImage(image, x, y, drawWidth, drawHeight);
+}
+
+function extensionFromMime(mime) {
+  return mime.split("/")[1].replace("jpeg", "jpg");
+}
+
+function initImageCompressor() {
+  const input = $("#compressInput");
+  if (!input) return;
+  const maxWidth = $("#compressMaxWidth");
+  const quality = $("#compressQuality");
+  const format = $("#compressFormat");
+  const canvas = $("#compressCanvas");
+  const download = $("#compressDownload");
+  const info = $("#compressInfo");
+  let sourceImage = null;
+  let sourceFile = null;
+
+  input.addEventListener("change", () => loadImageFromInput(input, (image, file) => {
+    sourceImage = image;
+    sourceFile = file;
+    render();
+  }));
+  $("#compressRun").addEventListener("click", render);
+  [maxWidth, quality, format].forEach((control) => control.addEventListener("input", render));
+
+  function render() {
+    const ctx = canvas.getContext("2d");
+    if (!sourceImage) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      info.textContent = IS_EN ? "Select an image." : "이미지를 선택하세요.";
+      return;
+    }
+    const targetWidth = Math.min(sourceImage.width, Math.max(64, Number(maxWidth.value || sourceImage.width)));
+    const targetHeight = Math.round(targetWidth / (sourceImage.width / sourceImage.height));
+    canvas.width = targetWidth;
+    canvas.height = targetHeight;
+    ctx.drawImage(sourceImage, 0, 0, targetWidth, targetHeight);
+    const dataUrl = canvas.toDataURL(format.value, Number(quality.value || 0.8));
+    const estimatedBytes = Math.round((dataUrl.length - dataUrl.indexOf(",") - 1) * 0.75);
+    download.href = dataUrl;
+    download.download = `compressed-image.${extensionFromMime(format.value)}`;
+    download.classList.add("is-ready");
+    const original = sourceFile ? sourceFile.size : 0;
+    const saved = original ? Math.max(0, Math.round((1 - estimatedBytes / original) * 100)) : 0;
+    info.textContent = `원본 ${formatBytes(original)} · 결과 약 ${formatBytes(estimatedBytes)} · 절감 ${saved}%`;
+  }
+}
+
+function initImageConverter() {
+  const input = $("#convertInput");
+  if (!input) return;
+  const format = $("#convertFormat");
+  const quality = $("#convertQuality");
+  const canvas = $("#convertCanvas");
+  const download = $("#convertDownload");
+  let sourceImage = null;
+
+  input.addEventListener("change", () => loadImageFromInput(input, (image) => {
+    sourceImage = image;
+    render();
+  }));
+  $("#convertRun").addEventListener("click", render);
+  [format, quality].forEach((control) => control.addEventListener("input", render));
+
+  function render() {
+    const ctx = canvas.getContext("2d");
+    if (!sourceImage) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      return;
+    }
+    canvas.width = sourceImage.width;
+    canvas.height = sourceImage.height;
+    if (format.value === "image/jpeg") {
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    ctx.drawImage(sourceImage, 0, 0);
+    download.href = canvas.toDataURL(format.value, Number(quality.value || 0.9));
+    download.download = `converted-image.${extensionFromMime(format.value)}`;
+    download.classList.add("is-ready");
+  }
+}
+
+function initThumbnailMaker() {
+  const input = $("#thumbInput");
+  if (!input) return;
+  const preset = $("#thumbPreset");
+  const fit = $("#thumbFit");
+  const bg = $("#thumbBg");
+  const canvas = $("#thumbCanvas");
+  const download = $("#thumbDownload");
+  let sourceImage = null;
+
+  input.addEventListener("change", () => loadImageFromInput(input, (image) => {
+    sourceImage = image;
+    render();
+  }));
+  $("#thumbRun").addEventListener("click", render);
+  [preset, fit, bg].forEach((control) => control.addEventListener("input", render));
+
+  function render() {
+    const [width, height] = preset.value.split("x").map(Number);
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = bg.value;
+    ctx.fillRect(0, 0, width, height);
+    if (sourceImage) drawImageFit(ctx, sourceImage, width, height, fit.value, bg.value);
+    download.href = canvas.toDataURL("image/png");
+    download.download = `thumbnail-${width}x${height}.png`;
+    download.classList.add("is-ready");
+  }
+
+  render();
+}
+
+function initGradientGenerator() {
+  const first = $("#gradientA");
+  if (!first) return;
+  const second = $("#gradientB");
+  const direction = $("#gradientDirection");
+  const preview = $("#gradientPreview");
+  const css = $("#gradientCss");
+
+  function render() {
+    const value = `linear-gradient(${direction.value}, ${first.value}, ${second.value})`;
+    preview.style.background = value;
+    css.value = `background: ${value};`;
+  }
+
+  [first, second, direction].forEach((control) => control.addEventListener("input", render));
+  $("#copyGradient").addEventListener("click", async () => {
+    css.select();
+    try {
+      await navigator.clipboard.writeText(css.value);
+    } catch {
+      document.execCommand("copy");
+    }
+  });
+  render();
+}
+
+function initColorPalette() {
+  const base = $("#paletteBase");
+  if (!base) return;
+  const grid = $("#paletteGrid");
+
+  function render() {
+    const hsl = rgbToHsl(...Object.values(hexToRgb(base.value)));
+    const colors = [
+      ["Base", hslToHex(hsl.h, hsl.s, hsl.l)],
+      ["Soft", hslToHex(hsl.h, Math.max(18, hsl.s - 24), Math.min(92, hsl.l + 22))],
+      ["Dark", hslToHex(hsl.h, hsl.s, Math.max(18, hsl.l - 24))],
+      ["Accent", hslToHex((hsl.h + 35) % 360, hsl.s, hsl.l)],
+      ["Complement", hslToHex((hsl.h + 180) % 360, hsl.s, hsl.l)]
+    ];
+    grid.innerHTML = "";
+    colors.forEach(([label, color]) => {
+      const item = document.createElement("button");
+      item.className = "palette-swatch";
+      item.type = "button";
+      item.style.background = color;
+      item.innerHTML = `<span>${label}</span><strong>${color}</strong>`;
+      item.addEventListener("click", () => navigator.clipboard?.writeText(color));
+      grid.append(item);
+    });
+  }
+
+  base.addEventListener("input", render);
+  render();
+}
+
+function initFaviconGenerator() {
+  const input = $("#faviconInput");
+  if (!input) return;
+  const bg = $("#faviconBg");
+  const output = $("#faviconOutput");
+  let sourceImage = null;
+
+  input.addEventListener("change", () => loadImageFromInput(input, (image) => {
+    sourceImage = image;
+    render();
+  }));
+  $("#faviconRun").addEventListener("click", render);
+  bg.addEventListener("input", render);
+
+  function render() {
+    output.innerHTML = "";
+    if (!sourceImage) {
+      output.innerHTML = '<div class="note-box">이미지를 선택하세요.</div>';
+      return;
+    }
+    [32, 180, 192, 512].forEach((size) => {
+      const canvas = document.createElement("canvas");
+      canvas.width = size;
+      canvas.height = size;
+      drawImageFit(canvas.getContext("2d"), sourceImage, size, size, "contain", bg.value);
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = `icon-${size}.png`;
+      link.append(canvas);
+      link.append(`${size}x${size} 저장`);
+      output.append(link);
+    });
+  }
+
+  render();
+}
+
+function hslToHex(h, s, l) {
+  const saturation = s / 100;
+  const lightness = l / 100;
+  const c = (1 - Math.abs(2 * lightness - 1)) * saturation;
+  const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+  const m = lightness - c / 2;
+  let r = 0;
+  let g = 0;
+  let b = 0;
+  if (h < 60) [r, g, b] = [c, x, 0];
+  else if (h < 120) [r, g, b] = [x, c, 0];
+  else if (h < 180) [r, g, b] = [0, c, x];
+  else if (h < 240) [r, g, b] = [0, x, c];
+  else if (h < 300) [r, g, b] = [x, 0, c];
+  else [r, g, b] = [c, 0, x];
+  return `#${[r, g, b].map((value) => Math.round((value + m) * 255).toString(16).padStart(2, "0")).join("")}`;
+}
+
+function formatBytes(bytes) {
+  if (!bytes) return "0 KB";
+  const units = ["B", "KB", "MB"];
+  let value = bytes;
+  let unit = 0;
+  while (value >= 1024 && unit < units.length - 1) {
+    value /= 1024;
+    unit += 1;
+  }
+  return `${value.toFixed(unit ? 1 : 0)} ${units[unit]}`;
 }

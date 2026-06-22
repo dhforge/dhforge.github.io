@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>무료 도구함 - 이미지, 디자인, 문서 작업용 브라우저 도구</title>
-  <meta name="description" content="이미지 리사이즈, 화면 비율 계산기, 색상 변환기, QR 코드 생성기, 텍스트 정리, 글자 수 계산기와 출력용 콘텐츠를 브라우저에서 무료로 사용하세요.">
+  <meta name="description" content="이미지 리사이즈, 이미지 압축, 포맷 변환, 썸네일 제작, 색상 팔레트, 그라데이션, QR 코드 생성기를 브라우저에서 무료로 사용하세요.">
   <meta name="robots" content="index,follow">
   <meta name="author" content="DH Forge">
   <meta name="application-name" content="무료 도구함">
@@ -14,7 +14,7 @@
   <meta name="theme-color" content="#2f6f73">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="무료 도구함">
-  <meta property="og:description" content="이미지, 색상, QR, 텍스트 정리와 출력 콘텐츠를 브라우저에서 사용하는 무료 도구 모음">
+  <meta property="og:description" content="이미지, 색상, 썸네일, QR, 웹 아이콘 작업을 브라우저에서 처리하는 무료 디자인 도구 모음">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://dhforge.github.io/">
   <meta property="og:image" content="https://dhforge.github.io/assets/og-toolbox.png">
@@ -66,7 +66,7 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="styles.css?v=pwa-install-20260622">
+  <link rel="stylesheet" href="styles.css?v=design-tools-20260622">
   <meta name="color-scheme" content="light">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
@@ -101,13 +101,31 @@
     <section class="home-hero">
       <p class="eyebrow">Free Browser Tools</p>
       <h1>이미지, 색상, 출력 작업을 브라우저에서 바로 정리하세요</h1>
-      <p>회원가입, 설치, 서버 업로드 없이 이미지 크기 조정, 화면 비율 계산, 색상 변환, QR 코드 생성, 텍스트 정리를 처리하는 정적 도구 모음입니다.</p>
+      <p>회원가입, 설치, 서버 업로드 없이 이미지 크기 조정, 압축, 포맷 변환, 썸네일 제작, 색상 조합, QR 코드 생성을 처리하는 정적 도구 모음입니다.</p>
+    </section>
+
+    <section class="tool-flow" aria-label="도구 사용 흐름">
+      <article><b>1. 입력</b><p>텍스트, 색상, 숫자, 이미지를 페이지 안에서 바로 넣습니다.</p></article>
+      <article><b>2. 확인</b><p>결과는 같은 화면의 결과 박스나 미리보기에서 즉시 확인합니다.</p></article>
+      <article><b>3. 복사·저장</b><p>필요한 결과만 복사하거나 이미지, QR, PDF로 저장합니다.</p></article>
     </section>
 
     <section class="tool-directory" aria-label="도구 목록">
       <a href="image-resizer/">
         <span>이미지 리사이즈</span>
-        <strong>이미지를 브라우저에서 크기 변경</strong>
+        <strong>업로드 없이 폭과 높이를 바꾸고 저장</strong>
+      </a>
+      <a href="image-compressor/">
+        <span>이미지 압축기</span>
+        <strong>게시 전 이미지 용량을 가볍게 정리</strong>
+      </a>
+      <a href="image-converter/">
+        <span>이미지 포맷 변환기</span>
+        <strong>PNG, JPG, WebP로 바로 변환</strong>
+      </a>
+      <a href="thumbnail-maker/">
+        <span>썸네일 크기 생성기</span>
+        <strong>블로그, SNS, 영상용 이미지 크기 제작</strong>
       </a>
       <a href="ratio-calculator/">
         <span>화면 비율 계산기</span>
@@ -117,26 +135,34 @@
         <span>색상 변환기</span>
         <strong>HEX, RGB, HSL, 대비 확인</strong>
       </a>
+      <a href="color-palette/">
+        <span>컬러 팔레트 생성기</span>
+        <strong>기준 색상으로 보조색 조합 만들기</strong>
+      </a>
+      <a href="gradient-generator/">
+        <span>그라데이션 생성기</span>
+        <strong>CSS 배경 그라데이션 코드 생성</strong>
+      </a>
       <a href="qr-generator/">
         <span>QR 코드 생성기</span>
-        <strong>URL과 텍스트를 QR 코드로 생성</strong>
+        <strong>URL이나 짧은 문구를 QR 이미지로 저장</strong>
       </a>
-      <a href="text-cleaner/">
-        <span>텍스트 정리 도구</span>
-        <strong>공백, 빈 줄, 중복 줄, 대소문자 정리</strong>
+      <a href="favicon-generator/">
+        <span>파비콘 / 앱 아이콘 생성기</span>
+        <strong>웹사이트용 아이콘 크기별 생성</strong>
       </a>
-      <a href="char-counter/">
-        <span>글자 수 계산기</span>
-        <strong>문자 수, byte, 단어 수, 읽기 시간 계산</strong>
-      </a>
-      <a href="date-calculator/">
-        <span>날짜 계산기</span>
-        <strong>날짜 차이와 며칠 전후 날짜 계산</strong>
-      </a>
-      <a href="unit-converter/">
-        <span>단위 변환기</span>
-        <strong>길이, 무게, 온도, 면적 변환</strong>
-      </a>
+    </section>
+
+    <section class="related-strip" aria-label="자주 함께 쓰는 도구">
+      <b>자주 함께 쓰는 조합</b>
+      <p>작업 흐름이 이어지는 도구만 묶었습니다.</p>
+      <div>
+        <a href="image-resizer/">이미지 리사이즈</a>
+        <a href="image-compressor/">이미지 압축기</a>
+        <a href="ratio-calculator/">화면 비율 계산기</a>
+        <a href="color-tool/">색상 변환기</a>
+        <a href="qr-generator/">QR 코드 생성기</a>
+      </div>
     </section>
 
     <section class="site-gateway" aria-label="다른 도움 사이트">
@@ -200,7 +226,7 @@
       </details>
       <details>
         <summary>어떤 도구부터 쓰면 좋나요?</summary>
-        <p>문서 작업에는 글자 수 계산기와 텍스트 정리 도구가 유용하고, 공유용 자료에는 QR 코드 생성기와 이미지 리사이즈 도구가 유용합니다.</p>
+        <p>이미지 작업은 리사이즈, 압축, 포맷 변환부터 시작하고, 웹 디자인 작업은 색상 변환, 팔레트, 그라데이션 도구로 이어가면 좋습니다.</p>
       </details>
       <details>
         <summary>광고가 표시될 수 있나요?</summary>
@@ -218,6 +244,6 @@
       <a href="contact.html">문의</a>
     </nav>
   </footer>
-  <script src="app.js?v=pwa-install-20260622" defer></script>
+  <script src="app.js?v=design-tools-20260622" defer></script>
 </body>
 </html>

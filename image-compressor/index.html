@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>이미지 압축기 - JPG, PNG, WebP 용량 줄이기</title>
+  <meta name="description" content="이미지를 서버에 업로드하지 않고 브라우저에서 JPG, PNG, WebP 용량을 줄이고 저장하세요.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://dhforge.github.io/image-compressor/">
+  <link rel="stylesheet" href="../styles.css?v=design-tools-20260622">
+  <meta name="color-scheme" content="light">
+</head>
+<body><noscript class="noscript-notice">이미지 도구는 JavaScript가 켜져 있어야 작동합니다.</noscript>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span><strong>무료 도구함</strong><small>이미지 압축기</small></span></a>
+    <nav class="top-nav" aria-label="주요 링크"><a href="../about.html">소개</a><a href="../privacy.html">개인정보처리방침</a><a href="../terms.html">이용 안내</a><a href="../contact.html">문의</a></nav>
+  </header>
+  <main class="tool-shell">
+    <aside class="tool-nav" aria-label="도구 목록">
+      <a class="tool-tab" href="../image-resizer/">이미지 리사이즈</a>
+      <a class="tool-tab is-active" href="../image-compressor/">이미지 압축기</a>
+      <a class="tool-tab" href="../image-converter/">이미지 포맷 변환기</a>
+      <a class="tool-tab" href="../thumbnail-maker/">썸네일 크기 생성기</a>
+      <a class="tool-tab" href="../ratio-calculator/">화면 비율 계산기</a>
+      <a class="tool-tab" href="../color-tool/">색상 변환기</a>
+      <a class="tool-tab" href="../color-palette/">컬러 팔레트 생성기</a>
+      <a class="tool-tab" href="../gradient-generator/">그라데이션 생성기</a>
+      <a class="tool-tab" href="../qr-generator/">QR 코드 생성기</a>
+      <a class="tool-tab" href="../favicon-generator/">파비콘 / 앱 아이콘 생성기</a>
+    </aside>
+    <div class="tool-panels">
+      <section class="tool-panel is-active">
+        <div class="panel-heading">
+          <div><p class="eyebrow">Image Utility</p><h1>이미지 압축기</h1></div>
+          <p>품질과 최대 너비를 조정해 이미지를 가볍게 저장합니다.</p>
+        </div>
+        <div class="two-column">
+          <div>
+            <label class="field"><span>이미지 선택</span><input id="compressInput" type="file" accept="image/png,image/jpeg,image/webp"></label>
+            <label class="field"><span>최대 너비</span><input id="compressMaxWidth" type="number" min="64" value="1600"></label>
+            <label class="field"><span>품질</span><input id="compressQuality" type="range" min="0.35" max="0.95" step="0.05" value="0.8"></label>
+            <label class="field"><span>저장 형식</span><select id="compressFormat"><option value="image/webp">WebP</option><option value="image/jpeg">JPG</option><option value="image/png">PNG</option></select></label>
+            <button class="primary-button" id="compressRun" type="button">압축 이미지 만들기</button>
+            <a class="download-link" id="compressDownload" download="compressed-image.webp">결과 저장</a>
+          </div>
+          <div>
+            <div class="canvas-stage image-stage"><canvas id="compressCanvas" width="360" height="240" aria-label="압축 이미지 미리보기"></canvas></div>
+            <output class="notice" id="compressInfo">이미지를 선택하세요.</output>
+          </div>
+        </div>
+      </section>
+      <section class="content-panel">
+        <h2>이미지 압축기 사용법</h2>
+        <p>블로그, 쇼핑몰, 포트폴리오에 올릴 이미지를 브라우저 안에서 줄입니다. 원본은 바뀌지 않고 새 파일만 저장됩니다.</p>
+        <div class="related-tools"><a href="../image-resizer/">이미지 리사이즈</a><a href="../image-converter/">이미지 포맷 변환기</a><a href="../thumbnail-maker/">썸네일 크기 생성기</a></div>
+      </section>
+    </div>
+  </main>
+  <script src="../app.js?v=design-tools-20260622" defer></script>
+</body>
+</html>

@@ -11,7 +11,7 @@
   <link rel="alternate" hreflang="ko" href="https://dhforge.github.io/qr-generator/">
   <link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/qr-generator/">
   <link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/qr-generator/">
-  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../styles.css?v=pwa-install-20260622">
   <script type="application/ld+json">
 {
     "@context":  "https://schema.org",
@@ -35,6 +35,11 @@
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="search" type="application/opensearchdescription+xml" title="DH Forge" href="/opensearch.xml">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="DH Forge">
+  <meta name="theme-color" content="#2f6f73">
 </head>
 <body><noscript class="noscript-notice">이 페이지의 계산, 검색, 학습지 미리보기, 출력용 종이 미리보기 기능은 JavaScript가 켜져 있어야 완전히 작동합니다.</noscript>
   <header class="site-header">
@@ -43,16 +48,16 @@
   </header>
   <main class="tool-shell">
     <aside class="tool-nav" aria-label="도구 목록">
-      <a class="tool-tab" href="../char-counter/">글자 수 계산기</a>
-      <a class="tool-tab" href="../date-calculator/">날짜 계산기</a>
-      <a class="tool-tab" href="../unit-converter/">단위 변환기</a>
-
-      <a class="tool-tab is-active" href="../qr-generator/">QR 코드 생성기</a>
-      <a class="tool-tab" href="../text-cleaner/">텍스트 정리 도구</a>
-      <a class="tool-tab" href="../color-tool/">색상 변환기</a>
-
-      <a class="tool-tab" href="../ratio-calculator/">비율 계산기</a>
       <a class="tool-tab" href="../image-resizer/">이미지 리사이즈</a>
+      <a class="tool-tab" href="../image-compressor/">이미지 압축기</a>
+      <a class="tool-tab" href="../image-converter/">이미지 포맷 변환기</a>
+      <a class="tool-tab" href="../thumbnail-maker/">썸네일 크기 생성기</a>
+      <a class="tool-tab" href="../ratio-calculator/">화면 비율 계산기</a>
+      <a class="tool-tab" href="../color-tool/">색상 변환기</a>
+      <a class="tool-tab" href="../color-palette/">컬러 팔레트 생성기</a>
+      <a class="tool-tab" href="../gradient-generator/">그라데이션 생성기</a>
+      <a class="tool-tab is-active" href="../qr-generator/">QR 코드 생성기</a>
+      <a class="tool-tab" href="../favicon-generator/">파비콘 / 앱 아이콘 생성기</a>
     </aside>
     <div class="tool-panels">
       <section class="tool-panel is-active">
@@ -93,14 +98,14 @@
         <details><summary>QR 내용이 서버로 전송되나요?</summary><p>아니요. QR 코드는 현재 브라우저의 JavaScript와 canvas로 생성됩니다.</p></details>
         <details><summary>생성한 QR은 상업적으로 써도 되나요?</summary><p>QR 이미지 자체는 자유롭게 사용할 수 있습니다. 다만 QR에 담긴 링크나 문구의 권리는 사용자가 직접 확인해야 합니다.</p></details>
         <div class="related-tools">
-          <a href="../char-counter/">글자 수 계산기</a>
+          <a href="../favicon-generator/">파비콘 / 앱 아이콘 생성기</a>
           <a href="../image-resizer/">이미지 리사이즈</a>
-          <a href="../text-cleaner/">텍스트 정리 도구</a>
+          <a href="../image-converter/">이미지 포맷 변환기</a>
         </div>
       </section>
     </div>
   </main>
-  <script src="../app.js?v=stats-site-20260621" defer></script>
+  <script src="../app.js?v=pwa-install-20260622" defer></script>
 </body>
 </html>
 

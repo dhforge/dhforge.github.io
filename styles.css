@@ -115,7 +115,7 @@ a:focus-visible {
   justify-content: space-between;
   gap: 24px;
   min-height: 72px;
-  padding: 12px clamp(16px, 4vw, 44px);
+  padding: 12px max(clamp(16px, 4vw, 44px), 148px) 12px clamp(16px, 4vw, 44px);
   background: rgba(255, 255, 255, 0.94);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(10px);
@@ -171,6 +171,10 @@ a:focus-visible {
 }
 
 .install-button {
+  position: absolute;
+  top: 14px;
+  right: clamp(16px, 4vw, 44px);
+  z-index: 2;
   padding: 8px 12px;
   color: #fff;
   background: var(--primary);
@@ -179,6 +183,8 @@ a:focus-visible {
   font: inherit;
   font-weight: 800;
   cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 10px 24px rgba(47, 111, 115, 0.18);
 }
 
 .install-button:hover {
@@ -314,6 +320,64 @@ a:focus-visible {
 .tool-directory strong {
   color: var(--muted);
   font-size: 14px;
+}
+
+.tool-flow,
+.status-guide,
+.related-strip {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0 0;
+}
+
+.tool-flow {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.tool-flow article,
+.status-guide,
+.related-strip {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.tool-flow b,
+.status-guide b,
+.related-strip b {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--primary-dark);
+}
+
+.tool-flow p,
+.status-guide p,
+.related-strip p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.related-strip div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.related-strip a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--primary);
+  background: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
 }
 
 .site-gateway {
@@ -688,6 +752,11 @@ textarea {
   white-space: pre-wrap;
 }
 
+.notice:empty::before {
+  content: "입력값을 넣으면 결과가 여기에 표시됩니다.";
+  color: var(--muted);
+}
+
 .notice.tall {
   min-height: 120px;
   margin-top: 18px;
@@ -757,6 +826,77 @@ canvas {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--primary);
+}
+
+.gradient-preview {
+  min-height: 220px;
+  margin-bottom: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+}
+
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.palette-swatch {
+  min-height: 150px;
+  display: grid;
+  align-content: end;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.palette-swatch span,
+.palette-swatch strong {
+  padding: 3px 6px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.34);
+}
+
+.palette-swatch span {
+  width: fit-content;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.palette-swatch strong {
+  width: fit-content;
+  font-size: 14px;
+}
+
+.icon-output {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.icon-output a {
+  display: grid;
+  place-items: center;
+  gap: 8px;
+  min-height: 134px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--primary);
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+}
+
+.icon-output canvas {
+  width: 64px;
+  height: 64px;
 }
 
 .time-box {
@@ -963,6 +1103,7 @@ summary {
   .two-column,
   .converter-row,
   .tool-directory,
+  .tool-flow,
   .gateway-grid,
   .content-grid,
   .info-grid {
@@ -989,7 +1130,9 @@ summary {
   }
 
   .result-grid,
-  .result-grid.compact {
+  .result-grid.compact,
+  .palette-grid,
+  .icon-output {
     grid-template-columns: 1fr;
   }
 

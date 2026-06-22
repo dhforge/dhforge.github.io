@@ -211,5 +211,29 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/about.html"/>
     <lastmod>2026-06-21</lastmod>
   </url>
+  <url>
+    <loc>https://dhforge.github.io/image-compressor/</loc>
+    <lastmod>2026-06-22</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/image-converter/</loc>
+    <lastmod>2026-06-22</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/thumbnail-maker/</loc>
+    <lastmod>2026-06-22</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/color-palette/</loc>
+    <lastmod>2026-06-22</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/gradient-generator/</loc>
+    <lastmod>2026-06-22</lastmod>
+  </url>
+  <url>
+    <loc>https://dhforge.github.io/favicon-generator/</loc>
+    <lastmod>2026-06-22</lastmod>
+  </url>
 </urlset>
 

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>이미지 포맷 변환기 - PNG, JPG, WebP 변환</title>
+  <meta name="description" content="이미지를 브라우저에서 PNG, JPG, WebP 형식으로 변환하고 저장하세요.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://dhforge.github.io/image-converter/">
+  <link rel="stylesheet" href="../styles.css?v=design-tools-20260622">
+  <meta name="color-scheme" content="light">
+</head>
+<body><noscript class="noscript-notice">이미지 도구는 JavaScript가 켜져 있어야 작동합니다.</noscript>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span><strong>무료 도구함</strong><small>이미지 포맷 변환기</small></span></a>
+    <nav class="top-nav" aria-label="주요 링크"><a href="../about.html">소개</a><a href="../privacy.html">개인정보처리방침</a><a href="../terms.html">이용 안내</a><a href="../contact.html">문의</a></nav>
+  </header>
+  <main class="tool-shell">
+    <aside class="tool-nav" aria-label="도구 목록">
+      <a class="tool-tab" href="../image-resizer/">이미지 리사이즈</a><a class="tool-tab" href="../image-compressor/">이미지 압축기</a><a class="tool-tab is-active" href="../image-converter/">이미지 포맷 변환기</a><a class="tool-tab" href="../thumbnail-maker/">썸네일 크기 생성기</a><a class="tool-tab" href="../ratio-calculator/">화면 비율 계산기</a><a class="tool-tab" href="../color-tool/">색상 변환기</a><a class="tool-tab" href="../color-palette/">컬러 팔레트 생성기</a><a class="tool-tab" href="../gradient-generator/">그라데이션 생성기</a><a class="tool-tab" href="../qr-generator/">QR 코드 생성기</a><a class="tool-tab" href="../favicon-generator/">파비콘 / 앱 아이콘 생성기</a>
+    </aside>
+    <div class="tool-panels">
+      <section class="tool-panel is-active">
+        <div class="panel-heading"><div><p class="eyebrow">Image Utility</p><h1>이미지 포맷 변환기</h1></div><p>PNG, JPG, WebP로 바로 변환합니다.</p></div>
+        <div class="two-column">
+          <div>
+            <label class="field"><span>이미지 선택</span><input id="convertInput" type="file" accept="image/png,image/jpeg,image/webp"></label>
+            <label class="field"><span>변환 형식</span><select id="convertFormat"><option value="image/webp">WebP</option><option value="image/jpeg">JPG</option><option value="image/png">PNG</option></select></label>
+            <label class="field"><span>JPG/WebP 품질</span><input id="convertQuality" type="range" min="0.4" max="0.95" step="0.05" value="0.9"></label>
+            <button class="primary-button" id="convertRun" type="button">변환하기</button>
+            <a class="download-link" id="convertDownload" download="converted-image.webp">결과 저장</a>
+          </div>
+          <div class="canvas-stage image-stage"><canvas id="convertCanvas" width="360" height="240" aria-label="변환 이미지 미리보기"></canvas></div>
+        </div>
+      </section>
+      <section class="content-panel"><h2>이미지 포맷 변환기 사용법</h2><p>투명 배경이 필요하면 PNG, 웹 최적화가 필요하면 WebP, 호환성이 중요하면 JPG를 선택하세요.</p><div class="related-tools"><a href="../image-compressor/">이미지 압축기</a><a href="../image-resizer/">이미지 리사이즈</a></div></section>
+    </div>
+  </main>
+  <script src="../app.js?v=design-tools-20260622" defer></script>
+</body>
+</html>
