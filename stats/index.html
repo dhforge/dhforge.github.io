@@ -232,6 +232,28 @@
       line-height: 1.6;
     }
 
+    .truth-box {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .truth-card {
+      padding: 16px;
+      background: #f8fbff;
+      border: 1px solid #cfe0ff;
+      border-radius: 8px;
+      line-height: 1.6;
+    }
+
+    .truth-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #1e3a8a;
+      font-size: 17px;
+    }
+
     .report-card {
       overflow: hidden;
       padding: 0;
@@ -271,7 +293,8 @@
       }
 
       .site-grid,
-      .metric-grid {
+      .metric-grid,
+      .truth-box {
         grid-template-columns: 1fr;
       }
     }
@@ -294,6 +317,17 @@
   </header>
 
   <main>
+    <section class="truth-box" aria-label="통계 판정">
+      <div class="truth-card">
+        <strong>55명이 진짜 외부 방문자인지는 아직 확정하면 안 됩니다.</strong>
+        GA4의 <b>Active users</b>는 Google이 잡은 활성 사용자 수라서 숫자 자체는 GA 기준의 실제 기록입니다. 하지만 본인 접속, 다른 기기, 테스트, 미리보기, 보고서 확인 과정이 섞일 수 있어서 “순수 외부 방문자 55명”으로 보기는 이릅니다.
+      </div>
+      <div class="truth-card">
+        <strong>정확히 보려면 이렇게 봅니다.</strong>
+        GA에서 날짜 범위를 정하고, <b>사용자 획득</b>, <b>페이지 및 화면</b>, <b>이벤트 tool_use</b>를 같이 봐야 합니다. 방문자 수만 높고 평균 방문시간이나 tool_use가 낮으면 실제 사용자는 적을 수 있습니다.
+      </div>
+    </section>
+
     <section class="panel">
       <h2>추적 중인 3개 사이트</h2>
       <div class="site-grid">
@@ -406,6 +440,11 @@
       <p class="notice">
         지금 스크린샷처럼 조회수 카드 1개만 보이면 Looker Studio 보고서 편집 화면에서 카드와 표가 아직 추가되지 않은 상태입니다.
         보고서에는 위 표의 항목대로 <strong>날짜, 사이트, 조회수, 방문자 수, 평균 방문시간, tool_use 이벤트 수, 사용률</strong>을 넣어야 합니다.
+      </p>
+      <p class="notice">
+        <strong>55명 숫자 판정:</strong> GA4의 <code>Active users</code>라면 Google Analytics가 잡은 활성 사용자 수는 맞습니다.
+        다만 내부 트래픽 제외 필터를 만들기 전까지는 본인 테스트와 외부 방문을 분리하지 못합니다.
+        그래서 AdSense 판단이나 “사이트가 먹힌다”는 판단에는 <strong>외부 유입 경로, 평균 참여 시간, tool_use 이벤트</strong>를 같이 확인해야 합니다.
       </p>
     </section>
 
