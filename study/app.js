@@ -5,6 +5,7 @@ const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 
 const state = loadState();
+const wordBankFilters = { level: "all", query: "" };
 let reviewIndex = 0;
 let flipped = false;
 let deferredInstallPrompt = null;
@@ -19,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   bindTabs();
   bindInstall();
   bindCards();
+  bindWordBank();
   bindReview();
   bindTimer();
   bindMistakes();
@@ -138,6 +140,82 @@ function bindCards() {
       renderAll();
     });
   }
+}
+
+function bindWordBank() {
+  const levelSelect = $("[data-word-level]");
+  const searchInput = $("[data-word-search]");
+  const list = $("[data-word-bank-list]");
+
+  levelSelect?.addEventListener("change", () => {
+    wordBankFilters.level = levelSelect.value || "all";
+    renderWordBank();
+  });
+
+  searchInput?.addEventListener("input", () => {
+    wordBankFilters.query = searchInput.value.trim().toLowerCase();
+    renderWordBank();
+  });
+
+  list?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-add-word]");
+    if (!button) return;
+    const word = getWordBank().find((item) => item.id === button.dataset.addWord);
+    if (!word) return;
+    addWordCard(word);
+    track("add_word_bank_card", { level: word.level });
+    renderAll();
+  });
+
+  $("[data-add-visible-words]")?.addEventListener("click", () => {
+    const added = getFilteredWords().slice(0, 20).reduce((count, word) => count + (addWordCard(word) ? 1 : 0), 0);
+    if (added > 0) {
+      track("add_visible_word_bank_cards", { count: added, level: wordBankFilters.level });
+      saveState();
+      renderAll();
+    }
+  });
+}
+
+function getWordBank() {
+  return Array.isArray(window.STUDY_WORD_BANK) ? window.STUDY_WORD_BANK : [];
+}
+
+function getFilteredWords() {
+  const query = wordBankFilters.query;
+  return getWordBank().filter((word) => {
+    const levelMatch = wordBankFilters.level === "all" || word.level === wordBankFilters.level;
+    if (!levelMatch) return false;
+    if (!query) return true;
+    return [word.word, word.meaning, word.example, levelLabel(word.level)]
+      .join(" ")
+      .toLowerCase()
+      .includes(query);
+  });
+}
+
+function addWordCard(word) {
+  if (state.cards.some((card) => card.sourceWordId === word.id)) return false;
+  state.cards.unshift({
+    id: uid(),
+    sourceWordId: word.id,
+    deck: `${levelLabel(word.level)} 단어`,
+    front: word.word,
+    back: `${word.meaning}\n${word.example}`,
+    createdAt: Date.now(),
+    dueAt: Date.now(),
+    level: 0
+  });
+  saveState();
+  return true;
+}
+
+function levelLabel(level) {
+  return {
+    elementary: "초등",
+    middle: "중등",
+    high: "고등"
+  }[level] || "기본";
 }
 
 function bindReview() {
@@ -328,6 +406,7 @@ function getDueCards() {
 function renderAll() {
   renderStats();
   renderCards();
+  renderWordBank();
   renderReview();
   renderTimer();
   renderMistakes();
@@ -364,6 +443,42 @@ function renderCards() {
       renderAll();
     });
   });
+}
+
+function renderWordBank() {
+  const list = $("[data-word-bank-list]");
+  if (!list) return;
+  const words = getFilteredWords();
+  const addedIds = new Set(state.cards.map((card) => card.sourceWordId).filter(Boolean));
+  setText("[data-word-bank-count]", `${words.length}개`);
+
+  if (!getWordBank().length) {
+    list.innerHTML = '<p class="muted">단어장 데이터를 불러오지 못했습니다. 잠시 후 새로고침해 주세요.</p>';
+    return;
+  }
+
+  if (!words.length) {
+    list.innerHTML = '<p class="muted">검색 조건에 맞는 단어가 없습니다.</p>';
+    return;
+  }
+
+  list.innerHTML = words.slice(0, 80).map((word) => {
+    const added = addedIds.has(word.id);
+    return `
+      <article class="word-row">
+        <div>
+          <div class="word-title"><strong>${escapeHtml(word.word)}</strong><span>${levelLabel(word.level)}</span></div>
+          <p>${escapeHtml(word.meaning)}</p>
+          <p class="muted">${escapeHtml(word.example)}</p>
+        </div>
+        <button class="${added ? "" : "primary-button"}" type="button" data-add-word="${word.id}" ${added ? "disabled" : ""}>${added ? "추가됨" : "카드 추가"}</button>
+      </article>
+    `;
+  }).join("");
+
+  if (words.length > 80) {
+    list.insertAdjacentHTML("beforeend", `<p class="muted">검색 결과가 많아 80개만 먼저 표시합니다. 더 좁게 검색하면 원하는 단어를 빠르게 찾을 수 있습니다.</p>`);
+  }
 }
 
 function renderReview() {

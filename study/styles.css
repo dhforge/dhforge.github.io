@@ -25,6 +25,7 @@ body {
 
 button,
 input,
+select,
 textarea {
   font: inherit;
 }
@@ -292,6 +293,7 @@ label span {
 }
 
 input,
+select,
 textarea {
   width: 100%;
   border: 1px solid var(--line);
@@ -340,6 +342,58 @@ textarea {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+.word-bank-controls {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: end;
+  margin-bottom: 12px;
+}
+
+.word-bank-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.word-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfdfc;
+}
+
+.word-row p {
+  margin-bottom: 4px;
+}
+
+.word-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.word-title strong {
+  font-size: 20px;
+}
+
+.word-title span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--soft);
+  color: var(--primary-dark);
+  font-size: 12px;
+  font-weight: 900;
 }
 
 .review-card {
@@ -406,7 +460,9 @@ textarea {
   .workspace,
   .summary-grid,
   .form-grid,
-  .form-grid.compact {
+  .form-grid.compact,
+  .word-bank-controls,
+  .word-row {
     grid-template-columns: 1fr;
   }
 

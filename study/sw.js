@@ -1,8 +1,9 @@
-const STUDY_CACHE = "study-lab-v1";
+const STUDY_CACHE = "study-lab-v2";
 const STUDY_ASSETS = [
   "/study/",
   "/study/index.html",
   "/study/styles.css",
+  "/study/word-bank.js",
   "/study/app.js",
   "/study/manifest.webmanifest",
   "/favicon.svg",

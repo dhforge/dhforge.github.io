@@ -22,7 +22,7 @@
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=word-bank-20260622">
 </head>
 <body>
   <a class="skip-link" href="#app">본문으로 이동</a>
@@ -63,6 +63,7 @@
     <section class="workspace">
       <aside class="side-nav" aria-label="학습 메뉴">
         <button class="tab-button is-active" type="button" data-tab="cards">암기 카드</button>
+        <button class="tab-button" type="button" data-tab="wordbank">기본 단어장</button>
         <button class="tab-button" type="button" data-tab="review">오늘 복습</button>
         <button class="tab-button" type="button" data-tab="timer">공부 타이머</button>
         <button class="tab-button" type="button" data-tab="mistakes">오답 노트</button>
@@ -79,6 +80,34 @@
           <button class="primary-button" type="submit">카드 저장</button>
         </form>
         <div class="list" data-card-list></div>
+      </section>
+
+      <section class="panel" data-panel="wordbank" aria-labelledby="wordBankTitle">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Word Bank</p>
+            <h2 id="wordBankTitle">초등·중등·고등 기본 단어장</h2>
+          </div>
+          <span class="pill" data-word-bank-count>0개</span>
+        </div>
+        <div class="word-bank-controls">
+          <label>
+            <span>수준</span>
+            <select data-word-level>
+              <option value="all">전체</option>
+              <option value="elementary">초등</option>
+              <option value="middle">중등</option>
+              <option value="high">고등</option>
+            </select>
+          </label>
+          <label>
+            <span>검색</span>
+            <input data-word-search type="search" placeholder="영어 단어 또는 뜻 검색">
+          </label>
+          <button class="primary-button" type="button" data-add-visible-words>보이는 단어 20개 추가</button>
+        </div>
+        <p class="muted">단어를 고르면 내 암기카드에 복사됩니다. 복사된 단어는 직접 만든 카드처럼 자동 저장, 복습, 백업/복원에 포함됩니다.</p>
+        <div class="word-bank-list" data-word-bank-list></div>
       </section>
 
       <section class="panel" data-panel="review" aria-labelledby="reviewTitle">
@@ -137,6 +166,7 @@
   </main>
 
   <script src="../analytics.js" defer></script>
-  <script src="app.js" defer></script>
+  <script src="word-bank.js?v=word-bank-20260622" defer></script>
+  <script src="app.js?v=word-bank-20260622" defer></script>
 </body>
 </html>
