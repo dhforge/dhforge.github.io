@@ -13,10 +13,14 @@ Use this after publishing changes to GitHub Pages.
 - Confirm `https://dhforge.github.io/assets/og-toolbox.png`
 - Confirm `https://dhforge.github.io/assets/og-paper.png`
 - Confirm `https://dhforge.github.io/assets/og-kids.png`
+- Confirm `https://dhforge.github.io/site.webmanifest`
+- Confirm `https://dhforge.github.io/opensearch.xml`
+- Confirm `https://dhforge.github.io/llms.txt`
 
 ## Sitemap Submission
 
 - Submit or refresh `https://dhforge.github.io/sitemap.xml`
+- Submit or refresh `https://dhforge.github.io/sitemap-index.xml`
 - Submit or refresh `https://dhforge.github.io/paper/sitemap.xml`
 - Submit or refresh `https://dhforge.github.io/kids/sitemap.xml`
 - Check that `/paper/ko/` and Korean guide URLs are discovered.
@@ -35,3 +39,5 @@ Use this after publishing changes to GitHub Pages.
 - Print preview one paper template in portrait and landscape.
 - Confirm line weight changes are visible.
 - Confirm all About, Privacy, Terms, Contact pages are reachable from navigation.
+- Search the home directory on Free Toolbox, Printable Paper Lab, and Kids Practice Lab.
+- Check manifest and touch icons in browser DevTools.
