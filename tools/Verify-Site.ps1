@@ -12,10 +12,13 @@ $Checks = @(
   @{ Path = "/paper/ko/"; Text = "Printable Paper Generator" },
   @{ Path = "/paper/ko/graph-paper/"; Text = "paper-ko-20260621" },
   @{ Path = "/paper/ko/guides/graph-paper.html"; Text = "Guide" },
+  @{ Path = "/paper/ko/guides/dot-grid-paper.html"; Text = "Guide" },
   @{ Path = "/kids/"; Text = "Kids Practice Lab" },
   @{ Path = "/kids/en/"; Text = "Kids Practice Lab" },
   @{ Path = "/paper/sitemap.xml"; Text = "hreflang" },
   @{ Path = "/kids/sitemap.xml"; Text = "hreflang" },
+  @{ Path = "/sitemap-index.xml"; Text = "sitemapindex" },
+  @{ Path = "/site.webmanifest"; Text = "DH Forge Free Tools" },
   @{ Path = "/assets/og-toolbox.png"; Text = "" },
   @{ Path = "/assets/og-paper.png"; Text = "" },
   @{ Path = "/assets/og-kids.png"; Text = "" }

@@ -1,0 +1,12 @@
+/* DH Forge */
+
+Site: https://dhforge.github.io/
+Contact: https://dhforge.github.io/contact.html
+Language: Korean, English
+
+Sections:
+- Free Toolbox
+- Printable Paper Lab
+- Kids Practice Lab
+
+Built as a static GitHub Pages site with browser-side tools and printable templates.

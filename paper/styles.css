@@ -263,6 +263,38 @@ p {
   margin-top: 32px;
 }
 
+.directory-tools {
+  max-width: 1120px;
+  margin: 22px auto 0;
+  display: grid;
+  gap: 10px;
+}
+
+.directory-tools input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px 14px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+}
+
+.directory-empty,
+.noscript-notice {
+  max-width: 1120px;
+  margin: 12px auto 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #fff;
+  color: var(--muted);
+}
+
+[hidden] {
+  display: none !important;
+}
+
 .info-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: 18px;

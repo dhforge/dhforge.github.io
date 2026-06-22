@@ -1,0 +1,23 @@
+# DH Forge
+
+DH Forge provides free static browser tools at https://dhforge.github.io/.
+
+Main sections:
+- Free Toolbox: text, date, unit, color, ratio, timer, QR, random picker, and image tools.
+- Printable Paper Lab: graph paper, dot grid paper, lined paper, Cornell notes, handwriting paper, music staff paper, weekly planner, habit tracker, checklist, and isometric paper generators.
+- Kids Practice Lab: printable worksheets for number tracing, letters, Hangul, arithmetic, clocks, mazes, line tracing, and coloring.
+
+Language versions:
+- Korean Free Toolbox: https://dhforge.github.io/
+- English Free Toolbox: https://dhforge.github.io/en/
+- English Printable Paper Lab: https://dhforge.github.io/paper/
+- Korean Printable Paper Lab: https://dhforge.github.io/paper/ko/
+- Korean Kids Practice Lab: https://dhforge.github.io/kids/
+- English Kids Practice Lab: https://dhforge.github.io/kids/en/
+
+Machine-readable files:
+- Sitemap index: https://dhforge.github.io/sitemap-index.xml
+- Main sitemap: https://dhforge.github.io/sitemap.xml
+- Paper sitemap: https://dhforge.github.io/paper/sitemap.xml
+- Kids sitemap: https://dhforge.github.io/kids/sitemap.xml
+- Web app manifest: https://dhforge.github.io/site.webmanifest

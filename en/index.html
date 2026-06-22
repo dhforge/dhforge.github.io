@@ -6,6 +6,11 @@
   <title>Free Toolbox - Browser calculators and converters</title>
   <meta name="description" content="Use free browser tools for character counts, date calculations, unit conversion, random picking, QR codes, text cleanup, colors, timers, ratios, and image resizing.">
   <meta name="robots" content="index,follow">
+  <meta name="author" content="DH Forge">
+  <meta name="application-name" content="Free Toolbox">
+  <meta name="apple-mobile-web-app-title" content="Free Toolbox">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#2563eb">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="Free Toolbox">
@@ -19,6 +24,7 @@
   <meta name="twitter:image" content="https://dhforge.github.io/assets/og-toolbox.png">
   <meta property="og:site_name" content="Free Toolbox">
   <link rel="canonical" href="https://dhforge.github.io/en/">
+  <link rel="author" href="https://dhforge.github.io/humans.txt">
   <link rel="alternate" hreflang="ko" href="https://dhforge.github.io/">
   <link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/">
   <link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/">
@@ -36,8 +42,12 @@
   }
   </script>
   <link rel="stylesheet" href="../styles.css">
+  <meta name="color-scheme" content="light">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="search" type="application/opensearchdescription+xml" title="DH Forge" href="/opensearch.xml">
 </head>
-<body>
+<body><noscript class="noscript-notice">JavaScript is required for calculators, filters, worksheet previews, and printable paper previews on this page.</noscript>
   <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="Free Toolbox home">
@@ -71,7 +81,7 @@
       <p>Open the page you need, enter the small bit of information for the task, then copy, print, or download the result from the browser.</p>
     </section>
 
-    <section class="tool-directory" aria-label="Tool directory">
+    <section class="directory-tools" aria-label="Tool search"><label class="sr-only" for="directorySearch">Search tools</label><input id="directorySearch" data-directory-search type="search" placeholder="Search by tool name or task"><p class="directory-empty" data-directory-empty hidden>No matching tools found.</p></section><section class="tool-directory" aria-label="Tool directory">
       <a href="char-counter/"><span>Character Counter</span><strong>Count characters, bytes, words, lines, and reading time</strong></a>
       <a href="date-calculator/"><span>Date Calculator</span><strong>Find day differences and add or subtract days</strong></a>
       <a href="unit-converter/"><span>Unit Converter</span><strong>Convert length, weight, temperature, and area</strong></a>

@@ -17,8 +17,14 @@
   <meta name="twitter:image" content="https://dhforge.github.io/assets/og-paper.png">
   <meta property="og:site_name" content="Printable Paper Lab">
   <meta name="robots" content="index,follow">
+  <meta name="author" content="DH Forge">
+  <meta name="application-name" content="Printable Paper Lab">
+  <meta name="apple-mobile-web-app-title" content="Printable Paper Lab">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="canonical" href="https://dhforge.github.io/paper/">
+  <link rel="author" href="https://dhforge.github.io/humans.txt">
   <link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/">
   <link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/">
   <link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/">
@@ -35,9 +41,37 @@
     }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can I save printable paper as PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Use the print button and choose Save as PDF in the browser print dialog."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do the printable paper templates require an account?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The generators can be used without an account, payment, or upload."
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="styles.css">
+  <meta name="color-scheme" content="light">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="search" type="application/opensearchdescription+xml" title="DH Forge" href="/opensearch.xml">
 </head>
-<body>
+<body><noscript class="noscript-notice">JavaScript is required for calculators, filters, worksheet previews, and printable paper previews on this page.</noscript>
   <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="site-header">
     <a class="brand" href="./" aria-label="Printable Paper Lab home">
@@ -63,7 +97,7 @@
       <p>I keep these pages simple on purpose: choose a size, adjust the spacing or color, then print the sheet or save it as a PDF from your browser.</p>
     </section>
 
-    <section class="tool-directory" aria-label="Printable templates">
+    <section class="directory-tools" aria-label="Template search"><label class="sr-only" for="directorySearch">Search templates</label><input id="directorySearch" data-directory-search type="search" placeholder="Search paper templates"><p class="directory-empty" data-directory-empty hidden>No matching templates found.</p></section><section class="tool-directory" aria-label="Printable templates">
       <a href="graph-paper/"><span>Graph Paper</span><strong>Square grids for math notes, charts, maps, and rough layout work</strong></a>
       <a href="dot-grid-paper/"><span>Dot Grid Paper</span><strong>Light dots for journal pages, layout drafts, and low-distraction notes</strong></a>
       <a href="lined-paper/"><span>Lined Paper</span><strong>Ruled pages for notes, drafts, letters, and handwriting practice</strong></a>

@@ -6,6 +6,11 @@
   <title>무료 도구함 - 브라우저에서 바로 쓰는 무료 계산기와 변환기</title>
   <meta name="description" content="글자 수 계산기, 날짜 계산기, 단위 변환기, 랜덤 추첨기, QR 코드 생성기, 텍스트 정리, 색상 변환, 타이머, 비율 계산, 이미지 리사이즈를 무료로 사용할 수 있습니다.">
   <meta name="robots" content="index,follow">
+  <meta name="author" content="DH Forge">
+  <meta name="application-name" content="무료 도구함">
+  <meta name="apple-mobile-web-app-title" content="무료 도구함">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#2563eb">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="무료 도구함">
@@ -19,6 +24,7 @@
   <meta name="twitter:image" content="https://dhforge.github.io/assets/og-toolbox.png">
   <meta property="og:site_name" content="Free Toolbox">
   <link rel="canonical" href="https://dhforge.github.io/">
+  <link rel="author" href="https://dhforge.github.io/humans.txt">
   <link rel="alternate" hreflang="ko" href="https://dhforge.github.io/">
   <link rel="alternate" hreflang="en" href="https://dhforge.github.io/en/">
   <link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/">
@@ -36,9 +42,37 @@
     }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "무료 도구함은 결제가 필요한가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "아니요. 무료 도구함의 핵심 도구는 회원가입이나 결제 없이 브라우저에서 사용할 수 있습니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "입력한 텍스트가 서버에 저장되나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "도구 입력값은 가능한 한 현재 브라우저 탭에서 처리하도록 구성되어 있으며, 사이트 자체 서버에 저장하지 않습니다."
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="styles.css">
+  <meta name="color-scheme" content="light">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="search" type="application/opensearchdescription+xml" title="DH Forge" href="/opensearch.xml">
 </head>
-<body>
+<body><noscript class="noscript-notice">이 페이지의 계산, 검색, 학습지 미리보기, 출력용 종이 미리보기 기능은 JavaScript가 켜져 있어야 완전히 작동합니다.</noscript>
   <a class="skip-link" href="#main-content">본문으로 이동</a>
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="무료 도구함 홈">
@@ -69,10 +103,10 @@
     <section class="content-panel">
       <p class="eyebrow">사용 팁</p>
       <h2>자주 쓰는 작업을 빠르게 끝내세요</h2>
-      <p>글자 수 확인, 날짜 계산, 단위 변환, QR 코드 생성처럼 반복되는 작은 작업을 한 페이지에서 바로 열 수 있습니다. 모바일에서도 입력과 복사 흐름을 간단하게 유지했습니다.</p>
+      <p>마지막 검토일: 2026-06-22. 글자 수 확인, 날짜 계산, 단위 변환, QR 코드 생성처럼 반복되는 작은 작업을 한 페이지에서 바로 열 수 있습니다. 모바일에서도 입력과 복사 흐름을 간단하게 유지했습니다.</p>
     </section>
 
-    <section class="tool-directory" aria-label="도구 목록">
+    <section class="directory-tools" aria-label="도구 검색"><label class="sr-only" for="directorySearch">도구 검색</label><input id="directorySearch" data-directory-search type="search" placeholder="도구 이름이나 작업을 검색하세요"><p class="directory-empty" data-directory-empty hidden>검색 결과가 없습니다.</p></section><section class="tool-directory" aria-label="도구 목록">
       <a href="char-counter/">
         <span>글자 수 계산기</span>
         <strong>문자 수, byte, 단어 수, 읽기 시간 계산</strong>

@@ -378,4 +378,47 @@ function bindControls() {
   render();
 }
 
+function initDirectorySearch() {
+  const input = document.querySelector("[data-directory-search]");
+  const directory = document.querySelector(".tool-directory");
+  if (!input || !directory) return;
+  const empty = document.querySelector("[data-directory-empty]");
+  const items = Array.from(directory.querySelectorAll("a"));
+  input.addEventListener("input", () => {
+    const query = input.value.trim().toLowerCase();
+    let visibleCount = 0;
+    items.forEach((item) => {
+      const isVisible = !query || item.textContent.toLowerCase().includes(query);
+      item.hidden = !isVisible;
+      if (isVisible) visibleCount += 1;
+    });
+    if (empty) empty.hidden = visibleCount > 0;
+  });
+}
+
+function initDirectoryItemList() {
+  const directory = document.querySelector(".tool-directory");
+  if (!directory) return;
+  const items = Array.from(directory.querySelectorAll("a"));
+  if (!items.length) return;
+  const canonical = document.querySelector('link[rel="canonical"]');
+  const baseUrl = canonical ? canonical.href : location.href;
+  const script = document.createElement("script");
+  script.type = "application/ld+json";
+  script.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": LANG === "ko" ? "어린이 학습지 목록" : "Kids worksheet directory",
+    "itemListElement": items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": (item.querySelector("span") || item).textContent.trim(),
+      "url": new URL(item.getAttribute("href"), baseUrl).href
+    }))
+  });
+  document.head.appendChild(script);
+}
+
+initDirectorySearch();
+initDirectoryItemList();
 bindControls();

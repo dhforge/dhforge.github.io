@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>DH Forge</ShortName>
+  <Description>Search DH Forge free tools, printable paper, and kids worksheets.</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Image width="16" height="16" type="image/svg+xml">https://dhforge.github.io/favicon.svg</Image>
+  <Url type="text/html" method="get" template="https://www.google.com/search?q=site%3Adhforge.github.io+{searchTerms}"/>
+</OpenSearchDescription>

@@ -315,6 +315,38 @@ a:focus-visible {
   max-width: 780px;
 }
 
+.directory-tools {
+  max-width: 1040px;
+  margin: 18px auto 0;
+  display: grid;
+  gap: 10px;
+}
+
+.directory-tools input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px 14px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+}
+
+.directory-empty,
+.noscript-notice {
+  max-width: 1040px;
+  margin: 12px auto 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #fff;
+  color: var(--muted);
+}
+
+[hidden] {
+  display: none !important;
+}
+
 .content-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

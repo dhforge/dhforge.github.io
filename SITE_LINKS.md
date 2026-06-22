@@ -11,6 +11,9 @@
 - Printable Paper Lab About: https://dhforge.github.io/paper/about.html
 - Printable Paper Lab Korean About: https://dhforge.github.io/paper/ko/about.html
 - Printable Paper Lab Korean Guides: https://dhforge.github.io/paper/ko/guides/graph-paper.html
+- Printable Paper Lab Dot Grid Guide: https://dhforge.github.io/paper/ko/guides/dot-grid-paper.html
+- Printable Paper Lab Checklist Guide: https://dhforge.github.io/paper/ko/guides/checklist.html
+- Printable Paper Lab Habit Tracker Guide: https://dhforge.github.io/paper/ko/guides/habit-tracker.html
 - Kids Practice Lab: https://dhforge.github.io/kids/
 - Kids Practice Lab English: https://dhforge.github.io/kids/en/
 - Kids Practice Lab About: https://dhforge.github.io/kids/about.html
@@ -20,8 +23,10 @@
 ## Sitemaps
 
 - Free Toolbox sitemap: https://dhforge.github.io/sitemap.xml
+- Sitemap index: https://dhforge.github.io/sitemap-index.xml
 - Printable Paper Lab sitemap: https://dhforge.github.io/paper/sitemap.xml
 - Kids Practice Lab sitemap: https://dhforge.github.io/kids/sitemap.xml
+- Web app manifest: https://dhforge.github.io/site.webmanifest
 - Printable Paper Lab companion blog sitemap: https://printablepaperlab.blogspot.com/sitemap.xml
 
 ## Search Console Property
@@ -38,6 +43,7 @@
 ## Notes
 
 - `/sitemap.xml` includes the Korean and English Free Toolbox pages.
+- `/sitemap-index.xml` points to the root, Paper, and Kids sitemaps.
 - `/paper/sitemap.xml` includes the Printable Paper Lab English and Korean tool pages with hreflang alternates.
 - `/kids/sitemap.xml` includes the Kids Practice Lab Korean and English pages.
 - `tools/Verify-Site.ps1` checks the main public routes against a local static server.
