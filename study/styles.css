@@ -426,7 +426,7 @@ textarea {
 }
 
 .practice-card {
-  min-height: 300px;
+  min-height: 0;
   padding: 18px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -436,9 +436,9 @@ textarea {
 .practice-front {
   display: grid;
   place-items: center;
-  min-height: 160px;
+  min-height: 120px;
   margin-bottom: 12px;
-  padding: 18px;
+  padding: 18px 16px;
   border: 1px dashed #b8c9c1;
   border-radius: 8px;
   background: #ffffff;
@@ -447,7 +447,7 @@ textarea {
 
 .practice-front strong {
   display: block;
-  font-size: clamp(34px, 8vw, 72px);
+  font-size: clamp(34px, 7vw, 60px);
   line-height: 1.1;
 }
 
@@ -489,9 +489,9 @@ textarea {
 .flash-face {
   display: grid;
   place-items: center;
-  min-height: 180px;
+  min-height: 130px;
   margin-bottom: 12px;
-  padding: 18px;
+  padding: 18px 20px;
   border: 1px dashed #b8c9c1;
   border-radius: 8px;
   background: #ffffff;
@@ -506,12 +506,13 @@ textarea {
 
 .card-back-block {
   display: grid;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
 }
 
 .card-meaning,
-.card-example {
+.card-example,
+.card-example-ko {
   margin: 0;
 }
 
@@ -521,12 +522,36 @@ textarea {
   font-weight: 900;
 }
 
-.card-example {
+.card-example-block {
   padding-top: 12px;
   border-top: 1px solid var(--line);
+}
+
+.card-example {
   color: var(--muted);
   font-size: clamp(16px, 2.3vw, 22px);
   line-height: 1.55;
+}
+
+.card-example-ko {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 6px;
+  color: var(--text);
+  font-size: clamp(15px, 2vw, 19px);
+  line-height: 1.5;
+}
+
+.card-example-ko span {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--soft);
+  color: var(--primary-dark);
+  font-size: 12px;
+  font-weight: 900;
 }
 
 .timer-face {
@@ -602,6 +627,6 @@ textarea {
   }
 
   .flash-face {
-    min-height: 150px;
+    min-height: 115px;
   }
 }

@@ -275,6 +275,7 @@ function addWordCard(word) {
     back: `${meaning}\n${word.example}`,
     meaning,
     example: word.example,
+    exampleKo: word.exampleKo || "",
     createdAt: Date.now(),
     dueAt: Date.now(),
     level: 0
@@ -379,7 +380,8 @@ function bindPractice() {
   $("[data-practice-card]")?.addEventListener("click", (event) => {
     const action = event.target.closest("[data-practice-action]")?.dataset.practiceAction;
     if (action === "show") {
-      event.currentTarget.classList.add("is-revealed");
+      const revealed = event.currentTarget.classList.toggle("is-revealed");
+      event.target.textContent = revealed ? "다시 가리기" : "뜻 보기";
     } else if (action === "add" && practiceWord) {
       addWordCard(practiceWord);
       renderAll();
@@ -603,18 +605,23 @@ function renderBackFace(card) {
   return `
     <div class="card-back-block">
       <p class="card-meaning">${escapeHtml(parts.meaning)}</p>
-      ${parts.example ? `<p class="card-example">${escapeHtml(parts.example)}</p>` : ""}
+      ${parts.example ? `
+        <div class="card-example-block">
+          <p class="card-example">${escapeHtml(parts.example)}</p>
+          ${parts.exampleKo ? `<p class="card-example-ko"><span>해석</span>${escapeHtml(parts.exampleKo)}</p>` : ""}
+        </div>
+      ` : ""}
     </div>
   `;
 }
 
 function getBackParts(card) {
   if (card.meaning || card.example) {
-    return { meaning: card.meaning || card.back || "", example: card.example || "" };
+    return { meaning: card.meaning || card.back || "", example: card.example || "", exampleKo: card.exampleKo || "" };
   }
   const lines = String(card.back || "").split(/\n+/).map((line) => line.trim()).filter(Boolean);
-  if (lines.length > 1) return { meaning: lines[0], example: lines.slice(1).join(" ") };
-  return { meaning: card.back || "", example: "" };
+  if (lines.length > 1) return { meaning: lines[0], example: lines.slice(1).join(" "), exampleKo: "" };
+  return { meaning: card.back || "", example: "", exampleKo: "" };
 }
 
 function renderWordBank() {
@@ -696,7 +703,10 @@ function renderPractice() {
     </div>
     <div class="practice-answer">
       <p class="card-meaning">${escapeHtml(isHanja ? `음/뜻: ${practiceWord.meaning}` : practiceWord.meaning)}</p>
-      <p class="card-example">${escapeHtml(practiceWord.example)}</p>
+      <div class="card-example-block">
+        <p class="card-example">${escapeHtml(practiceWord.example)}</p>
+        ${practiceWord.exampleKo ? `<p class="card-example-ko"><span>해석</span>${escapeHtml(practiceWord.exampleKo)}</p>` : ""}
+      </div>
     </div>
     <div class="item-actions">
       <button type="button" data-practice-action="show">뜻 보기</button>

@@ -1211,8 +1211,12 @@ high|welfare|복지|Public welfare matters.
 high|witness|목격자|The witness spoke clearly.
 `.trim();
 
+function makeFallbackExampleKo(word, meaning) {
+  return `"${word}"는 "${meaning}"라는 뜻으로 쓰입니다.`;
+}
+
 const englishWords = WORD_BANK_RAW.split("\n").map((line, index) => {
-  const [level, word, meaning, example] = line.split("|");
+  const [level, word, meaning, example, exampleKo] = line.split("|");
   return {
     id: `english-${level}-${index}-${word}`,
     type: "english",
@@ -1220,7 +1224,8 @@ const englishWords = WORD_BANK_RAW.split("\n").map((line, index) => {
     term: word,
     word,
     meaning,
-    example
+    example,
+    exampleKo: exampleKo || makeFallbackExampleKo(word, meaning)
   };
 });
 
@@ -1266,7 +1271,7 @@ const hanjaExamWords = HANJA_EXAM_WORDS_RAW.split("\n").map((line, index) => {
 });
 
 const extraEnglishWords = EXTRA_WORD_BANK_RAW.split("\n").map((line, index) => {
-  const [level, word, meaning, example] = line.split("|");
+  const [level, word, meaning, example, exampleKo] = line.split("|");
   return {
     id: `english-extra-${level}-${index}-${word}`,
     type: "english",
@@ -1274,8 +1279,161 @@ const extraEnglishWords = EXTRA_WORD_BANK_RAW.split("\n").map((line, index) => {
     term: word,
     word,
     meaning,
-    example
+    example,
+    exampleKo: exampleKo || makeFallbackExampleKo(word, meaning)
   };
 });
 
-window.STUDY_WORD_BANK = [...englishWords, ...extraEnglishWords, ...hanjaWords, ...extendedHanjaWords, ...hanjaExamWords];
+const ENGLISH_TARGET_PER_LEVEL = 1000;
+
+const ENGLISH_SUPPLEMENT_PARTS = {
+  elementary: {
+    colors: [
+      ["red", "빨간"], ["blue", "파란"], ["green", "초록색"], ["yellow", "노란"], ["black", "검은"],
+      ["white", "하얀"], ["brown", "갈색"], ["pink", "분홍색"], ["purple", "보라색"], ["orange", "주황색"]
+    ],
+    adjectives: [
+      ["big", "큰"], ["small", "작은"], ["long", "긴"], ["short", "짧은"], ["new", "새로운"],
+      ["old", "오래된"], ["clean", "깨끗한"], ["warm", "따뜻한"], ["cold", "차가운"], ["happy", "행복한"]
+    ],
+    nouns: [
+      ["apple", "사과"], ["bag", "가방"], ["ball", "공"], ["bed", "침대"], ["bike", "자전거"],
+      ["bird", "새"], ["book", "책"], ["box", "상자"], ["bus", "버스"], ["cake", "케이크"],
+      ["car", "자동차"], ["cat", "고양이"], ["chair", "의자"], ["clock", "시계"], ["cup", "컵"],
+      ["desk", "책상"], ["dog", "개"], ["door", "문"], ["egg", "달걀"], ["fish", "물고기"],
+      ["flower", "꽃"], ["friend", "친구"], ["game", "게임"], ["house", "집"], ["key", "열쇠"],
+      ["kite", "연"], ["lamp", "등"], ["map", "지도"], ["milk", "우유"], ["notebook", "공책"],
+      ["pencil", "연필"], ["phone", "전화기"], ["picture", "그림"], ["rabbit", "토끼"], ["river", "강"],
+      ["road", "길"], ["school", "학교"], ["shirt", "셔츠"], ["shoe", "신발"], ["spoon", "숟가락"],
+      ["star", "별"], ["table", "탁자"], ["teacher", "선생님"], ["toy", "장난감"], ["tree", "나무"],
+      ["umbrella", "우산"], ["window", "창문"], ["zoo", "동물원"]
+    ],
+    verbs: [
+      ["read", "읽다"], ["write", "쓰다"], ["open", "열다"], ["close", "닫다"], ["draw", "그리다"],
+      ["make", "만들다"], ["find", "찾다"], ["wash", "씻다"], ["carry", "나르다"], ["watch", "보다"],
+      ["touch", "만지다"], ["clean", "청소하다"], ["help", "돕다"], ["count", "세다"], ["color", "색칠하다"]
+    ]
+  },
+  middle: {
+    adjectives: [
+      ["active", "활동적인"], ["basic", "기본적인"], ["careful", "조심스러운"], ["clear", "명확한"],
+      ["common", "흔한"], ["correct", "올바른"], ["difficult", "어려운"], ["direct", "직접적인"],
+      ["effective", "효과적인"], ["equal", "동등한"], ["exact", "정확한"], ["fair", "공정한"],
+      ["familiar", "익숙한"], ["general", "일반적인"], ["healthy", "건강한"], ["honest", "정직한"],
+      ["important", "중요한"], ["local", "지역의"], ["natural", "자연스러운"], ["necessary", "필요한"],
+      ["ordinary", "보통의"], ["personal", "개인의"], ["popular", "인기 있는"], ["proper", "적절한"],
+      ["public", "공공의"], ["recent", "최근의"], ["regular", "규칙적인"], ["serious", "심각한"],
+      ["simple", "간단한"], ["social", "사회적인"], ["special", "특별한"], ["useful", "유용한"]
+    ],
+    nouns: [
+      ["ability", "능력"], ["accident", "사고"], ["activity", "활동"], ["advice", "조언"], ["area", "지역"],
+      ["attention", "주의"], ["balance", "균형"], ["behavior", "행동"], ["choice", "선택"], ["community", "공동체"],
+      ["condition", "상태"], ["culture", "문화"], ["decision", "결정"], ["detail", "세부 사항"], ["difference", "차이"],
+      ["direction", "방향"], ["education", "교육"], ["effect", "효과"], ["effort", "노력"], ["environment", "환경"],
+      ["event", "사건"], ["experience", "경험"], ["fact", "사실"], ["field", "분야"], ["habit", "습관"],
+      ["health", "건강"], ["history", "역사"], ["information", "정보"], ["interest", "관심"], ["knowledge", "지식"],
+      ["language", "언어"], ["material", "재료"], ["method", "방법"], ["nation", "국가"], ["opinion", "의견"],
+      ["period", "기간"], ["problem", "문제"], ["purpose", "목적"], ["reason", "이유"], ["record", "기록"],
+      ["relationship", "관계"], ["resource", "자원"], ["result", "결과"], ["science", "과학"], ["solution", "해결책"],
+      ["standard", "기준"], ["symbol", "상징"], ["technology", "기술"], ["tradition", "전통"], ["vehicle", "탈것"]
+    ],
+    verbs: [
+      ["accept", "받아들이다"], ["achieve", "이루다"], ["allow", "허락하다"], ["avoid", "피하다"],
+      ["borrow", "빌리다"], ["compare", "비교하다"], ["complete", "완성하다"], ["connect", "연결하다"],
+      ["consider", "고려하다"], ["continue", "계속하다"], ["create", "창조하다"], ["decide", "결정하다"],
+      ["describe", "묘사하다"], ["develop", "발달시키다"], ["discover", "발견하다"], ["discuss", "토론하다"],
+      ["explain", "설명하다"], ["express", "표현하다"], ["improve", "향상시키다"], ["include", "포함하다"],
+      ["increase", "증가시키다"], ["invite", "초대하다"], ["measure", "측정하다"], ["prepare", "준비하다"],
+      ["protect", "보호하다"], ["receive", "받다"], ["reduce", "줄이다"], ["remember", "기억하다"],
+      ["respect", "존중하다"], ["support", "지원하다"]
+    ]
+  },
+  high: {
+    adjectives: [
+      ["abstract", "추상적인"], ["accurate", "정확한"], ["adequate", "충분한"], ["ambiguous", "애매한"],
+      ["annual", "매년의"], ["apparent", "명백한"], ["arbitrary", "임의의"], ["available", "이용 가능한"],
+      ["civil", "시민의"], ["coherent", "일관성 있는"], ["compatible", "양립 가능한"], ["complex", "복잡한"],
+      ["comprehensive", "포괄적인"], ["considerable", "상당한"], ["contemporary", "현대의"], ["conventional", "전통적인"],
+      ["crucial", "중대한"], ["diverse", "다양한"], ["dominant", "지배적인"], ["ethical", "윤리적인"],
+      ["explicit", "명시적인"], ["external", "외부의"], ["flexible", "유연한"], ["fundamental", "근본적인"],
+      ["identical", "동일한"], ["implicit", "암시적인"], ["inevitable", "불가피한"], ["initial", "초기의"],
+      ["intrinsic", "본질적인"], ["logical", "논리적인"], ["mental", "정신적인"], ["mutual", "상호의"],
+      ["neutral", "중립적인"], ["objective", "객관적인"], ["parallel", "평행한"], ["potential", "잠재적인"],
+      ["precise", "정밀한"], ["rational", "합리적인"], ["relevant", "관련 있는"], ["reliable", "신뢰할 수 있는"],
+      ["significant", "중요한"], ["stable", "안정적인"], ["temporary", "일시적인"], ["unique", "독특한"],
+      ["valid", "타당한"], ["virtual", "가상의"]
+    ],
+    nouns: [
+      ["access", "접근"], ["approach", "접근법"], ["aspect", "측면"], ["attribute", "속성"], ["authority", "권위"],
+      ["bias", "편견"], ["capacity", "능력"], ["category", "범주"], ["circumstance", "상황"], ["concept", "개념"],
+      ["conflict", "갈등"], ["consent", "동의"], ["consequence", "결과"], ["context", "맥락"], ["controversy", "논란"],
+      ["core", "핵심"], ["criteria", "기준"], ["crisis", "위기"], ["dimension", "차원"], ["discipline", "학문 분야"],
+      ["evidence", "증거"], ["factor", "요인"], ["feature", "특징"], ["function", "기능"], ["hierarchy", "계층"],
+      ["hypothesis", "가설"], ["ideology", "이념"], ["impact", "영향"], ["incentive", "동기"], ["infrastructure", "기반 시설"],
+      ["insight", "통찰"], ["interval", "간격"], ["logic", "논리"], ["mechanism", "구조"], ["outcome", "결과"],
+      ["perspective", "관점"], ["phase", "단계"], ["policy", "정책"], ["priority", "우선순위"], ["proportion", "비율"],
+      ["protocol", "절차"], ["resource", "자원"], ["scheme", "계획"], ["sequence", "순서"], ["strategy", "전략"],
+      ["survey", "조사"], ["tension", "긴장"], ["theory", "이론"], ["transition", "전환"], ["welfare", "복지"]
+    ],
+    verbs: [
+      ["abandon", "버리다"], ["absorb", "흡수하다"], ["accompany", "동행하다"], ["accumulate", "축적하다"],
+      ["acknowledge", "인정하다"], ["acquire", "얻다"], ["advocate", "옹호하다"], ["allocate", "배분하다"],
+      ["anticipate", "예상하다"], ["assemble", "조립하다"], ["assess", "평가하다"], ["assign", "배정하다"],
+      ["clarify", "명확히 하다"], ["compensate", "보상하다"], ["comprise", "구성하다"], ["concentrate", "집중하다"],
+      ["contradict", "모순되다"], ["coordinate", "조정하다"], ["demonstrate", "보여주다"], ["derive", "얻다"],
+      ["detect", "감지하다"], ["determine", "결정하다"], ["eliminate", "제거하다"], ["establish", "설립하다"],
+      ["evaluate", "평가하다"], ["exclude", "제외하다"], ["facilitate", "촉진하다"], ["generate", "생성하다"],
+      ["identify", "식별하다"], ["implement", "실행하다"], ["imply", "암시하다"], ["indicate", "나타내다"],
+      ["integrate", "통합하다"], ["interpret", "해석하다"], ["investigate", "조사하다"], ["justify", "정당화하다"],
+      ["maintain", "유지하다"], ["modify", "수정하다"], ["obtain", "얻다"], ["occupy", "차지하다"],
+      ["preserve", "보존하다"], ["proceed", "진행하다"], ["regulate", "규제하다"], ["reinforce", "강화하다"],
+      ["resolve", "해결하다"], ["restrict", "제한하다"], ["simulate", "모의 실험하다"], ["sustain", "유지하다"],
+      ["transform", "변형시키다"], ["undergo", "겪다"], ["utilize", "활용하다"], ["violate", "위반하다"]
+    ]
+  }
+};
+
+function makeEnglishSupplements(level, existingWords) {
+  const parts = ENGLISH_SUPPLEMENT_PARTS[level];
+  const used = new Set(existingWords.map((item) => item.word.toLowerCase()));
+  const rows = [];
+  const add = (word, meaning, example, exampleKo) => {
+    const key = word.toLowerCase();
+    if (used.has(key) || rows.some((item) => item.word.toLowerCase() === key)) return;
+    rows.push({
+      id: `english-supplement-${level}-${rows.length}-${key.replace(/[^a-z0-9]+/g, "-")}`,
+      type: "english",
+      level,
+      term: word,
+      word,
+      meaning,
+      example,
+      exampleKo
+    });
+  };
+
+  if (level === "elementary") {
+    parts.colors.forEach(([color, colorKo]) => parts.nouns.forEach(([noun, nounKo]) => {
+      add(`${color} ${noun}`, `${colorKo} ${nounKo}`, `I see a ${color} ${noun}.`, `나는 ${colorKo} ${nounKo}을 봅니다.`);
+    }));
+    parts.adjectives.forEach(([adj, adjKo]) => parts.nouns.forEach(([noun, nounKo]) => {
+      add(`${adj} ${noun}`, `${adjKo} ${nounKo}`, `This is a ${adj} ${noun}.`, `이것은 ${adjKo} ${nounKo}입니다.`);
+    }));
+  } else {
+    parts.adjectives.forEach(([adj, adjKo]) => parts.nouns.forEach(([noun, nounKo]) => {
+      add(`${adj} ${noun}`, `${adjKo} ${nounKo}`, `The ${adj} ${noun} matters.`, `${adjKo} ${nounKo}은 중요합니다.`);
+    }));
+  }
+
+  return rows.slice(0, Math.max(0, ENGLISH_TARGET_PER_LEVEL - existingWords.length));
+}
+
+function normalizeEnglishLevel(level, words) {
+  const levelWords = words.filter((item) => item.level === level);
+  return makeEnglishSupplements(level, levelWords);
+}
+
+const englishBaseWords = [...englishWords, ...extraEnglishWords];
+const englishSupplementWords = ["elementary", "middle", "high"].flatMap((level) => normalizeEnglishLevel(level, englishBaseWords));
+
+window.STUDY_WORD_BANK = [...englishBaseWords, ...englishSupplementWords, ...hanjaWords, ...extendedHanjaWords, ...hanjaExamWords];
