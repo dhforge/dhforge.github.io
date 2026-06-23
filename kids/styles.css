@@ -23,6 +23,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
 
 a {
@@ -67,10 +68,13 @@ textarea {
 }
 
 .site-header {
-  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: minmax(190px, auto) minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 18px;
+  gap: 14px 18px;
   padding: 18px clamp(16px, 4vw, 44px);
   background: rgba(255, 255, 255, 0.96);
   border-bottom: 1px solid var(--line);
@@ -113,12 +117,33 @@ textarea {
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 14px;
+  min-width: 0;
   font-size: 14px;
 }
 
 .top-nav a,
 .site-footer a {
   font-weight: 700;
+}
+
+.install-button {
+  position: static;
+  padding: 8px 12px;
+  color: #fff;
+  background: var(--brand);
+  border: 1px solid var(--brand);
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  max-width: 150px;
+  line-height: 1.25;
+  white-space: normal;
+  box-shadow: 0 10px 24px rgba(47, 111, 115, 0.18);
+}
+
+.install-button:hover {
+  background: var(--brand-dark);
 }
 
 button:focus-visible,
@@ -163,8 +188,8 @@ a:focus-visible {
 .hero-copy h1,
 .tool-heading h1 {
   margin: 0;
-  font-size: clamp(32px, 5vw, 58px);
-  line-height: 1.08;
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.16;
   letter-spacing: 0;
 }
 
@@ -173,6 +198,32 @@ a:focus-visible {
   color: var(--muted);
   line-height: 1.7;
   font-size: 16px;
+}
+
+.install-note {
+  margin-top: 18px;
+  padding: 16px;
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 10px 26px rgba(72, 63, 49, 0.07);
+}
+
+.home-hero > .install-note {
+  grid-column: 1 / -1;
+  margin-top: 0;
+}
+
+.install-note strong,
+.install-note span {
+  display: block;
+}
+
+.install-note strong {
+  margin-bottom: 8px;
+  color: var(--brand-dark);
+  font-size: 17px;
 }
 
 .eyebrow {
@@ -237,7 +288,8 @@ a:focus-visible {
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  min-height: 92px;
+  min-width: 0;
+  min-height: 104px;
   padding: 20px;
   background: var(--panel);
   border: 1px solid var(--line);
@@ -261,6 +313,45 @@ a:focus-visible {
   color: var(--muted);
   font-size: 14px;
   font-weight: 400;
+  line-height: 1.5;
+}
+
+.practice-flow,
+.worksheet-note {
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffdf8;
+  color: var(--muted);
+}
+
+.practice-flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  background: var(--panel);
+}
+
+.practice-flow article {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--soft);
+}
+
+.practice-flow b,
+.worksheet-note b {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--brand-dark);
+}
+
+.practice-flow p,
+.worksheet-note p {
+  margin: 0;
+  color: var(--muted);
   line-height: 1.5;
 }
 
@@ -317,6 +408,7 @@ a:focus-visible {
 
 .info-grid article,
 .content-grid article {
+  min-width: 0;
   padding: 16px;
   background: var(--soft);
   border: 1px solid #dce8df;
@@ -349,6 +441,7 @@ a:focus-visible {
 
 .tool-card {
   padding: 18px;
+  min-width: 0;
   position: sticky;
   top: 12px;
 }
@@ -379,6 +472,12 @@ a:focus-visible {
   gap: 10px;
 }
 
+.button-row button {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
 .primary-button,
 .secondary-button {
   min-height: 42px;
@@ -400,30 +499,34 @@ a:focus-visible {
 
 .preview-card {
   overflow: hidden;
-  padding: clamp(14px, 3vw, 24px);
+  padding: clamp(18px, 3vw, 28px);
+  min-height: clamp(560px, 76vh, 820px);
+  overflow: auto;
+  background: #f3efe6;
 }
 
 .worksheet {
   width: min(100%, 794px);
   min-height: 1123px;
   margin: 0 auto;
-  padding: 42px;
+  padding: 40px 44px;
   background:
     linear-gradient(90deg, rgba(226, 139, 67, 0.14) 0 10px, transparent 10px),
     var(--paper);
   border: 1px solid #eadfc9;
   border-radius: 4px;
   box-shadow: 0 18px 34px rgba(72, 63, 49, 0.14);
+  overflow-wrap: anywhere;
 }
 
 .worksheet h2 {
   margin: 0 0 6px;
   color: #1d3f42;
-  font-size: 30px;
+  font-size: 28px;
 }
 
 .worksheet .sheet-note {
-  margin: 0 0 22px;
+  margin: 0 0 18px;
   color: #647184;
 }
 
@@ -432,8 +535,8 @@ a:focus-visible {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 12px 24px;
-  margin: 0 0 26px;
-  padding: 12px 14px;
+  margin: 0 0 20px;
+  padding: 10px 12px;
   color: #475569;
   background: #ffffff;
   border: 1px solid #d7dfe8;
@@ -447,12 +550,23 @@ a:focus-visible {
   gap: 12px;
 }
 
+.trace-grid.is-two-column {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+}
+
 .trace-row {
   display: grid;
   grid-template-columns: 86px 1fr;
   gap: 14px;
   align-items: center;
   min-height: 78px;
+}
+
+.trace-grid.is-two-column .trace-row {
+  grid-template-columns: 54px 1fr;
+  gap: 8px;
+  min-height: 56px;
 }
 
 .trace-symbol {
@@ -467,10 +581,27 @@ a:focus-visible {
   font-weight: 800;
 }
 
+.trace-grid.is-compact .trace-symbol {
+  min-height: 52px;
+  font-size: 30px;
+}
+
 .trace-cells {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 8px;
+}
+
+.trace-cells.is-3-cells {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.trace-cells.is-4-cells {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.trace-grid.is-compact .trace-cells {
+  gap: 5px;
 }
 
 .trace-cell {
@@ -482,6 +613,10 @@ a:focus-visible {
   background: #fffefd;
   border: 1px solid #cfd8e3;
   border-radius: 6px;
+}
+
+.trace-grid.is-compact .trace-cell {
+  min-height: 52px;
 }
 
 .trace-cell.is-blank {
@@ -515,11 +650,48 @@ a:focus-visible {
   font-weight: 800;
 }
 
+.trace-grid.is-compact .trace-ghost {
+  font-size: 28px;
+}
+
+.worksheet-number-tracing .trace-grid.is-two-column .trace-row {
+  min-height: 72px;
+}
+
+.worksheet-number-tracing .trace-grid.is-two-column .trace-symbol,
+.worksheet-number-tracing .trace-grid.is-two-column .trace-cell {
+  min-height: 68px;
+}
+
+.worksheet-hangul-tracing .trace-grid.is-two-column .trace-row {
+  grid-template-columns: 70px 1fr;
+  min-height: 96px;
+}
+
+.worksheet-hangul-tracing .trace-grid.is-two-column .trace-symbol,
+.worksheet-hangul-tracing .trace-grid.is-two-column .trace-cell {
+  min-height: 90px;
+}
+
+.worksheet-hangul-tracing .trace-grid.is-two-column .trace-symbol {
+  font-size: 38px;
+}
+
+.worksheet-hangul-tracing .trace-grid.is-two-column .trace-ghost {
+  font-size: 36px;
+}
+
 .problem-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px 30px;
   font-size: 24px;
+}
+
+.problem-grid.is-dense {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px 18px;
+  font-size: 20px;
 }
 
 .problem {
@@ -530,9 +702,18 @@ a:focus-visible {
   border-bottom: 1px solid #cfd8e3;
 }
 
+.problem-grid.is-dense .problem {
+  min-height: 42px;
+  padding: 7px 0;
+}
+
 .answer-line {
   flex: 0 0 90px;
   border-bottom: 2px solid #647184;
+}
+
+.problem-grid.is-dense .answer-line {
+  flex-basis: 58px;
 }
 
 .clock-grid,
@@ -540,14 +721,14 @@ a:focus-visible {
 .shape-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  gap: 16px;
 }
 
 .clock-item,
 .flash-card,
 .shape-item {
-  min-height: 160px;
-  padding: 14px;
+  min-height: 150px;
+  padding: 12px;
   background: #fffefd;
   border: 1px solid #cfd8e3;
   border-radius: 6px;
@@ -563,11 +744,11 @@ a:focus-visible {
 .line-wrap svg,
 .coloring-wrap svg {
   width: 100%;
-  min-height: 700px;
+  min-height: 760px;
 }
 
 .maze-wrap svg {
-  min-height: 720px;
+  min-height: 780px;
 }
 
 .related-tools {
@@ -603,8 +784,8 @@ a:focus-visible {
 
 @media print {
   @page {
-    size: auto;
-    margin: 12mm;
+    size: A4;
+    margin: 10mm;
   }
 
   body {
@@ -635,16 +816,24 @@ a:focus-visible {
   }
 
   .worksheet {
-    min-height: auto;
+    min-height: 277mm;
     background: #fff;
     box-shadow: none;
+  }
+
+  .maze-wrap svg,
+  .line-wrap svg,
+  .coloring-wrap svg {
+    min-height: 238mm;
   }
 
   .trace-cell {
     break-inside: avoid;
   }
 
-  .trace-row {
+  .trace-row,
+  .problem,
+  .clock-item {
     break-inside: avoid;
   }
 }
@@ -656,11 +845,16 @@ a:focus-visible {
 }
 
 @media (max-width: 860px) {
-  .site-header,
   .home-hero,
   .tool-layout,
   .site-footer {
     display: block;
+  }
+
+  .site-header {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: flex-start;
   }
 
   .top-nav,
@@ -669,9 +863,14 @@ a:focus-visible {
     margin-top: 12px;
   }
 
+  .install-button {
+    max-width: none;
+  }
+
   .tool-directory,
   .info-grid,
   .content-grid,
+  .practice-flow,
   .problem-grid,
   .clock-grid,
   .card-grid,
@@ -692,7 +891,15 @@ a:focus-visible {
     grid-template-columns: 1fr;
   }
 
+  .trace-grid.is-two-column {
+    grid-template-columns: 1fr;
+  }
+
   .trace-cells {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .button-row {
+    grid-template-columns: 1fr;
   }
 }
