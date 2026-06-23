@@ -44,6 +44,14 @@ const TEMPLATE_CONFIG = {
   "checklist": { label: "Checklist", spacing: 30 }
 };
 const trackedTemplateActions = new Set();
+let deferredInstallPrompt = null;
+const FITTED_PATTERN_TEMPLATES = new Set([
+  "graph-paper",
+  "dot-grid-paper",
+  "lined-paper",
+  "handwriting-paper",
+  "isometric-paper"
+]);
 
 function trackAnalyticsEvent(eventName, params = {}) {
   if (typeof window.gtag !== "function") return;
@@ -81,11 +89,72 @@ function initAnalytics() {
 
 document.addEventListener("DOMContentLoaded", () => {
   initAnalytics();
+  registerServiceWorker();
+  bindInstallPrompt();
   initTemplateTool();
   initDirectorySearch();
   initDirectoryItemList();
   initStructuredData();
 });
+
+function registerServiceWorker() {
+  if (!("serviceWorker" in navigator)) return;
+  const workerUrl = location.pathname.startsWith("/paper/ko/") ? "/paper/ko/sw.js" : "/paper/sw.js";
+  navigator.serviceWorker.register(workerUrl).catch(() => {});
+}
+
+function bindInstallPrompt() {
+  const labels = LANGUAGE === "ko"
+    ? {
+      button: "앱처럼 추가",
+      title: "앱처럼 사용하기",
+      ios: "iPhone: Safari 공유 버튼 > 홈 화면에 추가",
+      android: "Galaxy: Chrome 메뉴 > 앱 설치 또는 홈 화면에 추가"
+    }
+    : {
+      button: "Add app",
+      title: "Use it like an app",
+      ios: "iPhone: Safari share button > Add to Home Screen",
+      android: "Galaxy: Chrome menu > Install app or Add to Home screen"
+    };
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+  let installButton = document.querySelector("[data-install]");
+  if (!installButton) {
+    installButton = document.createElement("button");
+    installButton.className = "install-button";
+    installButton.type = "button";
+    installButton.dataset.install = "";
+    installButton.textContent = labels.button;
+    header.append(installButton);
+  }
+
+  let note = document.querySelector("[data-install-note]");
+  if (!note) {
+    note = document.createElement("div");
+    note.className = "install-note";
+    note.dataset.installNote = "";
+    note.innerHTML = `<strong>${labels.title}</strong><span>${labels.ios}</span><span>${labels.android}</span>`;
+    const target = document.querySelector(".home-hero") || document.querySelector(".tool-heading") || document.querySelector("main");
+    if (target) target.append(note);
+  }
+
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+  });
+
+  installButton.addEventListener("click", async () => {
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+      await deferredInstallPrompt.userChoice;
+      deferredInstallPrompt = null;
+      trackTemplateUse("pwa", "install_prompt");
+      return;
+    }
+    note.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+}
 
 function initDirectorySearch() {
   const input = document.querySelector("[data-directory-search]");
@@ -141,6 +210,8 @@ function initTemplateTool() {
   const lineWeight = $("#lineWeight");
   const color = $("#lineColor");
   const title = $("#titleText");
+  const defaultPaperSize = "a4";
+  addPrintNote();
 
   function getDefaultSpacingValue() {
     const configValue = String(TEMPLATE_CONFIG[template].spacing);
@@ -161,6 +232,18 @@ function initTemplateTool() {
     sheet.style.setProperty("--line-weight", `${lineWeightValue}px`);
     sheet.style.setProperty("--paper-color", color.value);
     renderTemplate(template, sheet, title.value.trim());
+    schedulePatternFit();
+  }
+
+  function refitPattern() {
+    fitPatternArea(sheet, template, Number(spacing.value || TEMPLATE_CONFIG[template].spacing), Number(lineWeight ? lineWeight.value || 1 : 1));
+  }
+
+  function schedulePatternFit() {
+    requestAnimationFrame(() => {
+      refitPattern();
+      requestAnimationFrame(refitPattern);
+    });
   }
 
   [size, orientation, spacing, lineWeight, color, title].filter(Boolean).forEach((input) => {
@@ -173,7 +256,7 @@ function initTemplateTool() {
   });
   $("#resetTemplate").addEventListener("click", () => {
     trackTemplateUse(template, "reset");
-    size.value = "letter";
+    size.value = defaultPaperSize;
     if (orientation) orientation.value = "portrait";
     spacing.value = getDefaultSpacingValue();
     if (lineWeight) lineWeight.value = "1";
@@ -181,7 +264,67 @@ function initTemplateTool() {
     title.value = "";
     update();
   });
+  size.value = defaultPaperSize;
   update();
+
+  if ("ResizeObserver" in window) {
+    const resizeObserver = new ResizeObserver(() => {
+      schedulePatternFit();
+    });
+    resizeObserver.observe(sheet);
+  } else {
+    window.addEventListener("resize", () => {
+      schedulePatternFit();
+    });
+  }
+
+  window.addEventListener("beforeprint", schedulePatternFit);
+  window.addEventListener("afterprint", schedulePatternFit);
+
+  if (typeof window.matchMedia === "function") {
+    const printMedia = window.matchMedia("print");
+    const onPrintMediaChange = () => schedulePatternFit();
+    if (typeof printMedia.addEventListener === "function") {
+      printMedia.addEventListener("change", onPrintMediaChange);
+    } else if (typeof printMedia.addListener === "function") {
+      printMedia.addListener(onPrintMediaChange);
+    }
+  }
+}
+
+function addPrintNote() {
+  const card = document.querySelector(".tool-card");
+  if (!card || card.querySelector(".print-note")) return;
+  const note = document.createElement("div");
+  note.className = "print-note";
+  note.innerHTML = LANGUAGE === "ko"
+    ? "<strong>출력 전 확인</strong><span>브라우저 인쇄 창에서 배율 100%를 먼저 권장합니다. 여백은 기본값 또는 없음으로 한 장만 테스트 출력해 보세요.</span><em>A4 기본값</em><em>연한 선</em><em>PDF 저장 가능</em>"
+    : "<strong>Before printing</strong><span>Start with 100% scale in the browser print dialog. Test one page first with default or no margins.</span><em>A4 default</em><em>Light lines</em><em>PDF ready</em>";
+  card.append(note);
+}
+
+function fitPatternArea(sheet, template, spacingValue, lineWeightValue) {
+  if (!FITTED_PATTERN_TEMPLATES.has(template)) {
+    sheet.style.removeProperty("--pattern-width");
+    sheet.style.removeProperty("--pattern-height");
+    return;
+  }
+
+  const styles = getComputedStyle(sheet);
+  const safeInline = parseFloat(styles.getPropertyValue("--paper-safe-inline")) || 0;
+  const safeBlock = parseFloat(styles.getPropertyValue("--paper-safe-block")) || 0;
+  const sheetBounds = sheet.getBoundingClientRect();
+  const sheetWidth = sheetBounds.width || sheet.clientWidth;
+  const sheetHeight = sheetBounds.height || sheet.clientHeight;
+  const availableWidth = Math.max(0, sheetWidth - safeInline * 2);
+  const availableHeight = Math.max(0, sheetHeight - safeBlock * 2);
+  const spacingUnit = Math.max(1, spacingValue);
+  const lineUnit = Math.max(1, lineWeightValue);
+  const columns = Math.max(1, Math.floor((availableWidth - lineUnit) / spacingUnit));
+  const rows = Math.max(1, Math.floor((availableHeight - lineUnit) / spacingUnit));
+
+  sheet.style.setProperty("--pattern-width", `${columns * spacingUnit + lineUnit}px`);
+  sheet.style.setProperty("--pattern-height", `${rows * spacingUnit + lineUnit}px`);
 }
 
 function renderTemplate(template, sheet, titleText) {

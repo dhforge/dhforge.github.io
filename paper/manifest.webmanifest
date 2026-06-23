@@ -1,0 +1,26 @@
+{
+  "name": "Printable Paper Lab",
+  "short_name": "Paper Lab",
+  "description": "Printable A4 paper templates for notes, planners, graph paper, checklists, and handwriting.",
+  "start_url": "/paper/",
+  "scope": "/paper/",
+  "display": "standalone",
+  "background_color": "#f6f2e9",
+  "theme_color": "#1f6f63",
+  "icons": [
+    {
+      "src": "/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities"],
+  "lang": "ko"
+}
