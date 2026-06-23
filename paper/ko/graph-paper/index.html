@@ -34,10 +34,10 @@
     </section>
     <section class="tool-layout">
       <div class="tool-card">
-        <label class="field"><span>종이 크기</span><select id="paperSize"><option value="letter">Letter</option><option value="a4">A4</option></select></label>
-        <label class="field"><span>방향</span><select id="paperOrientation"><option value="portrait" selected>세로</option><option value="landscape">가로</option></select></label>
-        <label class="field"><span>선 굵기</span><select id="lineWeight"><option value="1" selected>얇게</option><option value="1.5">보통</option><option value="2">굵게</option></select></label>
-        <label class="field"><span>격자 간격</span><select id="lineSpacing"><option value="20">작게</option><option value="28" selected>보통</option><option value="36">크게</option></select></label>
+        <label class="field"><span>종이 크기</span><select id="paperSize" aria-label="종이 크기"><option value="letter">Letter</option><option value="a4">A4</option></select></label>
+        <label class="field"><span>방향</span><select id="paperOrientation" aria-label="방향"><option value="portrait" selected>세로</option><option value="landscape">가로</option></select></label>
+        <label class="field"><span>선 굵기</span><select id="lineWeight" aria-label="선 굵기"><option value="1" selected>얇게</option><option value="1.5">보통</option><option value="2">굵게</option></select></label>
+        <label class="field"><span>격자 간격</span><select id="lineSpacing" aria-label="격자 간격"><option value="20">작게</option><option value="28" selected>보통</option><option value="36">크게</option></select></label>
         <label class="field"><span>선 색상</span><input id="lineColor" type="color" value="#86a5b8"></label>
         <label class="field"><span>선택 제목</span><input id="titleText" type="text" maxlength="80" placeholder="수학 노트, 프로젝트 스케치, 연습지"></label>
         <div class="button-row"><button class="primary-button" id="printTemplate" type="button">인쇄 또는 PDF 저장</button><button id="resetTemplate" type="button">초기화</button></div>

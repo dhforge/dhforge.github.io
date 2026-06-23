@@ -54,10 +54,10 @@
     </section>
     <section class="tool-layout">
       <div class="tool-card">
-        <label class="field"><span>Paper size</span><select id="paperSize"><option value="letter">Letter</option><option value="a4">A4</option></select></label>
-        <label class="field"><span>Orientation</span><select id="paperOrientation"><option value="portrait" selected>Portrait</option><option value="landscape">Landscape</option></select></label>
-        <label class="field"><span>Line weight</span><select id="lineWeight"><option value="1" selected>Thin</option><option value="1.5">Medium</option><option value="2">Bold</option></select></label>
-        <label class="field"><span>Grid spacing</span><select id="lineSpacing"><option value="20">Small</option><option value="24" selected>Medium</option><option value="32">Large</option></select></label>
+        <label class="field"><span>Paper size</span><select id="paperSize" aria-label="Paper size"><option value="letter">Letter</option><option value="a4">A4</option></select></label>
+        <label class="field"><span>Orientation</span><select id="paperOrientation" aria-label="Orientation"><option value="portrait" selected>Portrait</option><option value="landscape">Landscape</option></select></label>
+        <label class="field"><span>Line weight</span><select id="lineWeight" aria-label="Line weight"><option value="1" selected>Thin</option><option value="1.5">Medium</option><option value="2">Bold</option></select></label>
+        <label class="field"><span>Grid spacing</span><select id="lineSpacing" aria-label="Grid spacing"><option value="20">Small</option><option value="24" selected>Medium</option><option value="32">Large</option></select></label>
         <label class="field"><span>Line color</span><input id="lineColor" type="color" value="#86a5b8"></label>
         <label class="field"><span>Optional title</span><input id="titleText" type="text" maxlength="80" placeholder="Math notes, project sketch, worksheet"></label>
         <div class="button-row"><button class="primary-button" id="printTemplate" type="button">Print or save PDF</button><button id="resetTemplate" type="button">Reset</button></div>

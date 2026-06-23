@@ -178,6 +178,8 @@ a:focus-visible {
 
 .install-button {
   position: static;
+  justify-self: start;
+  width: auto;
   padding: 8px 12px;
   color: #fff;
   background: var(--primary);
@@ -281,7 +283,11 @@ p {
 .content-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  gap: 18px;
+}
+
+.tool-directory {
+  margin-top: 26px;
 }
 
 .tool-directory a,
@@ -851,6 +857,7 @@ summary {
   }
 
   .install-button {
+    justify-self: start;
     max-width: none;
   }
 
@@ -870,6 +877,39 @@ summary {
   .top-nav,
   .site-footer nav {
     gap: 10px;
+  }
+
+  .site-header {
+    gap: 10px;
+    padding: 10px 16px;
+  }
+
+  .brand small {
+    display: none;
+  }
+
+  .brand-mark {
+    width: 32px;
+    height: 32px;
+  }
+
+  .top-nav {
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+    padding-bottom: 3px;
+    white-space: nowrap;
+  }
+
+  .top-nav a {
+    flex: 0 0 auto;
+    font-size: 13px;
+  }
+
+  .install-button {
+    min-height: 38px;
+    padding: 7px 10px;
   }
 
   .planner-grid {
