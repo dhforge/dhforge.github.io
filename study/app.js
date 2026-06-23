@@ -6,8 +6,47 @@ const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 
 const state = loadState();
 const wordBankFilters = { type: "all", level: "all", query: "" };
+const practiceFilters = { type: "english", difficulty: "all" };
+const WORD_LEVEL_OPTIONS = {
+  all: [
+    ["all", "전체"],
+    ["elementary", "초등"],
+    ["middle", "중등"],
+    ["high", "고등"],
+    ["hanja10", "한자 10급"],
+    ["hanja9", "한자 9급"],
+    ["hanja8", "한자 8급"],
+    ["hanja7", "한자 7급"],
+    ["hanja6", "한자 6급"],
+    ["hanja5", "한자 5급"],
+    ["hanja4", "한자 4급"],
+    ["hanja3", "한자 3급"],
+    ["hanja2", "한자 2급"],
+    ["hanja1", "한자 1급"]
+  ],
+  english: [
+    ["all", "전체"],
+    ["elementary", "초등"],
+    ["middle", "중등"],
+    ["high", "고등"]
+  ],
+  hanja: [
+    ["all", "전체"],
+    ["hanja10", "한자 10급"],
+    ["hanja9", "한자 9급"],
+    ["hanja8", "한자 8급"],
+    ["hanja7", "한자 7급"],
+    ["hanja6", "한자 6급"],
+    ["hanja5", "한자 5급"],
+    ["hanja4", "한자 4급"],
+    ["hanja3", "한자 3급"],
+    ["hanja2", "한자 2급"],
+    ["hanja1", "한자 1급"]
+  ]
+};
 let reviewIndex = 0;
 let flipped = false;
+let practiceWord = null;
 let deferredInstallPrompt = null;
 let timer = {
   seconds: 25 * 60,
@@ -23,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
   bindCards();
   bindWordBank();
   bindReview();
+  bindPractice();
   bindTimer();
   bindMistakes();
   bindExams();
@@ -168,6 +208,7 @@ function bindWordBank() {
 
   typeSelect?.addEventListener("change", () => {
     wordBankFilters.type = typeSelect.value || "all";
+    syncWordLevelOptions();
     renderWordBank();
   });
 
@@ -199,6 +240,8 @@ function bindWordBank() {
       renderAll();
     }
   });
+
+  syncWordLevelOptions();
 }
 
 function getWordBank() {
@@ -222,22 +265,34 @@ function getFilteredWords() {
 
 function addWordCard(word) {
   if (state.cards.some((card) => card.sourceWordId === word.id)) return false;
-  const back = word.type === "hanja"
-    ? `음/뜻: ${word.meaning}\n예: ${word.example}`
-    : `${word.meaning}\n${word.example}`;
+  const meaning = word.type === "hanja" ? `음/뜻: ${word.meaning}` : word.meaning;
   state.cards.unshift({
     id: uid(),
     sourceWordId: word.id,
     cardType: word.type || "english",
     deck: `${levelLabel(word.level)} ${typeLabel(word.type)}`,
     front: word.term || word.word,
-    back,
+    back: `${meaning}\n${word.example}`,
+    meaning,
+    example: word.example,
     createdAt: Date.now(),
     dueAt: Date.now(),
     level: 0
   });
   saveState();
   return true;
+}
+
+function syncWordLevelOptions() {
+  const typeSelect = $("[data-word-type]");
+  const levelSelect = $("[data-word-level]");
+  if (!typeSelect || !levelSelect) return;
+  const type = typeSelect.value || "all";
+  const options = WORD_LEVEL_OPTIONS[type] || WORD_LEVEL_OPTIONS.all;
+  const selected = options.some(([value]) => value === wordBankFilters.level) ? wordBankFilters.level : "all";
+  levelSelect.innerHTML = options.map(([value, label]) => `<option value="${value}">${label}</option>`).join("");
+  levelSelect.value = selected;
+  wordBankFilters.level = selected;
 }
 
 function typeLabel(type) {
@@ -301,6 +356,56 @@ function bindReview() {
     }
     renderAll();
   });
+}
+
+function bindPractice() {
+  const typeSelect = $("[data-practice-type]");
+  const difficultySelect = $("[data-practice-difficulty]");
+  typeSelect?.addEventListener("change", () => {
+    practiceFilters.type = typeSelect.value || "english";
+    practiceWord = null;
+    renderPractice();
+  });
+  difficultySelect?.addEventListener("change", () => {
+    practiceFilters.difficulty = difficultySelect.value || "all";
+    practiceWord = null;
+    renderPractice();
+  });
+  $("[data-next-practice]")?.addEventListener("click", () => {
+    pickPracticeWord();
+    track("next_random_practice", { type: practiceFilters.type, difficulty: practiceFilters.difficulty });
+    renderPractice();
+  });
+  $("[data-practice-card]")?.addEventListener("click", (event) => {
+    const action = event.target.closest("[data-practice-action]")?.dataset.practiceAction;
+    if (action === "show") {
+      event.currentTarget.classList.add("is-revealed");
+    } else if (action === "add" && practiceWord) {
+      addWordCard(practiceWord);
+      renderAll();
+    } else if (action === "next") {
+      pickPracticeWord();
+      renderPractice();
+    }
+  });
+}
+
+function getPracticeWords() {
+  return getWordBank().filter((word) => {
+    if (word.type !== practiceFilters.type) return false;
+    if (practiceFilters.difficulty === "all") return true;
+    if (word.type === "english") return word.level === practiceFilters.difficulty;
+    const levelNumber = Number(String(word.level).replace("hanja", ""));
+    if (practiceFilters.difficulty === "elementary") return levelNumber >= 8;
+    if (practiceFilters.difficulty === "middle") return levelNumber >= 5 && levelNumber <= 7;
+    if (practiceFilters.difficulty === "high") return levelNumber >= 1 && levelNumber <= 4;
+    return true;
+  });
+}
+
+function pickPracticeWord() {
+  const words = getPracticeWords();
+  practiceWord = words[Math.floor(Math.random() * words.length)] || null;
 }
 
 function bindTimer() {
@@ -455,6 +560,7 @@ function renderAll() {
   renderCards();
   renderWordBank();
   renderReview();
+  renderPractice();
   renderTimer();
   renderMistakes();
   renderExams();
@@ -479,7 +585,7 @@ function renderCards() {
         <div><h3>${escapeHtml(card.front)}</h3><p class="muted">${escapeHtml(card.deck)} · 기억 단계 ${card.level || 0}</p></div>
         <button type="button" data-delete-card="${card.id}">삭제</button>
       </div>
-      <p>${escapeHtml(card.back)}</p>
+      ${renderBackFace(card)}
     </article>
   `).join("") : '<div class="empty-state"><b>아직 저장된 카드가 없습니다</b><p>단어장에서 필요한 영단어나 한자를 골라 카드로 추가하세요.</p><button class="primary-button" type="button" data-empty-wordbank>단어 고르기</button></div>';
   list.querySelector("[data-empty-wordbank]")?.addEventListener("click", () => activateTab("wordbank"));
@@ -490,6 +596,25 @@ function renderCards() {
       renderAll();
     });
   });
+}
+
+function renderBackFace(card) {
+  const parts = getBackParts(card);
+  return `
+    <div class="card-back-block">
+      <p class="card-meaning">${escapeHtml(parts.meaning)}</p>
+      ${parts.example ? `<p class="card-example">${escapeHtml(parts.example)}</p>` : ""}
+    </div>
+  `;
+}
+
+function getBackParts(card) {
+  if (card.meaning || card.example) {
+    return { meaning: card.meaning || card.back || "", example: card.example || "" };
+  }
+  const lines = String(card.back || "").split(/\n+/).map((line) => line.trim()).filter(Boolean);
+  if (lines.length > 1) return { meaning: lines[0], example: lines.slice(1).join(" ") };
+  return { meaning: card.back || "", example: "" };
 }
 
 function renderWordBank() {
@@ -505,9 +630,7 @@ function renderWordBank() {
   }
 
   if (!words.length) {
-    list.innerHTML = wordBankFilters.type === "hanja" && wordBankFilters.level !== "hanja10"
-      ? '<div class="empty-state"><b>아직 배정 전인 한자 급수입니다</b><p>기준 기관을 정하면 해당 급수 전체를 정확히 추가할 수 있습니다.</p></div>'
-      : '<div class="empty-state"><b>검색 결과가 없습니다</b><p>검색어를 줄이거나 종류와 수준을 전체로 바꿔 보세요.</p></div>';
+    list.innerHTML = '<div class="empty-state"><b>검색 결과가 없습니다</b><p>검색어를 줄이거나 종류와 수준을 전체로 바꿔 보세요.</p></div>';
     return;
   }
 
@@ -542,13 +665,43 @@ function renderReview() {
     return;
   }
   reviewCard.innerHTML = `
-    <div class="flash-face">${escapeHtml(flipped ? card.back : card.front)}</div>
+    <div class="flash-face ${flipped ? "is-back" : ""}">${flipped ? renderBackFace(card) : escapeHtml(card.front)}</div>
     <p class="muted">${escapeHtml(card.deck)} · ${flipped ? "뒷면" : "앞면"}</p>
     <div class="item-actions">
       <button type="button" data-review-action="flip">${flipped ? "앞면 보기" : "정답 보기"}</button>
       <button type="button" data-review-action="again">모름</button>
       <button type="button" data-review-action="hard">헷갈림</button>
       <button class="primary-button" type="button" data-review-action="good">알고 있음</button>
+    </div>
+  `;
+}
+
+function renderPractice() {
+  const card = $("[data-practice-card]");
+  const count = getPracticeWords().length;
+  setText("[data-practice-count]", `${count}개`);
+  if (!card) return;
+  if (!practiceWord) pickPracticeWord();
+  if (!practiceWord) {
+    card.classList.remove("is-revealed");
+    card.innerHTML = '<div class="empty-state"><b>연습할 항목이 없습니다</b><p>종류와 난이도를 전체로 바꿔 보세요.</p></div>';
+    return;
+  }
+  card.classList.remove("is-revealed");
+  const isHanja = practiceWord.type === "hanja";
+  card.innerHTML = `
+    <div class="practice-front">
+      <p class="muted">${typeLabel(practiceWord.type)} · ${isHanja ? levelLabel(practiceWord.level) : levelLabel(practiceWord.level)}</p>
+      <strong>${escapeHtml(practiceWord.term || practiceWord.word)}</strong>
+    </div>
+    <div class="practice-answer">
+      <p class="card-meaning">${escapeHtml(isHanja ? `음/뜻: ${practiceWord.meaning}` : practiceWord.meaning)}</p>
+      <p class="card-example">${escapeHtml(practiceWord.example)}</p>
+    </div>
+    <div class="item-actions">
+      <button type="button" data-practice-action="show">뜻 보기</button>
+      <button type="button" data-practice-action="next">다음 문제</button>
+      <button class="primary-button" type="button" data-practice-action="add">내 학습장에 추가</button>
     </div>
   `;
 }

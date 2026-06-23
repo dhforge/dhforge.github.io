@@ -22,7 +22,7 @@
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles.css?v=word-hanja-20260622c">
+  <link rel="stylesheet" href="styles.css?v=word-hanja-20260623b">
 </head>
 <body>
   <a class="skip-link" href="#app">본문으로 이동</a>
@@ -69,6 +69,7 @@
         <button class="tab-button is-active" type="button" data-tab="wordbank">단어장</button>
         <button class="tab-button" type="button" data-tab="review">오늘 복습</button>
         <button class="tab-button" type="button" data-tab="cards">내 학습장</button>
+        <button class="tab-button" type="button" data-tab="practice">랜덤 연습</button>
         <button class="tab-button" type="button" data-tab="backup">백업/복원</button>
       </aside>
 
@@ -121,7 +122,7 @@
           <button class="primary-button" type="button" data-add-visible-words>보이는 단어 20개 추가</button>
         </div>
         <p class="muted">영단어와 한자를 고르면 내 학습장에 저장됩니다. 저장된 항목은 오늘 복습, 반복 간격, 백업/복원에 포함됩니다.</p>
-        <p class="muted">한자 급수는 시험 기관마다 배정 한자가 다릅니다. 현재는 기초 10급팩을 제공하며, 기관 기준이 확정되면 9급~1급 전체 배정표로 확장합니다.</p>
+        <p class="muted">종류를 한자로 고르면 수준에서 10급부터 1급까지 급수별 한자를 바로 골라 볼 수 있습니다.</p>
         <div class="word-bank-list" data-word-bank-list></div>
       </section>
 
@@ -130,6 +131,30 @@
         <div class="review-card" data-review-card>
           <p class="muted">오늘 복습할 항목이 없으면 단어장에서 영단어나 한자를 먼저 추가하세요.</p>
         </div>
+      </section>
+
+      <section class="panel" data-panel="practice" aria-labelledby="practiceTitle">
+        <div class="panel-head"><div><p class="eyebrow">Random Practice</p><h2 id="practiceTitle">영어·한자 랜덤 연습</h2></div><span class="pill" data-practice-count>0개</span></div>
+        <div class="practice-controls">
+          <label>
+            <span>종류</span>
+            <select data-practice-type>
+              <option value="english">영어</option>
+              <option value="hanja">한자</option>
+            </select>
+          </label>
+          <label>
+            <span>난이도</span>
+            <select data-practice-difficulty>
+              <option value="all">전체</option>
+              <option value="elementary">초등</option>
+              <option value="middle">중등</option>
+              <option value="high">고등</option>
+            </select>
+          </label>
+          <button class="primary-button" type="button" data-next-practice>랜덤 문제</button>
+        </div>
+        <div class="practice-card" data-practice-card></div>
       </section>
 
       <section class="panel" data-panel="timer" aria-labelledby="timerTitle">
@@ -181,7 +206,7 @@
   </main>
 
   <script src="../analytics.js" defer></script>
-  <script src="word-bank.js?v=word-hanja-20260622c" defer></script>
-  <script src="app.js?v=word-hanja-20260622c" defer></script>
+  <script src="word-bank.js?v=word-hanja-20260623b" defer></script>
+  <script src="app.js?v=word-hanja-20260623b" defer></script>
 </body>
 </html>
