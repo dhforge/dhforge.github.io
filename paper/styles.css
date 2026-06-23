@@ -164,6 +164,7 @@ a:focus-visible {
 .top-nav {
   min-width: 0;
   justify-content: flex-end;
+  overflow-wrap: anywhere;
 }
 
 .top-nav a,
@@ -483,7 +484,7 @@ input[type="color"] {
   display: grid;
   place-items: center;
   min-width: 0;
-  min-height: clamp(520px, 72vh, 760px);
+  min-height: clamp(480px, 68vh, 720px);
   padding: 20px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -493,8 +494,10 @@ input[type="color"] {
 }
 
 .sheet {
-  width: min(100%, 620px);
-  max-height: calc(100vh - 150px);
+  width: auto;
+  height: min(calc(100vh - 190px), 740px);
+  max-width: 100%;
+  max-height: 100%;
   aspect-ratio: 8.5 / 11;
   position: relative;
   box-sizing: border-box;
@@ -895,15 +898,15 @@ summary {
 
   .top-nav {
     width: 100%;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    flex-wrap: wrap;
+    overflow-x: visible;
     gap: 8px;
-    padding-bottom: 3px;
-    white-space: nowrap;
+    padding-bottom: 0;
+    white-space: normal;
   }
 
   .top-nav a {
-    flex: 0 0 auto;
+    flex: 0 1 auto;
     font-size: 13px;
   }
 
@@ -922,5 +925,14 @@ summary {
 
   .sheet-content {
     inset: 22px;
+  }
+
+  .preview-wrap {
+    min-height: 360px;
+    padding: 12px;
+  }
+
+  .sheet {
+    height: min(520px, calc(100vh - 180px));
   }
 }

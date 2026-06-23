@@ -104,6 +104,7 @@ function registerServiceWorker() {
 }
 
 function bindInstallPrompt() {
+  const isTemplatePage = Boolean(document.body.dataset.template);
   const labels = LANGUAGE === "ko"
     ? {
       button: "앱처럼 추가",
@@ -118,7 +119,7 @@ function bindInstallPrompt() {
       android: "Galaxy: Chrome menu > Install app or Add to Home screen"
     };
   const header = document.querySelector(".site-header");
-  if (!header) return;
+  if (!header || isTemplatePage) return;
   let installButton = document.querySelector("[data-install]");
   if (!installButton) {
     installButton = document.createElement("button");
