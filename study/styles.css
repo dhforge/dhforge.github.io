@@ -242,6 +242,10 @@ h1 {
   padding: 8px;
 }
 
+.side-nav::after {
+  display: none;
+}
+
 .tab-button {
   display: block;
   width: 100%;
@@ -610,6 +614,19 @@ textarea {
     display: flex;
     overflow-x: auto;
     gap: 8px;
+    padding-right: 28px;
+    scrollbar-width: thin;
+  }
+
+  .side-nav::after {
+    content: "";
+    display: block;
+    position: sticky;
+    right: -8px;
+    flex: 0 0 28px;
+    align-self: stretch;
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(246, 248, 244, 0), var(--surface) 80%);
   }
 
   .tab-button {

@@ -858,6 +858,15 @@ textarea {
   font-size: 14px;
 }
 
+.tool-status {
+  margin: 8px 0 0;
+}
+
+[aria-invalid="true"] {
+  border-color: #b42318;
+  box-shadow: 0 0 0 3px rgba(180, 35, 24, 0.12);
+}
+
 .canvas-stage {
   display: grid;
   place-items: center;

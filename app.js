@@ -612,13 +612,31 @@ function initQrGenerator() {
   if (!text) return;
   const canvas = $("#qrCanvas");
   const download = $("#downloadQr");
+  const status = document.createElement("p");
+  status.className = "helper tool-status";
+  download.closest(".button-row")?.after(status);
 
   text.value = "https://example.com";
 
   function render() {
+    const value = text.value.trim();
+    if (!value) {
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#607080";
+      ctx.font = "14px Arial";
+      ctx.fillText(IS_EN ? "Enter text first." : "\uBA3C\uC800 \uB0B4\uC6A9\uC744 \uC785\uB825\uD558\uC138\uC694.", 70, 140);
+      status.textContent = IS_EN ? "Enter a URL or short text before creating a QR code." : "QR \uCF54\uB4DC\uB85C \uB9CC\uB4E4 URL\uC774\uB098 \uC9E7\uC740 \uBB38\uAD6C\uB97C \uBA3C\uC800 \uC785\uB825\uD558\uC138\uC694.";
+      download.classList.remove("is-ready");
+      return;
+    }
     try {
-      const matrix = createQrMatrix(text.value || " ");
+      const matrix = createQrMatrix(value);
       drawQr(canvas, matrix);
+      status.textContent = IS_EN ? "QR code is ready. Use Save PNG to download it." : "QR \uCF54\uB4DC\uAC00 \uC900\uBE44\uB418\uC5C8\uC2B5\uB2C8\uB2E4. PNG \uC800\uC7A5\uC73C\uB85C \uB0B4\uB824\uBC1B\uC744 \uC218 \uC788\uC2B5\uB2C8\uB2E4.";
+      download.classList.add("is-ready");
     } catch (error) {
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -626,6 +644,8 @@ function initQrGenerator() {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#9b5a00";
       ctx.font = "14px Arial";
+      status.textContent = IS_EN ? "Input is too long for this compact QR generator." : "\uC785\uB825\uD55C \uB0B4\uC6A9\uC774 \uB108\uBB34 \uAE41\uB2C8\uB2E4. \uC9E7\uC740 URL\uC774\uB098 \uBB38\uAD6C\uB85C \uC904\uC5EC\uC8FC\uC138\uC694.";
+      download.classList.remove("is-ready");
       ctx.fillText(IS_EN ? "Input is too long." : "입력이 너무 깁니다.", 80, 140);
     }
   }
@@ -967,15 +987,21 @@ function initTextCleaner() {
   const input = $("#cleanInput");
   if (!input) return;
   const output = $("#cleanOutput");
+  let useOutputAsSource = false;
 
   function setOutput(value) {
     output.value = value;
+    useOutputAsSource = true;
   }
+
+  input.addEventListener("input", () => {
+    useOutputAsSource = false;
+  });
 
   $$("[data-clean]").forEach((button) => {
     button.addEventListener("click", () => {
       trackToolUse("text-cleaner", button.dataset.clean || "clean");
-      const text = input.value;
+      const text = useOutputAsSource && output.value ? output.value : input.value;
       const lines = text.split(/\r?\n/);
       switch (button.dataset.clean) {
         case "trim-lines":
@@ -985,10 +1011,21 @@ function initTextCleaner() {
           setOutput(lines.filter((line) => line.trim()).join("\n"));
           break;
         case "dedupe":
-          setOutput([...new Set(lines)].join("\n"));
+          {
+            const seen = new Set();
+            const deduped = [];
+            lines.forEach((line) => {
+              const normalized = line.trim().replace(/[ \t]+/g, " ");
+              if (!seen.has(normalized)) {
+                seen.add(normalized);
+                deduped.push(normalized);
+              }
+            });
+            setOutput(deduped.join("\n"));
+          }
           break;
         case "collapse-space":
-          setOutput(text.replace(/[ \t]+/g, " ").replace(/\n{3,}/g, "\n\n").trim());
+          setOutput(lines.map((line) => line.trim().replace(/[ \t]+/g, " ")).join("\n").replace(/\n{3,}/g, "\n\n").trim());
           break;
         case "upper":
           setOutput(text.toUpperCase());
@@ -1019,9 +1056,18 @@ function initColorTool() {
   const hexInput = $("#hexInput");
   const swatch = $("#colorSwatch");
   const results = $("#colorResults");
+  const message = document.createElement("p");
+  message.className = "helper tool-status";
+  hexInput.closest(".field")?.after(message);
 
   function updateFromHex(hex) {
-    if (!/^#[0-9a-f]{6}$/i.test(hex)) return;
+    if (!/^#[0-9a-f]{6}$/i.test(hex)) {
+      hexInput.setAttribute("aria-invalid", "true");
+      message.textContent = IS_EN ? "Enter a HEX value like #2f6f73." : "#2f6f73 \uD615\uC2DD\uC758 6\uC790\uB9AC HEX \uAC12\uC744 \uC785\uB825\uD558\uC138\uC694.";
+      return;
+    }
+    hexInput.removeAttribute("aria-invalid");
+    message.textContent = "";
     const rgb = hexToRgb(hex);
     const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
     const blackContrast = contrastRatio(rgb, { r: 0, g: 0, b: 0 });
@@ -1246,6 +1292,9 @@ function initImageResizer() {
   const format = $("#imageFormat");
   const canvas = $("#imageCanvas");
   const download = $("#downloadImage");
+  const status = document.createElement("p");
+  status.className = "helper tool-status";
+  download.after(status);
   let sourceImage = null;
   let sourceRatio = 1;
 
@@ -1291,6 +1340,8 @@ function initImageResizer() {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#607080";
       ctx.font = "14px Arial";
+      status.textContent = imageToolMessage();
+      download.classList.remove("is-ready");
       ctx.fillText(IS_EN ? "Select an image." : "이미지를 선택하세요.", 92, 112);
       return;
     }
@@ -1303,6 +1354,7 @@ function initImageResizer() {
     download.href = canvas.toDataURL(format.value, 0.92);
     download.download = `resized-image.${extension}`;
     download.classList.add("is-ready");
+    status.textContent = IS_EN ? "Image is ready. Use the result link to save it." : "\uC774\uBBF8\uC9C0\uAC00 \uC900\uBE44\uB418\uC5C8\uC2B5\uB2C8\uB2E4. \uACB0\uACFC \uC800\uC7A5 \uB9C1\uD06C\uB85C \uB0B4\uB824\uBC1B\uC744 \uC218 \uC788\uC2B5\uB2C8\uB2E4.";
   }
 
   drawResizedImage();
@@ -1342,6 +1394,10 @@ function extensionFromMime(mime) {
   return mime.split("/")[1].replace("jpeg", "jpg");
 }
 
+function imageToolMessage() {
+  return IS_EN ? "Select an image before creating the result." : "\uACB0\uACFC\uB97C \uB9CC\uB4E4\uAE30 \uC804\uC5D0 \uC774\uBBF8\uC9C0\uB97C \uBA3C\uC800 \uC120\uD0DD\uD558\uC138\uC694.";
+}
+
 function initImageCompressor() {
   const input = $("#compressInput");
   if (!input) return;
@@ -1366,7 +1422,8 @@ function initImageCompressor() {
     const ctx = canvas.getContext("2d");
     if (!sourceImage) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      info.textContent = IS_EN ? "Select an image." : "이미지를 선택하세요.";
+      info.textContent = imageToolMessage();
+      download.classList.remove("is-ready");
       return;
     }
     const targetWidth = Math.min(sourceImage.width, Math.max(64, Number(maxWidth.value || sourceImage.width)));
@@ -1392,6 +1449,9 @@ function initImageConverter() {
   const quality = $("#convertQuality");
   const canvas = $("#convertCanvas");
   const download = $("#convertDownload");
+  const status = document.createElement("p");
+  status.className = "helper tool-status";
+  download.after(status);
   let sourceImage = null;
 
   input.addEventListener("change", () => loadImageFromInput(input, (image) => {
@@ -1405,6 +1465,8 @@ function initImageConverter() {
     const ctx = canvas.getContext("2d");
     if (!sourceImage) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      status.textContent = imageToolMessage();
+      download.classList.remove("is-ready");
       return;
     }
     canvas.width = sourceImage.width;
@@ -1417,6 +1479,7 @@ function initImageConverter() {
     download.href = canvas.toDataURL(format.value, Number(quality.value || 0.9));
     download.download = `converted-image.${extensionFromMime(format.value)}`;
     download.classList.add("is-ready");
+    status.textContent = IS_EN ? "Converted image is ready." : "\uBCC0\uD658\uB41C \uC774\uBBF8\uC9C0\uAC00 \uC900\uBE44\uB418\uC5C8\uC2B5\uB2C8\uB2E4.";
   }
 }
 
@@ -1428,6 +1491,9 @@ function initThumbnailMaker() {
   const bg = $("#thumbBg");
   const canvas = $("#thumbCanvas");
   const download = $("#thumbDownload");
+  const status = document.createElement("p");
+  status.className = "helper tool-status";
+  download.after(status);
   let sourceImage = null;
 
   input.addEventListener("change", () => loadImageFromInput(input, (image) => {
@@ -1444,10 +1510,16 @@ function initThumbnailMaker() {
     const ctx = canvas.getContext("2d");
     ctx.fillStyle = bg.value;
     ctx.fillRect(0, 0, width, height);
-    if (sourceImage) drawImageFit(ctx, sourceImage, width, height, fit.value, bg.value);
+    if (!sourceImage) {
+      status.textContent = imageToolMessage();
+      download.classList.remove("is-ready");
+      return;
+    }
+    drawImageFit(ctx, sourceImage, width, height, fit.value, bg.value);
     download.href = canvas.toDataURL("image/png");
     download.download = `thumbnail-${width}x${height}.png`;
     download.classList.add("is-ready");
+    status.textContent = IS_EN ? "Thumbnail is ready." : "\uC378\uB124\uC77C\uC774 \uC900\uBE44\uB418\uC5C8\uC2B5\uB2C8\uB2E4.";
   }
 
   render();
