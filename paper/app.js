@@ -240,10 +240,16 @@ function initTemplateTool() {
   }
 
   function schedulePatternFit() {
+    refitPattern();
     requestAnimationFrame(() => {
       refitPattern();
       requestAnimationFrame(refitPattern);
     });
+  }
+
+  function preparePrint() {
+    refitPattern();
+    schedulePatternFit();
   }
 
   [size, orientation, spacing, lineWeight, color, title].filter(Boolean).forEach((input) => {
@@ -252,7 +258,8 @@ function initTemplateTool() {
   });
   $("#printTemplate").addEventListener("click", () => {
     trackTemplateUse(template, "print_or_save_pdf");
-    window.print();
+    preparePrint();
+    setTimeout(() => window.print(), 0);
   });
   $("#resetTemplate").addEventListener("click", () => {
     trackTemplateUse(template, "reset");
@@ -278,7 +285,7 @@ function initTemplateTool() {
     });
   }
 
-  window.addEventListener("beforeprint", schedulePatternFit);
+  window.addEventListener("beforeprint", preparePrint);
   window.addEventListener("afterprint", schedulePatternFit);
 
   if (typeof window.matchMedia === "function") {
@@ -316,10 +323,10 @@ function fitPatternArea(sheet, template, spacingValue, lineWeightValue) {
   const sheetBounds = sheet.getBoundingClientRect();
   const sheetWidth = sheetBounds.width || sheet.clientWidth;
   const sheetHeight = sheetBounds.height || sheet.clientHeight;
-  const availableWidth = Math.max(0, sheetWidth - safeInline * 2);
-  const availableHeight = Math.max(0, sheetHeight - safeBlock * 2);
-  const spacingUnit = Math.max(1, spacingValue);
-  const lineUnit = Math.max(1, lineWeightValue);
+  const availableWidth = Math.floor(Math.max(0, sheetWidth - safeInline * 2));
+  const availableHeight = Math.floor(Math.max(0, sheetHeight - safeBlock * 2));
+  const spacingUnit = Math.max(1, Math.round(spacingValue));
+  const lineUnit = Math.max(1, Math.ceil(lineWeightValue));
   const columns = Math.max(1, Math.floor((availableWidth - lineUnit) / spacingUnit));
   const rows = Math.max(1, Math.floor((availableHeight - lineUnit) / spacingUnit));
 
