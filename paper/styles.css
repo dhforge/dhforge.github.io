@@ -774,13 +774,23 @@ summary {
 }
 
 @media print {
-  @page {
+  @page paper-a4-portrait {
     size: A4;
     margin: 0;
   }
 
-  @page paper-landscape {
+  @page paper-a4-landscape {
     size: A4 landscape;
+    margin: 0;
+  }
+
+  @page paper-letter-portrait {
+    size: letter;
+    margin: 0;
+  }
+
+  @page paper-letter-landscape {
+    size: letter landscape;
     margin: 0;
   }
 
@@ -820,6 +830,7 @@ summary {
     height: var(--paper-height);
     max-width: none;
     aspect-ratio: auto;
+    page: paper-a4-portrait;
     --paper-safe-block: 10mm;
     --paper-safe-inline: 10mm;
     box-shadow: none;
@@ -828,19 +839,22 @@ summary {
     page-break-inside: avoid;
   }
 
-  .sheet[data-orientation="landscape"] {
-    page: paper-landscape;
-  }
-
   .sheet[data-size="letter"] {
-    --paper-width: 210mm;
-    --paper-height: 297mm;
+    page: paper-letter-portrait;
+    --paper-width: 8.5in;
+    --paper-height: 11in;
   }
 
-  .sheet[data-orientation="landscape"],
-  .sheet[data-size="letter"][data-orientation="landscape"] {
+  .sheet[data-orientation="landscape"] {
+    page: paper-a4-landscape;
     --paper-width: 297mm;
     --paper-height: 210mm;
+  }
+
+  .sheet[data-size="letter"][data-orientation="landscape"] {
+    page: paper-letter-landscape;
+    --paper-width: 11in;
+    --paper-height: 8.5in;
   }
 }
 

@@ -52,6 +52,13 @@ const FITTED_PATTERN_TEMPLATES = new Set([
   "handwriting-paper",
   "isometric-paper"
 ]);
+const CSS_PX_PER_INCH = 96;
+const CSS_PX_PER_MM = CSS_PX_PER_INCH / 25.4;
+const PRINT_SAFE_MARGIN_PX = 10 * CSS_PX_PER_MM;
+const PRINT_PAPER_SIZES = {
+  a4: { width: 210 * CSS_PX_PER_MM, height: 297 * CSS_PX_PER_MM },
+  letter: { width: 8.5 * CSS_PX_PER_INCH, height: 11 * CSS_PX_PER_INCH }
+};
 
 function trackAnalyticsEvent(eventName, params = {}) {
   if (typeof window.gtag !== "function") return;
@@ -236,21 +243,20 @@ function initTemplateTool() {
     schedulePatternFit();
   }
 
-  function refitPattern() {
-    fitPatternArea(sheet, template, Number(spacing.value || TEMPLATE_CONFIG[template].spacing), Number(lineWeight ? lineWeight.value || 1 : 1));
+  function refitPattern(options = {}) {
+    fitPatternArea(sheet, template, Number(spacing.value || TEMPLATE_CONFIG[template].spacing), Number(lineWeight ? lineWeight.value || 1 : 1), options);
   }
 
-  function schedulePatternFit() {
-    refitPattern();
+  function schedulePatternFit(options = {}) {
+    refitPattern(options);
     requestAnimationFrame(() => {
-      refitPattern();
-      requestAnimationFrame(refitPattern);
+      refitPattern(options);
+      requestAnimationFrame(() => refitPattern(options));
     });
   }
 
   function preparePrint() {
-    refitPattern();
-    schedulePatternFit();
+    schedulePatternFit({ forPrint: true });
   }
 
   [size, orientation, spacing, lineWeight, color, title].filter(Boolean).forEach((input) => {
@@ -291,7 +297,13 @@ function initTemplateTool() {
 
   if (typeof window.matchMedia === "function") {
     const printMedia = window.matchMedia("print");
-    const onPrintMediaChange = () => schedulePatternFit();
+    const onPrintMediaChange = (event) => {
+      if (event.matches) {
+        preparePrint();
+      } else {
+        schedulePatternFit();
+      }
+    };
     if (typeof printMedia.addEventListener === "function") {
       printMedia.addEventListener("change", onPrintMediaChange);
     } else if (typeof printMedia.addListener === "function") {
@@ -311,7 +323,18 @@ function addPrintNote() {
   card.append(note);
 }
 
-function fitPatternArea(sheet, template, spacingValue, lineWeightValue) {
+function getPrintPatternBounds(sheet) {
+  const base = PRINT_PAPER_SIZES[sheet.dataset.size] || PRINT_PAPER_SIZES.a4;
+  const isLandscape = sheet.dataset.orientation === "landscape";
+  const width = isLandscape ? base.height : base.width;
+  const height = isLandscape ? base.width : base.height;
+  return {
+    width: Math.floor(Math.max(0, width - PRINT_SAFE_MARGIN_PX * 2)),
+    height: Math.floor(Math.max(0, height - PRINT_SAFE_MARGIN_PX * 2))
+  };
+}
+
+function fitPatternArea(sheet, template, spacingValue, lineWeightValue, options = {}) {
   if (!FITTED_PATTERN_TEMPLATES.has(template)) {
     sheet.style.removeProperty("--pattern-width");
     sheet.style.removeProperty("--pattern-height");
@@ -324,8 +347,9 @@ function fitPatternArea(sheet, template, spacingValue, lineWeightValue) {
   const sheetBounds = sheet.getBoundingClientRect();
   const sheetWidth = sheetBounds.width || sheet.clientWidth;
   const sheetHeight = sheetBounds.height || sheet.clientHeight;
-  const availableWidth = Math.floor(Math.max(0, sheetWidth - safeInline * 2));
-  const availableHeight = Math.floor(Math.max(0, sheetHeight - safeBlock * 2));
+  const printBounds = options.forPrint ? getPrintPatternBounds(sheet) : null;
+  const availableWidth = printBounds ? printBounds.width : Math.floor(Math.max(0, sheetWidth - safeInline * 2));
+  const availableHeight = printBounds ? printBounds.height : Math.floor(Math.max(0, sheetHeight - safeBlock * 2));
   const spacingUnit = Math.max(1, Math.round(spacingValue));
   const lineUnit = Math.max(1, Math.ceil(lineWeightValue));
   const columns = Math.max(1, Math.floor((availableWidth - lineUnit) / spacingUnit));
