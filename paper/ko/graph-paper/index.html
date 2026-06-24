@@ -3,61 +3,87 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>모눈종이 생성기 - 무료 출력용 템플릿 - 인쇄용 종이 연구소</title>
-  <meta name="description" content="모눈종이의 종이 크기, 격자 간격, 선 색상, 제목을 브라우저에서 조정하고 바로 인쇄하거나 PDF로 저장하세요.">
+  <title>모눈종이 PDF 무료 만들기 - Printable Paper Lab</title>
+  <meta name="description" content="A4와 Letter 크기의 모눈종이를 브라우저에서 바로 만들고 인쇄하거나 PDF로 저장하세요. 간격, 선 굵기, 색상, 제목을 간단히 조정할 수 있습니다.">
   <meta name="robots" content="index,follow">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="canonical" href="https://dhforge.github.io/paper/ko/graph-paper/">
   <link rel="alternate" hreflang="en" href="https://dhforge.github.io/paper/graph-paper/">
   <link rel="alternate" hreflang="ko" href="https://dhforge.github.io/paper/ko/graph-paper/">
   <link rel="alternate" hreflang="x-default" href="https://dhforge.github.io/paper/graph-paper/">
-  <link rel="stylesheet" href="../../styles.css?v=print-real-fit-20260623">
+  <link rel="stylesheet" href="../../styles.css?v=adsense-ready-20260624">
   <meta name="color-scheme" content="light">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="manifest" href="/paper/ko/manifest.webmanifest">
   <link rel="search" type="application/opensearchdescription+xml" title="DH Forge" href="/opensearch.xml">
-
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="DH Forge">
   <meta name="theme-color" content="#2f6f73">
-</head><body data-template="graph-paper"><noscript class="noscript-notice">이 페이지의 계산, 검색, 학습지 미리보기, 출력용 종이 미리보기 기능은 JavaScript가 켜져 있어야 완전히 작동합니다.</noscript>
+</head>
+<body data-template="graph-paper">
+  <noscript class="noscript-notice">이 페이지의 미리보기와 인쇄 기능은 JavaScript가 켜져 있어야 정상적으로 작동합니다.</noscript>
   <header class="site-header">
-    <a class="brand" href="../" aria-label="인쇄용 종이 연구소 홈"><span class="brand-mark" aria-hidden="true"></span><span><strong>인쇄용 종이 연구소</strong><small>모눈종이 생성기</small></span></a>
-    <nav class="top-nav" aria-label="주요 링크"><a href="../">템플릿</a><a class="language-link" href="../../graph-paper/">English</a><a href="../privacy.html">개인정보처리방침</a><a href="../terms.html">이용 안내</a><a href="../contact.html">문의</a><a href="../blog.html">블로그</a></nav>
+    <a class="brand" href="../" aria-label="Printable Paper Lab">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span><strong>Printable Paper Lab</strong><small>모눈종이 PDF 만들기</small></span>
+    </a>
+    <nav class="top-nav" aria-label="주요 링크">
+      <a href="../">템플릿</a>
+      <a class="language-link" href="../../graph-paper/">English</a>
+      <a href="../privacy.html">개인정보처리방침</a>
+      <a href="../terms.html">이용 안내</a>
+      <a href="../contact.html">문의</a>
+    </nav>
   </header>
+
   <main class="page-main">
     <section class="tool-heading">
-      <p class="eyebrow">출력용 템플릿</p>
-      <h1>모눈종이 생성기</h1>
-      <p>수학 문제 풀이, 좌표 연습, 도면 스케치, 작은 계획표에 쓸 수 있는 정사각 격자 종이를 만듭니다. 종이 크기, 간격, 선 색상, 제목을 조정한 뒤 바로 출력하거나 PDF로 저장할 수 있습니다.</p>
+      <p class="eyebrow">무료 인쇄 템플릿</p>
+      <h1>모눈종이 PDF 무료 만들기</h1>
+      <p>수학 문제 풀이, 좌표 연습, 도형 스케치, 필기 정리에 사용할 수 있는 모눈종이를 만듭니다. 종이 크기와 방향, 격자 간격, 선 색상, 제목을 조정한 뒤 바로 인쇄하거나 PDF로 저장할 수 있습니다.</p>
     </section>
+
     <section class="tool-layout">
       <div class="tool-card">
         <label class="field"><span>종이 크기</span><select id="paperSize" aria-label="종이 크기"><option value="letter">Letter</option><option value="a4">A4</option></select></label>
         <label class="field"><span>방향</span><select id="paperOrientation" aria-label="방향"><option value="portrait" selected>세로</option><option value="landscape">가로</option></select></label>
         <label class="field"><span>선 굵기</span><select id="lineWeight" aria-label="선 굵기"><option value="1" selected>얇게</option><option value="1.5">보통</option><option value="2">굵게</option></select></label>
-        <label class="field"><span>격자 간격</span><select id="lineSpacing" aria-label="격자 간격"><option value="20">작게</option><option value="28" selected>보통</option><option value="36">크게</option></select></label>
+        <label class="field"><span>격자 간격</span><select id="lineSpacing" aria-label="격자 간격"><option value="20">좁게</option><option value="28" selected>보통</option><option value="36">넓게</option></select></label>
         <label class="field"><span>선 색상</span><input id="lineColor" type="color" value="#86a5b8"></label>
-        <label class="field"><span>선택 제목</span><input id="titleText" type="text" maxlength="80" placeholder="수학 노트, 프로젝트 스케치, 연습지"></label>
+        <label class="field"><span>선택 제목</span><input id="titleText" type="text" maxlength="80" placeholder="수학 노트, 좌표 연습, 스케치"></label>
         <div class="button-row"><button class="primary-button" id="printTemplate" type="button">인쇄 또는 PDF 저장</button><button id="resetTemplate" type="button">초기화</button></div>
       </div>
-      <div class="preview-wrap"><div class="sheet" id="paperSheet" aria-label="모눈종이 생성기 미리보기"></div></div>
+      <div class="preview-wrap"><div class="sheet" id="paperSheet" aria-label="모눈종이 미리보기"></div></div>
     </section>
-    <section class="content-panel">
-      <h2>모눈종이 생성기 사용 방법</h2>
-      <p>원하는 종이 크기와 간격을 선택하고, 필요하면 제목을 넣은 뒤 인쇄 버튼을 누르세요. 브라우저 인쇄 창에서 프린터를 선택하거나 PDF로 저장할 수 있습니다.</p>
-      <div class="content-grid"><article><h3>바로 출력</h3><p>설정 변경이 미리보기에 즉시 반영되어 출력 전에 결과를 확인할 수 있습니다.</p></article><article><h3>개인정보 부담 감소</h3><p>제목과 설정은 현재 브라우저 탭에서 처리되며 사이트 자체 서버에 저장하지 않습니다.</p></article><article><h3>반복 사용</h3><p>자주 쓰는 양식은 PDF로 저장해 두고 필요할 때 다시 출력하면 편합니다.</p></article></div>
 
-      <h2>활용 팁</h2>
-      <ul class="tip-list"><li>좌표, 그래프, 도형 넓이처럼 칸 기준이 필요한 수학 활동에 잘 맞습니다. 칸이 너무 촘촘하면 쓰기 어렵고, 너무 넓으면 한 장에 들어가는 정보가 줄어드니 보통 간격부터 테스트 출력하세요.</li><li>스케치 용도라면 선 색상을 연하게 두면 실제 그림이나 메모가 더 잘 보입니다. PDF로 저장해 두면 같은 양식을 계속 다시 출력하기 쉽습니다.</li><li>비슷한 용도라면 도트 그리드는 더 가볍고, 아이소메트릭 종이는 입체 스케치에 더 적합합니다.</li></ul>
-      <details><summary>무료로 사용할 수 있나요?</summary><p>네. 개인, 학습, 일반적인 수업과 업무 정리 용도로 무료로 사용할 수 있습니다.</p></details>
-      <details><summary>PDF로 저장할 수 있나요?</summary><p>인쇄 버튼을 누른 뒤 브라우저 인쇄 창에서 PDF 저장을 선택하세요.</p></details>
-      <details><summary>설정이 서버에 저장되나요?</summary><p>아니요. 템플릿 설정은 현재 브라우저 탭에서만 사용됩니다.</p></details>
-      <div class="related-tools"><a href="../dot-grid-paper/">도트 그리드 종이</a><a href="../isometric-paper/">아이소메트릭 종이</a><a href="../lined-paper/">줄 노트 양식</a><a href="../guides/graph-paper.html">모눈종이 가이드</a></div>
+    <section class="content-panel">
+      <h2>사용하기 좋은 경우</h2>
+      <p>모눈종이는 수학 풀이, 그래프 그리기, 도형 정리, 간단한 설계 스케치처럼 칸의 기준이 필요한 작업에 잘 맞습니다. 처음에는 보통 간격으로 테스트 인쇄한 뒤, 글씨 크기나 문제 유형에 맞춰 간격을 조정하는 것이 좋습니다.</p>
+
+      <div class="content-grid">
+        <article><h3>수업과 학습</h3><p>좌표평면, 비례식, 도형 넓이, 함수 그래프 연습용으로 사용할 수 있습니다.</p></article>
+        <article><h3>스케치와 계획</h3><p>작은 배치도, 화면 설계, 아이디어 스케치를 일정한 칸 기준으로 정리하기 좋습니다.</p></article>
+      </div>
+
+      <h2>자주 묻는 질문</h2>
+      <details><summary>무료로 사용할 수 있나요?</summary><p>개인 학습, 수업 준비, 일반 업무 정리 용도로 무료로 사용할 수 있습니다.</p></details>
+      <details><summary>PDF로 저장하려면 어떻게 하나요?</summary><p>인쇄 버튼을 누른 뒤 브라우저 인쇄 창에서 프린터 대신 PDF 저장을 선택하면 됩니다.</p></details>
+      <details><summary>입력한 제목이나 설정이 서버에 저장되나요?</summary><p>아니요. 제목과 설정은 현재 브라우저 안에서만 미리보기에 반영됩니다.</p></details>
+
+      <div class="related-tools">
+        <a href="../dot-grid-paper/">도트 그리드 종이</a>
+        <a href="../isometric-paper/">아이소메트릭 종이</a>
+        <a href="../lined-paper/">줄 노트 양식</a>
+        <a href="../guides/graph-paper.html">모눈종이 가이드</a>
+      </div>
     </section>
   </main>
-  <footer class="site-footer"><p>인쇄용 종이 연구소</p><nav aria-label="하단 링크"><a href="../about.html">소개</a><a href="../privacy.html">개인정보처리방침</a><a href="../terms.html">이용 안내</a><a href="../contact.html">문의</a><a href="../blog.html">블로그</a></nav></footer>
-  <script src='../../app.js?v=print-real-fit-20260623' defer></script>
+
+  <footer class="site-footer">
+    <p>Printable Paper Lab</p>
+    <nav aria-label="하단 링크"><a href="../about.html">소개</a><a href="../privacy.html">개인정보처리방침</a><a href="../terms.html">이용 안내</a><a href="../contact.html">문의</a></nav>
+  </footer>
+  <script src="../../app.js?v=adsense-ready-20260624" defer></script>
 </body>
 </html>
