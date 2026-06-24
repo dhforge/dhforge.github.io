@@ -1211,17 +1211,70 @@ high|welfare|복지|Public welfare matters.
 high|witness|목격자|The witness spoke clearly.
 `.trim();
 
-function makeFallbackExample(word) {
-  return `I study the word "${word}".`;
+function hashWord(word) {
+  return String(word).split("").reduce((sum, char) => sum + char.charCodeAt(0), 0);
 }
 
-function makeFallbackExampleKo(word) {
-  return `나는 "${word}"라는 단어를 공부합니다.`;
+function pickWordTemplate(word, templates) {
+  return templates[hashWord(word) % templates.length];
+}
+
+function stripKoreanVerbEnding(meaning) {
+  return String(meaning || "").replace(/다$/, "");
+}
+
+function hasAnyMeaning(meaning, words) {
+  return words.some((word) => String(meaning || "").includes(word));
+}
+
+function isPluralEnglish(word) {
+  return word.endsWith("s") && !["grass", "class", "glass", "news"].includes(word);
+}
+
+function nounPhrase(word) {
+  return isPluralEnglish(word) ? `the ${word}` : `the ${word}`;
+}
+
+function hasFinalConsonant(text) {
+  const last = String(text || "").trim().charCodeAt(String(text || "").trim().length - 1);
+  if (last < 0xac00 || last > 0xd7a3) return false;
+  return ((last - 0xac00) % 28) !== 0;
+}
+
+function hasFinalRieul(text) {
+  const last = String(text || "").trim().charCodeAt(String(text || "").trim().length - 1);
+  if (last < 0xac00 || last > 0xd7a3) return false;
+  return ((last - 0xac00) % 28) === 8;
+}
+
+function koSubject(text) {
+  return `${text}${hasFinalConsonant(text) ? "은" : "는"}`;
+}
+
+function koObject(text) {
+  return `${text}${hasFinalConsonant(text) ? "을" : "를"}`;
+}
+
+function koNominative(text) {
+  return `${text}${hasFinalConsonant(text) ? "이" : "가"}`;
+}
+
+function koDirection(text) {
+  return `${text}${hasFinalConsonant(text) && !hasFinalRieul(text) ? "으로" : "로"}`;
+}
+
+function makeFallbackExample(word, meaning = "단어") {
+  return makeExamplePair("noun", word, meaning).example;
+}
+
+function makeFallbackExampleKo(word, meaning = "단어") {
+  return makeExamplePair("noun", word, meaning).exampleKo;
 }
 
 const englishWords = WORD_BANK_RAW.split("\n").map((line, index) => {
   const [level, word, meaning, example, exampleKo] = line.split("|");
-  const cardExample = exampleKo ? example : makeFallbackExample(word);
+  const fallback = makeExamplePair("noun", word, meaning);
+  const cardExample = exampleKo ? example : fallback.example;
   return {
     id: `english-${level}-${index}-${word}`,
     type: "english",
@@ -1230,7 +1283,7 @@ const englishWords = WORD_BANK_RAW.split("\n").map((line, index) => {
     word,
     meaning,
     example: cardExample,
-    exampleKo: exampleKo || makeFallbackExampleKo(word)
+    exampleKo: exampleKo || fallback.exampleKo
   };
 });
 
@@ -1277,7 +1330,8 @@ const hanjaExamWords = HANJA_EXAM_WORDS_RAW.split("\n").map((line, index) => {
 
 const extraEnglishWords = EXTRA_WORD_BANK_RAW.split("\n").map((line, index) => {
   const [level, word, meaning, example, exampleKo] = line.split("|");
-  const cardExample = exampleKo ? example : makeFallbackExample(word);
+  const fallback = makeExamplePair("noun", word, meaning);
+  const cardExample = exampleKo ? example : fallback.example;
   return {
     id: `english-extra-${level}-${index}-${word}`,
     type: "english",
@@ -1286,7 +1340,7 @@ const extraEnglishWords = EXTRA_WORD_BANK_RAW.split("\n").map((line, index) => {
     word,
     meaning,
     example: cardExample,
-    exampleKo: exampleKo || makeFallbackExampleKo(word)
+    exampleKo: exampleKo || fallback.exampleKo
   };
 });
 
@@ -2265,12 +2319,12 @@ function makeEnglishSupplements(level, existingWords, globalWords = []) {
 
   const seeds = getSingleWordSeeds(level);
   seeds.forEach(({ kind, word, meaning }) => {
-    add(word, meaning, makeSingleWordExample(kind, word), makeSingleWordExampleKo(kind, word, meaning));
+    add(word, meaning, makeSingleWordExample(kind, word, meaning), makeSingleWordExampleKo(kind, word, meaning));
     makeSingleWordForms(kind, word, meaning, level).forEach((item) => {
       add(
         item.word,
         item.meaning,
-        item.example || makeSingleWordExample(item.kind, item.word),
+        item.example || makeSingleWordExample(item.kind, item.word, item.meaning),
         item.exampleKo || makeSingleWordExampleKo(item.kind, item.word, item.meaning)
       );
     });
@@ -2412,12 +2466,13 @@ function makeVerbFormItem(baseWord, baseMeaning, formWord, formType) {
   };
   const hint = KOREAN_VERB_FORM_HINTS[baseWord]?.[formType] || makeKoreanVerbFallback(baseMeaning, formType);
   const label = labels[formType];
+  const pair = makeVerbFormExample(baseWord, formWord, hint, formType);
   return {
     kind: "verb",
     word: formWord,
     meaning: `${baseWord}의 ${label} (${hint})`,
-    example: `"${formWord}" is the ${formType === "third" ? "third-person present" : formType === "past" ? "past" : "ing"} form of "${baseWord}".`,
-    exampleKo: `"${formWord}"는 "${baseWord}"의 ${label}입니다.`
+    example: pair.example,
+    exampleKo: pair.exampleKo
   };
 }
 
@@ -2477,16 +2532,154 @@ function makeAdverb(word) {
   return `${word}ly`;
 }
 
-function makeSingleWordExample(kind, word) {
-  if (kind === "verb") return `"${word}" is a verb form.`;
-  if (kind === "adverb") return `"${word}" appears in many sentences.`;
-  return `"${word}" is an important word.`;
+function makeVerbFormExample(baseWord, formWord, hint, formType) {
+  const overrides = {
+    open: {
+      third: { example: `The store ${formWord} at nine.`, exampleKo: "그 가게는 아홉 시에 문을 엽니다." },
+      past: { example: `The store ${formWord} early today.`, exampleKo: "그 가게는 오늘 일찍 문을 열었습니다." },
+      ing: { example: `${capitalizeEnglish(formWord)} the door was easy.`, exampleKo: "문을 여는 것은 쉬웠습니다." }
+    },
+    close: {
+      third: { example: `The library ${formWord} at six.`, exampleKo: "그 도서관은 여섯 시에 문을 닫습니다." },
+      past: { example: `The library ${formWord} before dinner.`, exampleKo: "그 도서관은 저녁 식사 전에 문을 닫았습니다." },
+      ing: { example: `${capitalizeEnglish(formWord)} the window kept the room warm.`, exampleKo: "창문을 닫는 것은 방을 따뜻하게 유지해 주었습니다." }
+    },
+    read: {
+      third: { example: `She ${formWord} a short story every night.`, exampleKo: "그녀는 매일 밤 짧은 이야기를 읽습니다." },
+      past: { example: `We ${formWord} the article in class.`, exampleKo: "우리는 수업 시간에 그 글을 읽었습니다." },
+      ing: { example: `${capitalizeEnglish(formWord)} aloud helps pronunciation.`, exampleKo: "소리 내어 읽는 것은 발음에 도움이 됩니다." }
+    },
+    write: {
+      third: { example: `He ${formWord} a note after lunch.`, exampleKo: "그는 점심 후에 메모를 씁니다." },
+      past: { example: `I ${formWord} my answer carefully.`, exampleKo: "나는 내 답을 신중하게 썼습니다." },
+      ing: { example: `${capitalizeEnglish(formWord)} a diary can clear your thoughts.`, exampleKo: "일기를 쓰는 것은 생각을 정리하는 데 도움이 됩니다." }
+    }
+  };
+  if (overrides[baseWord]?.[formType]) return overrides[baseWord][formType];
+
+  if (formType === "third") {
+    return pickWordTemplate(baseWord, [
+      { example: `She ${formWord} before class.`, exampleKo: `그녀는 수업 전에 ${hint}.` },
+      { example: `He ${formWord} when the bell rings.`, exampleKo: `그는 종이 울리면 ${hint}.` },
+      { example: `The student ${formWord} every morning.`, exampleKo: `그 학생은 매일 아침 ${hint}.` },
+      { example: `My friend ${formWord} after dinner.`, exampleKo: `내 친구는 저녁 식사 후에 ${hint}.` }
+    ]);
+  }
+  if (formType === "past") {
+    return pickWordTemplate(baseWord, [
+      { example: `They ${formWord} after school.`, exampleKo: `그들은 방과 후에 ${hint}.` },
+      { example: `We ${formWord} during the lesson.`, exampleKo: `우리는 수업 중에 ${hint}.` },
+      { example: `I ${formWord} yesterday.`, exampleKo: `나는 어제 ${hint}.` },
+      { example: `The team ${formWord} before lunch.`, exampleKo: `그 팀은 점심 전에 ${hint}.` }
+    ]);
+  }
+  const progress = hint.endsWith("는 것") ? `${hint.replace(/는 것$/, "는 중입니다")}` : `${hint} 중입니다`;
+  return pickWordTemplate(baseWord, [
+    { example: `We are ${formWord} together.`, exampleKo: `우리는 함께 ${progress}.` },
+    { example: `${capitalizeEnglish(formWord)} helps me practice.`, exampleKo: `${hint}은 내가 연습하는 데 도움이 됩니다.` },
+    { example: `I am ${formWord} carefully.`, exampleKo: `나는 조심스럽게 ${progress}.` },
+    { example: `They enjoy ${formWord} as a group.`, exampleKo: `그들은 함께 ${hint}을 즐깁니다.` }
+  ]);
+}
+
+function capitalizeEnglish(word) {
+  return `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
+}
+
+function makeExamplePair(kind, word, meaning) {
+  const nounMeaning = meaning || "그것";
+  const verbAction = stripKoreanVerbEnding(meaning || "하다");
+  if (kind === "verb") {
+    return pickWordTemplate(word, [
+      { example: `I try to ${word} every day.`, exampleKo: `나는 매일 ${verbAction}려고 노력합니다.` },
+      { example: `We can ${word} after class.`, exampleKo: `우리는 수업 후에 ${verbAction} 수 있습니다.` },
+      { example: `Please ${word} before you answer.`, exampleKo: `대답하기 전에 ${verbAction} 주세요.` },
+      { example: `They ${word} when they need help.`, exampleKo: `그들은 도움이 필요할 때 ${verbAction}습니다.` },
+      { example: `Students often ${word} in this activity.`, exampleKo: `학생들은 이 활동에서 자주 ${verbAction}습니다.` }
+    ]);
+  }
+  if (kind === "adjective") {
+    return pickWordTemplate(word, [
+      { example: `The room feels ${word} today.`, exampleKo: `오늘 그 방은 ${nounMeaning} 느낌입니다.` },
+      { example: `This answer is ${word}.`, exampleKo: `이 대답은 ${nounMeaning} 상태입니다.` },
+      { example: `Her idea sounds ${word}.`, exampleKo: `그녀의 생각은 ${nounMeaning} 것처럼 들립니다.` },
+      { example: `The weather became ${word} in the afternoon.`, exampleKo: `오후에 날씨가 ${nounMeaning} 상태가 되었습니다.` },
+      { example: `That choice seems ${word} to me.`, exampleKo: `그 선택은 나에게 ${nounMeaning} 것처럼 보입니다.` }
+    ]);
+  }
+  if (kind === "adverb") {
+    return pickWordTemplate(word, [
+      { example: `She answered ${word} during class.`, exampleKo: `그녀는 수업 중에 ${nounMeaning} 대답했습니다.` },
+      { example: `Move ${word} through the hallway.`, exampleKo: `복도에서는 ${nounMeaning} 움직이세요.` },
+      { example: `He spoke ${word} to the group.`, exampleKo: `그는 모둠에게 ${nounMeaning} 말했습니다.` },
+      { example: `The team worked ${word} today.`, exampleKo: `그 팀은 오늘 ${nounMeaning} 일했습니다.` },
+      { example: `Read the sentence ${word}.`, exampleKo: `그 문장을 ${nounMeaning} 읽으세요.` }
+    ]);
+  }
+  if (hasAnyMeaning(nounMeaning, ["사과", "바나나", "빵", "밥", "달걀", "고기", "과일", "쿠키", "사탕", "케이크"])) {
+    return pickWordTemplate(word, [
+      { example: `I ate ${nounPhrase(word)} at lunch.`, exampleKo: `나는 점심에 ${koObject(nounMeaning)} 먹었습니다.` },
+      { example: `She packed ${nounPhrase(word)} for the picnic.`, exampleKo: `그녀는 소풍을 위해 ${koObject(nounMeaning)} 챙겼습니다.` },
+      { example: `We shared ${nounPhrase(word)} after class.`, exampleKo: `우리는 수업 후에 ${koObject(nounMeaning)} 나누어 먹었습니다.` },
+      { example: `The child chose ${nounPhrase(word)} for a snack.`, exampleKo: `그 아이는 간식으로 ${koObject(nounMeaning)} 골랐습니다.` }
+    ]);
+  }
+  if (hasAnyMeaning(nounMeaning, ["물", "우유", "주스"])) {
+    return pickWordTemplate(word, [
+      { example: `I drank ${nounPhrase(word)} after running.`, exampleKo: `나는 달린 뒤에 ${koObject(nounMeaning)} 마셨습니다.` },
+      { example: `Please bring ${nounPhrase(word)} to the table.`, exampleKo: `${koObject(nounMeaning)} 식탁으로 가져와 주세요.` },
+      { example: `The bottle is full of ${word}.`, exampleKo: `그 병은 ${nounMeaning}으로 가득 차 있습니다.` },
+      { example: `We need ${word} during practice.`, exampleKo: `우리는 연습 중에 ${koNominative(nounMeaning)} 필요합니다.` }
+    ]);
+  }
+  if (hasAnyMeaning(nounMeaning, ["개", "고양이", "새", "소", "말", "물고기", "토끼", "동물"])) {
+    return pickWordTemplate(word, [
+      { example: `${capitalizeEnglish(nounPhrase(word))} moved across the yard.`, exampleKo: `그 ${koSubject(nounMeaning)} 마당을 가로질러 움직였습니다.` },
+      { example: `I watched ${nounPhrase(word)} in the park.`, exampleKo: `나는 공원에서 ${koObject(nounMeaning)} 보았습니다.` },
+      { example: `${capitalizeEnglish(nounPhrase(word))} made the children smile.`, exampleKo: `그 ${koSubject(nounMeaning)} 아이들을 웃게 했습니다.` },
+      { example: `We learned about ${nounPhrase(word)} today.`, exampleKo: `우리는 오늘 ${nounMeaning}에 대해 배웠습니다.` }
+    ]);
+  }
+  if (hasAnyMeaning(nounMeaning, ["학교", "교실", "방", "집", "공항", "항구", "해안", "계곡", "강", "길", "도시", "마을", "공원"])) {
+    return pickWordTemplate(word, [
+      { example: `We walked to ${nounPhrase(word)} in the morning.`, exampleKo: `우리는 아침에 ${koDirection(nounMeaning)} 걸어갔습니다.` },
+      { example: `The map shows ${nounPhrase(word)} clearly.`, exampleKo: `그 지도는 ${koObject(nounMeaning)} 분명하게 보여 줍니다.` },
+      { example: `Many people gathered near ${nounPhrase(word)}.`, exampleKo: `많은 사람들이 ${nounMeaning} 근처에 모였습니다.` },
+      { example: `I took a photo of ${nounPhrase(word)}.`, exampleKo: `나는 ${nounMeaning}의 사진을 찍었습니다.` }
+    ]);
+  }
+  if (hasAnyMeaning(nounMeaning, ["선생님", "학생", "친구", "가족", "어머니", "아버지", "형제", "사람", "시민", "주장", "지도자", "구성원", "손님"])) {
+    return pickWordTemplate(word, [
+      { example: `${capitalizeEnglish(nounPhrase(word))} helped me after class.`, exampleKo: `그 ${koSubject(nounMeaning)} 수업 후에 나를 도와주었습니다.` },
+      { example: `I met ${nounPhrase(word)} at school.`, exampleKo: `나는 학교에서 ${koObject(nounMeaning)} 만났습니다.` },
+      { example: `${capitalizeEnglish(nounPhrase(word))} asked a good question.`, exampleKo: `그 ${koSubject(nounMeaning)} 좋은 질문을 했습니다.` },
+      { example: `We listened to ${nounPhrase(word)} carefully.`, exampleKo: `우리는 ${nounMeaning}의 말을 주의 깊게 들었습니다.` }
+    ]);
+  }
+  if (hasAnyMeaning(nounMeaning, ["책", "의자", "책상", "문", "창문", "가방", "공", "침대", "자전거", "시계", "컵", "연필", "전화기", "그림", "우산", "사진"])) {
+    return pickWordTemplate(word, [
+      { example: `I put ${nounPhrase(word)} on the desk.`, exampleKo: `나는 ${koObject(nounMeaning)} 책상 위에 놓았습니다.` },
+      { example: `She cleaned ${nounPhrase(word)} before class.`, exampleKo: `그녀는 수업 전에 ${koObject(nounMeaning)} 닦았습니다.` },
+      { example: `Please move ${nounPhrase(word)} carefully.`, exampleKo: `${koObject(nounMeaning)} 조심해서 옮겨 주세요.` },
+      { example: `The student used ${nounPhrase(word)} during the lesson.`, exampleKo: `그 학생은 수업 중에 ${koObject(nounMeaning)} 사용했습니다.` }
+    ]);
+  }
+  return pickWordTemplate(word, [
+    { example: `I found the ${word} near the classroom.`, exampleKo: `나는 교실 근처에서 ${koObject(nounMeaning)} 찾았습니다.` },
+    { example: `The ${word} appears in today's story.`, exampleKo: `그 ${koSubject(nounMeaning)} 오늘 이야기 속에 나옵니다.` },
+    { example: `We talked about the ${word} after lunch.`, exampleKo: `우리는 점심 후에 ${nounMeaning}에 대해 이야기했습니다.` },
+    { example: `This picture shows a ${word}.`, exampleKo: `이 그림은 ${koObject(nounMeaning)} 보여 줍니다.` },
+    { example: `The teacher pointed to the ${word}.`, exampleKo: `선생님은 그 ${koObject(nounMeaning)} 가리켰습니다.` },
+    { example: `A ${word} can be useful in the lesson.`, exampleKo: `${koSubject(nounMeaning)} 수업에서 유용할 수 있습니다.` }
+  ]);
+}
+
+function makeSingleWordExample(kind, word, meaning = "") {
+  return makeExamplePair(kind, word, meaning).example;
 }
 
 function makeSingleWordExampleKo(kind, word, meaning) {
-  if (kind === "verb") return `"${word}"는 "${meaning}"라는 동작을 나타냅니다.`;
-  if (kind === "adverb") return `"${word}"는 "${meaning}"라는 방식으로 쓰입니다.`;
-  return `"${word}"는 "${meaning}"라는 뜻입니다.`;
+  return makeExamplePair(kind, word, meaning).exampleKo;
 }
 
 function dedupeEnglishBaseWords(words) {
