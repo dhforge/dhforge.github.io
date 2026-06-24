@@ -1211,12 +1211,17 @@ high|welfare|복지|Public welfare matters.
 high|witness|목격자|The witness spoke clearly.
 `.trim();
 
-function makeFallbackExampleKo(word, meaning) {
-  return `"${word}"는 "${meaning}"라는 뜻으로 쓰입니다.`;
+function makeFallbackExample(word) {
+  return `I study the word "${word}".`;
+}
+
+function makeFallbackExampleKo(word) {
+  return `나는 "${word}"라는 단어를 공부합니다.`;
 }
 
 const englishWords = WORD_BANK_RAW.split("\n").map((line, index) => {
   const [level, word, meaning, example, exampleKo] = line.split("|");
+  const cardExample = exampleKo ? example : makeFallbackExample(word);
   return {
     id: `english-${level}-${index}-${word}`,
     type: "english",
@@ -1224,8 +1229,8 @@ const englishWords = WORD_BANK_RAW.split("\n").map((line, index) => {
     term: word,
     word,
     meaning,
-    example,
-    exampleKo: exampleKo || makeFallbackExampleKo(word, meaning)
+    example: cardExample,
+    exampleKo: exampleKo || makeFallbackExampleKo(word)
   };
 });
 
@@ -1272,6 +1277,7 @@ const hanjaExamWords = HANJA_EXAM_WORDS_RAW.split("\n").map((line, index) => {
 
 const extraEnglishWords = EXTRA_WORD_BANK_RAW.split("\n").map((line, index) => {
   const [level, word, meaning, example, exampleKo] = line.split("|");
+  const cardExample = exampleKo ? example : makeFallbackExample(word);
   return {
     id: `english-extra-${level}-${index}-${word}`,
     type: "english",
@@ -1279,8 +1285,8 @@ const extraEnglishWords = EXTRA_WORD_BANK_RAW.split("\n").map((line, index) => {
     term: word,
     word,
     meaning,
-    example,
-    exampleKo: exampleKo || makeFallbackExampleKo(word, meaning)
+    example: cardExample,
+    exampleKo: exampleKo || makeFallbackExampleKo(word)
   };
 });
 

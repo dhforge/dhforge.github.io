@@ -431,7 +431,8 @@ textarea {
   min-width: 150px;
 }
 
-.practice-card {
+.practice-card,
+.day-card {
   min-height: 0;
   padding: 16px;
   border: 1px solid var(--line);
@@ -478,8 +479,23 @@ textarea {
   padding: 4px 2px 0;
 }
 
-.practice-card.is-revealed .practice-answer {
+.practice-card.is-revealed .practice-answer,
+.day-card.is-revealed .practice-answer {
   display: grid;
+}
+
+.day-progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.day-progress strong {
+  color: var(--primary-dark);
 }
 
 .empty-state {

@@ -7,7 +7,7 @@ const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 const state = loadState();
 const wordBankFilters = { type: "all", level: "all", query: "" };
 const practiceFilters = { type: "english", difficulty: "all" };
-const dayStudyFilters = { level: "elementary", day: 1 };
+const dayStudyFilters = { level: "elementary", day: 1, index: 0, revealed: false };
 const DAY_WORD_COUNT = 30;
 const WORD_LEVEL_OPTIONS = {
   all: [
@@ -401,10 +401,14 @@ function bindDayStudy() {
   levelSelect?.addEventListener("change", () => {
     dayStudyFilters.level = levelSelect.value || "elementary";
     dayStudyFilters.day = 1;
+    dayStudyFilters.index = 0;
+    dayStudyFilters.revealed = false;
     renderDayStudy();
   });
   daySelect?.addEventListener("change", () => {
     dayStudyFilters.day = Number(daySelect.value || 1);
+    dayStudyFilters.index = 0;
+    dayStudyFilters.revealed = false;
     renderDayStudy();
   });
   $("[data-add-day-words]")?.addEventListener("click", () => {
@@ -415,13 +419,25 @@ function bindDayStudy() {
       renderAll();
     }
   });
-  $("[data-day-word-list]")?.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-add-day-word]");
-    if (!button) return;
-    const word = getWordBank().find((item) => item.id === button.dataset.addDayWord);
-    if (!word) return;
-    addWordCard(word);
-    track("add_day_word", { level: word.level });
+  $("[data-day-card]")?.addEventListener("click", (event) => {
+    const action = event.target.closest("[data-day-action]")?.dataset.dayAction;
+    if (!action) return;
+    const words = getDayWords();
+    if (action === "show") {
+      dayStudyFilters.revealed = !dayStudyFilters.revealed;
+    } else if (action === "prev") {
+      dayStudyFilters.index = Math.max(0, dayStudyFilters.index - 1);
+      dayStudyFilters.revealed = false;
+    } else if (action === "next" || action === "known") {
+      dayStudyFilters.index = Math.min(Math.max(words.length - 1, 0), dayStudyFilters.index + 1);
+      dayStudyFilters.revealed = false;
+    } else if (action === "again") {
+      dayStudyFilters.revealed = false;
+    } else if (action === "add") {
+      const word = words[dayStudyFilters.index];
+      if (word) addWordCard(word);
+      track("add_day_word", { level: word?.level });
+    }
     renderAll();
   });
 }
@@ -762,7 +778,7 @@ function getDayWords() {
 }
 
 function renderDayStudy() {
-  const list = $("[data-day-word-list]");
+  const card = $("[data-day-card]");
   const daySelect = $("[data-day-select]");
   const levelSelect = $("[data-day-level]");
   const words = getDayLevelWords();
@@ -781,23 +797,44 @@ function renderDayStudy() {
   }
   setText("[data-day-count]", `Day ${totalDays}`);
   setText("[data-day-summary]", `${levelLabel(dayStudyFilters.level)} 영단어 ${words.length}개를 하루 ${DAY_WORD_COUNT}개씩 ${totalDays}일로 나눴습니다.`);
-  if (!list) return;
+  if (!card) return;
   const addedIds = new Set(state.cards.map((card) => card.sourceWordId).filter(Boolean));
   const dayWords = getDayWords();
-  list.innerHTML = dayWords.map((word, index) => {
-    const number = (dayStudyFilters.day - 1) * DAY_WORD_COUNT + index + 1;
-    const added = addedIds.has(word.id);
-    return `
-      <article class="word-row day-word-row">
-        <div>
-          <div class="word-title"><span>${number}</span><strong>${escapeHtml(word.term || word.word)}</strong><span>${levelLabel(word.level)}</span></div>
-          <p>${escapeHtml(word.meaning)}</p>
-          <p class="muted">${escapeHtml(word.exampleKo || word.example || "")}</p>
-        </div>
-        <button class="${added ? "" : "primary-button"}" type="button" data-add-day-word="${word.id}" ${added ? "disabled" : ""}>${added ? "추가됨" : "카드 추가"}</button>
-      </article>
-    `;
-  }).join("");
+  if (dayStudyFilters.index >= dayWords.length) dayStudyFilters.index = Math.max(0, dayWords.length - 1);
+  const word = dayWords[dayStudyFilters.index];
+  if (!word) {
+    card.innerHTML = '<div class="empty-state"><b>학습할 단어가 없습니다</b><p>다른 단계를 선택해 주세요.</p></div>';
+    return;
+  }
+  const number = (dayStudyFilters.day - 1) * DAY_WORD_COUNT + dayStudyFilters.index + 1;
+  const added = addedIds.has(word.id);
+  card.classList.toggle("is-revealed", dayStudyFilters.revealed);
+  card.innerHTML = `
+    <div class="day-progress">
+      <span>Day ${dayStudyFilters.day}</span>
+      <strong>${dayStudyFilters.index + 1} / ${dayWords.length}</strong>
+      <span>전체 ${number}번</span>
+    </div>
+    <div class="practice-front">
+      <p class="practice-meta">${levelLabel(word.level)} · Day ${dayStudyFilters.day}</p>
+      <strong>${escapeHtml(word.term || word.word)}</strong>
+    </div>
+    <div class="practice-answer">
+      <p class="card-meaning">${escapeHtml(word.meaning)}</p>
+      <div class="card-example-block">
+        <p class="card-example">${escapeHtml(word.example)}</p>
+        ${word.exampleKo ? `<p class="card-example-ko"><span>해석</span>${escapeHtml(word.exampleKo)}</p>` : ""}
+      </div>
+    </div>
+    <div class="item-actions">
+      <button type="button" data-day-action="prev" ${dayStudyFilters.index === 0 ? "disabled" : ""}>이전</button>
+      <button type="button" data-day-action="show">${dayStudyFilters.revealed ? "단어만 보기" : "뜻 보기"}</button>
+      <button type="button" data-day-action="again">다시</button>
+      <button type="button" data-day-action="known">알고 있음</button>
+      <button type="button" data-day-action="next" ${dayStudyFilters.index >= dayWords.length - 1 ? "disabled" : ""}>다음</button>
+      <button class="primary-button" type="button" data-day-action="add" ${added ? "disabled" : ""}>${added ? "추가됨" : "내 학습장에 추가"}</button>
+    </div>
+  `;
 }
 
 function renderTimer() {
