@@ -1,34 +1,34 @@
 {
-  "updatedAt": "2026-06-24T01:44:37.071Z",
+  "updatedAt": "2026-06-24T10:56:47.569Z",
   "rangeLabel": "최근 30일 방문수",
   "sites": [
     {
       "key": "dhforge-tools",
       "name": "DH Forge Tools",
-      "sessions": 14,
+      "sessions": 16,
       "activeUsers": 7,
-      "screenPageViews": 126
+      "screenPageViews": 143
     },
     {
       "key": "printable-paper-lab",
       "name": "Printable Paper Lab",
-      "sessions": 9,
+      "sessions": 11,
       "activeUsers": 3,
-      "screenPageViews": 140
+      "screenPageViews": 173
     },
     {
       "key": "kids-practice-lab",
       "name": "Kids Practice Lab",
-      "sessions": 6,
+      "sessions": 7,
       "activeUsers": 3,
-      "screenPageViews": 129
+      "screenPageViews": 152
     },
     {
       "key": "study-lab",
       "name": "Study Lab",
-      "sessions": 7,
+      "sessions": 9,
       "activeUsers": 4,
-      "screenPageViews": 52
+      "screenPageViews": 69
     }
   ]
 }
