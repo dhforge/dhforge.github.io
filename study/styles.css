@@ -420,33 +420,49 @@ textarea {
   background: #fbfdfc;
 }
 
-.practice-controls {
+.practice-controls,
+.day-controls {
   align-items: end;
   margin-bottom: 14px;
 }
 
-.practice-controls label {
+.practice-controls label,
+.day-controls label {
   min-width: 150px;
 }
 
 .practice-card {
   min-height: 0;
-  padding: 18px;
+  padding: 16px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fbfdfc;
 }
 
 .practice-front {
+  position: relative;
   display: grid;
   place-items: center;
-  min-height: 120px;
+  min-height: 110px;
   margin-bottom: 12px;
-  padding: 18px 16px;
+  padding: 26px 16px 18px;
   border: 1px dashed #b8c9c1;
   border-radius: 8px;
   background: #ffffff;
   text-align: center;
+}
+
+.practice-meta {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  margin: 0;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--soft);
+  color: var(--primary-dark);
+  font-size: 13px;
+  font-weight: 800;
 }
 
 .practice-front strong {
@@ -457,11 +473,13 @@ textarea {
 
 .practice-answer {
   display: none;
+  gap: 10px;
   margin-bottom: 12px;
+  padding: 4px 2px 0;
 }
 
 .practice-card.is-revealed .practice-answer {
-  display: block;
+  display: grid;
 }
 
 .empty-state {
@@ -527,7 +545,7 @@ textarea {
 }
 
 .card-example-block {
-  padding-top: 12px;
+  padding-top: 10px;
   border-top: 1px solid var(--line);
 }
 
@@ -545,6 +563,18 @@ textarea {
   color: var(--text);
   font-size: clamp(15px, 2vw, 19px);
   line-height: 1.5;
+}
+
+.day-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.day-word-row .word-title span:first-child {
+  min-width: 48px;
+  justify-content: center;
+  background: #eef5f1;
 }
 
 .card-example-ko span {
@@ -638,6 +668,8 @@ textarea {
   .item-actions button,
   .practice-controls label,
   .practice-controls button,
+  .day-controls label,
+  .day-controls button,
   .backup-row button,
   .backup-row .file-button {
     flex: 1 1 150px;

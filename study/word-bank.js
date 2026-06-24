@@ -2233,7 +2233,12 @@ function makeEnglishSupplements(level, existingWords) {
   seeds.forEach(({ kind, word, meaning }) => {
     add(word, meaning, makeSingleWordExample(kind, word), makeSingleWordExampleKo(kind, word, meaning));
     makeSingleWordForms(kind, word, meaning, level).forEach((item) => {
-      add(item.word, item.meaning, makeSingleWordExample(item.kind, item.word), makeSingleWordExampleKo(item.kind, item.word, item.meaning));
+      add(
+        item.word,
+        item.meaning,
+        item.example || makeSingleWordExample(item.kind, item.word),
+        item.exampleKo || makeSingleWordExampleKo(item.kind, item.word, item.meaning)
+      );
     });
   });
 
@@ -2312,6 +2317,31 @@ const IRREGULAR_FORMS = {
   write: { third: "writes", past: "wrote", ing: "writing" }
 };
 
+const KOREAN_VERB_FORM_HINTS = {
+  open: { third: "연다", past: "열었다", ing: "여는 것" },
+  close: { third: "닫는다", past: "닫았다", ing: "닫는 것" },
+  read: { third: "읽는다", past: "읽었다", ing: "읽는 것" },
+  write: { third: "쓴다", past: "썼다", ing: "쓰는 것" },
+  draw: { third: "그린다", past: "그렸다", ing: "그리는 것" },
+  make: { third: "만든다", past: "만들었다", ing: "만드는 것" },
+  find: { third: "찾는다", past: "찾았다", ing: "찾는 것" },
+  watch: { third: "본다", past: "보았다", ing: "보는 것" },
+  help: { third: "돕는다", past: "도왔다", ing: "돕는 것" },
+  go: { third: "간다", past: "갔다", ing: "가는 것" },
+  come: { third: "온다", past: "왔다", ing: "오는 것" },
+  run: { third: "달린다", past: "달렸다", ing: "달리는 것" },
+  eat: { third: "먹는다", past: "먹었다", ing: "먹는 것" },
+  drink: { third: "마신다", past: "마셨다", ing: "마시는 것" },
+  speak: { third: "말한다", past: "말했다", ing: "말하는 것" },
+  learn: { third: "배운다", past: "배웠다", ing: "배우는 것" },
+  teach: { third: "가르친다", past: "가르쳤다", ing: "가르치는 것" },
+  buy: { third: "산다", past: "샀다", ing: "사는 것" },
+  sell: { third: "판다", past: "팔았다", ing: "파는 것" },
+  give: { third: "준다", past: "주었다", ing: "주는 것" },
+  take: { third: "가져간다", past: "가져갔다", ing: "가져가는 것" },
+  use: { third: "사용한다", past: "사용했다", ing: "사용하는 것" }
+};
+
 function makeSingleWordForms(kind, word, meaning, level) {
   if (kind === "noun") return [{ kind: "noun", word: pluralizeEnglish(word), meaning: `${meaning}들` }];
   if (kind === "verb") {
@@ -2321,9 +2351,9 @@ function makeSingleWordForms(kind, word, meaning, level) {
       ing: makeIngForm(word)
     };
     return [
-      { kind: "verb", word: forms.third, meaning: `${meaning}` },
-      { kind: "verb", word: forms.past, meaning: `${meaning}했다` },
-      { kind: "verb", word: forms.ing, meaning: `${meaning}하는` }
+      makeVerbFormItem(word, meaning, forms.third, "third"),
+      makeVerbFormItem(word, meaning, forms.past, "past"),
+      makeVerbFormItem(word, meaning, forms.ing, "ing")
     ];
   }
   if (kind === "adjective" && level === "elementary") {
@@ -2337,6 +2367,29 @@ function makeSingleWordForms(kind, word, meaning, level) {
     return rows;
   }
   return [];
+}
+
+function makeVerbFormItem(baseWord, baseMeaning, formWord, formType) {
+  const labels = {
+    third: "3인칭 단수 현재형",
+    past: "과거형",
+    ing: "현재분사/동명사"
+  };
+  const hint = KOREAN_VERB_FORM_HINTS[baseWord]?.[formType] || makeKoreanVerbFallback(baseMeaning, formType);
+  const label = labels[formType];
+  return {
+    kind: "verb",
+    word: formWord,
+    meaning: `${baseWord}의 ${label} (${hint})`,
+    example: `"${formWord}" is the ${formType === "third" ? "third-person present" : formType === "past" ? "past" : "ing"} form of "${baseWord}".`,
+    exampleKo: `"${formWord}"는 "${baseWord}"의 ${label}입니다.`
+  };
+}
+
+function makeKoreanVerbFallback(baseMeaning, formType) {
+  if (formType === "past") return `${baseMeaning}의 과거형`;
+  if (formType === "ing") return `${baseMeaning.replace(/다$/, "")}는 것`;
+  return `${baseMeaning}의 현재형`;
 }
 
 function pluralizeEnglish(word) {

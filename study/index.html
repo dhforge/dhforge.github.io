@@ -22,7 +22,7 @@
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles.css?v=word-hanja-20260624a">
+  <link rel="stylesheet" href="styles.css?v=word-hanja-20260624b">
 </head>
 <body>
   <a class="skip-link" href="#app">본문으로 이동</a>
@@ -70,6 +70,7 @@
         <button class="tab-button" type="button" data-tab="review">오늘 복습</button>
         <button class="tab-button" type="button" data-tab="cards">내 학습장</button>
         <button class="tab-button" type="button" data-tab="practice">랜덤 연습</button>
+        <button class="tab-button" type="button" data-tab="daystudy">Day 학습</button>
         <button class="tab-button" type="button" data-tab="backup">백업/복원</button>
       </aside>
 
@@ -157,6 +158,27 @@
         <div class="practice-card" data-practice-card></div>
       </section>
 
+      <section class="panel" data-panel="daystudy" aria-labelledby="dayStudyTitle">
+        <div class="panel-head"><div><p class="eyebrow">Day Plan</p><h2 id="dayStudyTitle">하루 30개 Day 학습</h2></div><span class="pill" data-day-count>0일</span></div>
+        <div class="day-controls">
+          <label>
+            <span>단계</span>
+            <select data-day-level>
+              <option value="elementary">초등</option>
+              <option value="middle">중등</option>
+              <option value="high">고등</option>
+            </select>
+          </label>
+          <label>
+            <span>Day</span>
+            <select data-day-select></select>
+          </label>
+          <button class="primary-button" type="button" data-add-day-words>이 Day 30개 추가</button>
+        </div>
+        <p class="muted" data-day-summary>단계를 고르면 30개씩 나눠서 오늘 학습할 단어를 볼 수 있습니다.</p>
+        <div class="word-bank-list" data-day-word-list></div>
+      </section>
+
       <section class="panel" data-panel="timer" aria-labelledby="timerTitle">
         <div class="panel-head"><div><p class="eyebrow">Focus Timer</p><h2 id="timerTitle">공부 타이머</h2></div><span class="pill" data-timer-mode>집중</span></div>
         <div class="timer-face" data-timer-display>25:00</div>
@@ -206,7 +228,7 @@
   </main>
 
   <script src="../analytics.js" defer></script>
-  <script src="word-bank.js?v=word-hanja-20260624a" defer></script>
-  <script src="app.js?v=word-hanja-20260624a" defer></script>
+  <script src="word-bank.js?v=word-hanja-20260624b" defer></script>
+  <script src="app.js?v=word-hanja-20260624b" defer></script>
 </body>
 </html>
