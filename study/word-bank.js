@@ -1393,12 +1393,829 @@ const ENGLISH_SUPPLEMENT_PARTS = {
   }
 };
 
+const ENGLISH_SINGLE_WORD_SUPPLEMENTS_RAW = `
+elementary|noun|baby|아기
+elementary|noun|boy|소년
+elementary|noun|girl|소녀
+elementary|noun|child|아이
+elementary|noun|kid|아이
+elementary|noun|man|남자
+elementary|noun|woman|여자
+elementary|noun|people|사람들
+elementary|noun|person|사람
+elementary|noun|name|이름
+elementary|noun|age|나이
+elementary|noun|face|얼굴
+elementary|noun|head|머리
+elementary|noun|hair|머리카락
+elementary|noun|eye|눈
+elementary|noun|ear|귀
+elementary|noun|nose|코
+elementary|noun|mouth|입
+elementary|noun|hand|손
+elementary|noun|arm|팔
+elementary|noun|leg|다리
+elementary|noun|foot|발
+elementary|noun|body|몸
+elementary|noun|food|음식
+elementary|noun|fruit|과일
+elementary|noun|meat|고기
+elementary|noun|soup|수프
+elementary|noun|juice|주스
+elementary|noun|cookie|쿠키
+elementary|noun|candy|사탕
+elementary|noun|breakfast|아침 식사
+elementary|noun|lunch|점심
+elementary|noun|dinner|저녁 식사
+elementary|noun|park|공원
+elementary|noun|store|가게
+elementary|noun|market|시장
+elementary|noun|farm|농장
+elementary|noun|beach|해변
+elementary|noun|mountain|산
+elementary|noun|lake|호수
+elementary|noun|sea|바다
+elementary|noun|town|마을
+elementary|noun|city|도시
+elementary|noun|street|거리
+elementary|noun|garden|정원
+elementary|noun|class|수업
+elementary|noun|lesson|수업
+elementary|noun|test|시험
+elementary|noun|paper|종이
+elementary|noun|ruler|자
+elementary|noun|eraser|지우개
+elementary|noun|crayon|크레용
+elementary|noun|paint|물감
+elementary|noun|music|음악
+elementary|noun|song|노래
+elementary|noun|dance|춤
+elementary|noun|soccer|축구
+elementary|noun|baseball|야구
+elementary|noun|basketball|농구
+elementary|noun|tennis|테니스
+elementary|noun|photo|사진
+elementary|noun|computer|컴퓨터
+elementary|noun|robot|로봇
+elementary|noun|plane|비행기
+elementary|noun|train|기차
+elementary|noun|ship|배
+elementary|noun|boat|보트
+elementary|noun|taxi|택시
+elementary|noun|subway|지하철
+elementary|noun|ticket|표
+elementary|noun|money|돈
+elementary|noun|gift|선물
+elementary|noun|party|파티
+elementary|noun|birthday|생일
+elementary|noun|holiday|휴일
+elementary|noun|week|주
+elementary|noun|month|달
+elementary|noun|year|해
+elementary|noun|morning|아침
+elementary|noun|afternoon|오후
+elementary|noun|evening|저녁
+elementary|noun|night|밤
+elementary|noun|today|오늘
+elementary|noun|tomorrow|내일
+elementary|noun|yesterday|어제
+elementary|noun|weather|날씨
+elementary|noun|rain|비
+elementary|noun|snow|눈
+elementary|noun|wind|바람
+elementary|noun|cloud|구름
+elementary|noun|air|공기
+elementary|noun|animal|동물
+elementary|noun|ant|개미
+elementary|noun|bear|곰
+elementary|noun|bee|벌
+elementary|noun|butterfly|나비
+elementary|noun|camel|낙타
+elementary|noun|chicken|닭
+elementary|noun|deer|사슴
+elementary|noun|duck|오리
+elementary|noun|elephant|코끼리
+elementary|noun|frog|개구리
+elementary|noun|goat|염소
+elementary|noun|lion|사자
+elementary|noun|monkey|원숭이
+elementary|noun|mouse|쥐
+elementary|noun|pig|돼지
+elementary|noun|sheep|양
+elementary|noun|snake|뱀
+elementary|noun|tiger|호랑이
+elementary|noun|whale|고래
+elementary|noun|bear|곰
+elementary|noun|cheese|치즈
+elementary|noun|chocolate|초콜릿
+elementary|noun|coffee|커피
+elementary|noun|corn|옥수수
+elementary|noun|grape|포도
+elementary|noun|honey|꿀
+elementary|noun|lemon|레몬
+elementary|noun|orange|오렌지
+elementary|noun|peach|복숭아
+elementary|noun|potato|감자
+elementary|noun|salt|소금
+elementary|noun|sugar|설탕
+elementary|noun|tomato|토마토
+elementary|noun|vegetable|채소
+elementary|noun|wallet|지갑
+elementary|noun|watch|손목시계
+elementary|noun|cap|모자
+elementary|noun|coat|외투
+elementary|noun|dress|드레스
+elementary|noun|glove|장갑
+elementary|noun|hat|모자
+elementary|noun|jacket|재킷
+elementary|noun|pants|바지
+elementary|noun|skirt|치마
+elementary|noun|sock|양말
+elementary|noun|sweater|스웨터
+elementary|noun|camera|카메라
+elementary|noun|radio|라디오
+elementary|noun|television|텔레비전
+elementary|noun|video|동영상
+elementary|noun|piano|피아노
+elementary|noun|guitar|기타
+elementary|noun|drum|북
+elementary|noun|violin|바이올린
+elementary|noun|bridge|다리
+elementary|noun|castle|성
+elementary|noun|church|교회
+elementary|noun|hospital|병원
+elementary|noun|library|도서관
+elementary|noun|museum|박물관
+elementary|noun|office|사무실
+elementary|noun|restaurant|식당
+elementary|noun|station|역
+elementary|noun|bank|은행
+elementary|noun|corner|모퉁이
+elementary|noun|floor|바닥
+elementary|noun|gate|문
+elementary|noun|ground|땅
+elementary|noun|hole|구멍
+elementary|noun|line|선
+elementary|noun|page|쪽
+elementary|noun|side|쪽
+elementary|noun|top|꼭대기
+elementary|noun|bottom|바닥
+elementary|noun|center|중심
+elementary|noun|circle|원
+elementary|noun|square|정사각형
+elementary|noun|triangle|삼각형
+elementary|noun|number|숫자
+elementary|noun|letter|글자
+elementary|noun|word|단어
+elementary|noun|story|이야기
+elementary|noun|question|질문
+elementary|noun|answer|대답
+elementary|noun|dream|꿈
+elementary|noun|idea|생각
+elementary|noun|job|일
+elementary|noun|problem|문제
+elementary|noun|secret|비밀
+elementary|noun|team|팀
+elementary|noun|world|세계
+elementary|noun|hope|희망
+elementary|noun|luck|행운
+elementary|noun|peace|평화
+elementary|noun|health|건강
+elementary|noun|sound|소리
+elementary|noun|light|빛
+elementary|verb|go|가다
+elementary|verb|come|오다
+elementary|verb|run|달리다
+elementary|verb|walk|걷다
+elementary|verb|jump|뛰다
+elementary|verb|sit|앉다
+elementary|verb|stand|서다
+elementary|verb|eat|먹다
+elementary|verb|drink|마시다
+elementary|verb|sleep|자다
+elementary|verb|wake|깨다
+elementary|verb|smile|웃다
+elementary|verb|laugh|웃다
+elementary|verb|cry|울다
+elementary|verb|listen|듣다
+elementary|verb|speak|말하다
+elementary|verb|say|말하다
+elementary|verb|tell|말하다
+elementary|verb|ask|묻다
+elementary|verb|answer|대답하다
+elementary|verb|learn|배우다
+elementary|verb|study|공부하다
+elementary|verb|teach|가르치다
+elementary|verb|play|놀다
+elementary|verb|sing|노래하다
+elementary|verb|dance|춤추다
+elementary|verb|cook|요리하다
+elementary|verb|buy|사다
+elementary|verb|sell|팔다
+elementary|verb|give|주다
+elementary|verb|get|얻다
+elementary|verb|take|가져가다
+elementary|verb|bring|가져오다
+elementary|verb|use|사용하다
+elementary|verb|need|필요하다
+elementary|verb|like|좋아하다
+elementary|verb|love|사랑하다
+elementary|verb|want|원하다
+elementary|verb|live|살다
+elementary|verb|visit|방문하다
+elementary|verb|travel|여행하다
+elementary|verb|turn|돌다
+elementary|verb|move|움직이다
+elementary|verb|stop|멈추다
+elementary|verb|start|시작하다
+elementary|verb|finish|끝내다
+elementary|verb|wait|기다리다
+elementary|verb|try|시도하다
+elementary|verb|call|부르다
+elementary|verb|show|보여주다
+elementary|verb|break|깨다
+elementary|verb|catch|잡다
+elementary|verb|climb|오르다
+elementary|verb|cut|자르다
+elementary|verb|drop|떨어뜨리다
+elementary|verb|fly|날다
+elementary|verb|forget|잊다
+elementary|verb|grow|자라다
+elementary|verb|hear|듣다
+elementary|verb|hide|숨다
+elementary|verb|hit|치다
+elementary|verb|hope|바라다
+elementary|verb|keep|유지하다
+elementary|verb|kick|차다
+elementary|verb|meet|만나다
+elementary|verb|miss|놓치다
+elementary|verb|paint|칠하다
+elementary|verb|pick|고르다
+elementary|verb|push|밀다
+elementary|verb|pull|당기다
+elementary|verb|put|놓다
+elementary|verb|ride|타다
+elementary|verb|send|보내다
+elementary|verb|share|나누다
+elementary|verb|skate|스케이트를 타다
+elementary|verb|ski|스키를 타다
+elementary|verb|swim|수영하다
+elementary|verb|throw|던지다
+elementary|verb|wear|입다
+elementary|verb|win|이기다
+elementary|adjective|fast|빠른
+elementary|adjective|slow|느린
+elementary|adjective|easy|쉬운
+elementary|adjective|hard|어려운
+elementary|adjective|good|좋은
+elementary|adjective|bad|나쁜
+elementary|adjective|nice|멋진
+elementary|adjective|kind|친절한
+elementary|adjective|funny|재미있는
+elementary|adjective|quiet|조용한
+elementary|adjective|loud|시끄러운
+elementary|adjective|bright|밝은
+elementary|adjective|dark|어두운
+elementary|adjective|sweet|달콤한
+elementary|adjective|hot|뜨거운
+elementary|adjective|cool|시원한
+elementary|adjective|young|어린
+elementary|adjective|tall|키가 큰
+elementary|adjective|strong|강한
+elementary|adjective|weak|약한
+middle|noun|account|계정
+middle|noun|advantage|장점
+middle|noun|agreement|동의
+middle|noun|amount|양
+middle|noun|argument|논쟁
+middle|noun|article|기사
+middle|noun|audience|청중
+middle|noun|background|배경
+middle|noun|border|경계
+middle|noun|brain|뇌
+middle|noun|career|직업
+middle|noun|cause|원인
+middle|noun|challenge|도전
+middle|noun|chance|기회
+middle|noun|character|성격
+middle|noun|climate|기후
+middle|noun|conversation|대화
+middle|noun|custom|관습
+middle|noun|damage|손상
+middle|noun|degree|정도
+middle|noun|disease|질병
+middle|noun|distance|거리
+middle|noun|energy|에너지
+middle|noun|engine|엔진
+middle|noun|entrance|입구
+middle|noun|example|예
+middle|noun|exercise|운동
+middle|noun|figure|인물
+middle|noun|future|미래
+middle|noun|goal|목표
+middle|noun|government|정부
+middle|noun|growth|성장
+middle|noun|guide|안내자
+middle|noun|industry|산업
+middle|noun|instrument|도구
+middle|noun|memory|기억
+middle|noun|mind|마음
+middle|noun|moment|순간
+middle|noun|nature|자연
+middle|noun|noise|소음
+middle|noun|notice|공지
+middle|noun|object|물건
+middle|noun|order|순서
+middle|noun|planet|행성
+middle|noun|population|인구
+middle|noun|price|가격
+middle|noun|project|과제
+middle|noun|quality|질
+middle|noun|rule|규칙
+middle|noun|safety|안전
+middle|noun|section|부분
+middle|noun|shape|모양
+middle|noun|signal|신호
+middle|noun|skill|기술
+middle|noun|society|사회
+middle|noun|speech|연설
+middle|noun|surface|표면
+middle|noun|system|체계
+middle|noun|task|일
+middle|noun|value|가치
+middle|noun|waste|낭비
+middle|verb|advise|조언하다
+middle|verb|agree|동의하다
+middle|verb|arrive|도착하다
+middle|verb|believe|믿다
+middle|verb|belong|속하다
+middle|verb|build|짓다
+middle|verb|change|변하다
+middle|verb|choose|고르다
+middle|verb|collect|모으다
+middle|verb|control|통제하다
+middle|verb|cross|건너다
+middle|verb|depend|의존하다
+middle|verb|design|설계하다
+middle|verb|divide|나누다
+middle|verb|enter|들어가다
+middle|verb|fail|실패하다
+middle|verb|follow|따르다
+middle|verb|happen|일어나다
+middle|verb|hold|잡다
+middle|verb|imagine|상상하다
+middle|verb|join|참여하다
+middle|verb|lead|이끌다
+middle|verb|leave|떠나다
+middle|verb|lose|잃다
+middle|verb|manage|관리하다
+middle|verb|mean|의미하다
+middle|verb|offer|제공하다
+middle|verb|pass|지나가다
+middle|verb|produce|생산하다
+middle|verb|provide|제공하다
+middle|verb|raise|올리다
+middle|verb|reach|도달하다
+middle|verb|remain|남다
+middle|verb|return|돌아오다
+middle|verb|save|구하다
+middle|verb|seem|보이다
+middle|verb|share|나누다
+middle|verb|solve|풀다
+middle|verb|spend|쓰다
+middle|verb|suggest|제안하다
+middle|verb|train|훈련하다
+middle|verb|understand|이해하다
+middle|verb|win|이기다
+middle|verb|add|더하다
+middle|verb|admit|인정하다
+middle|verb|appear|나타나다
+middle|verb|argue|주장하다
+middle|verb|attack|공격하다
+middle|verb|belong|속하다
+middle|verb|care|돌보다
+middle|verb|compare|비교하다
+middle|verb|complain|불평하다
+middle|verb|continue|계속하다
+middle|verb|cover|덮다
+middle|verb|deliver|배달하다
+middle|verb|describe|묘사하다
+middle|verb|develop|발달하다
+middle|verb|discuss|토론하다
+middle|verb|explain|설명하다
+middle|verb|express|표현하다
+middle|verb|guess|추측하다
+middle|verb|improve|향상시키다
+middle|verb|include|포함하다
+middle|verb|increase|증가하다
+middle|verb|invent|발명하다
+middle|verb|invite|초대하다
+middle|verb|measure|측정하다
+middle|verb|notice|알아차리다
+middle|verb|prefer|선호하다
+middle|verb|prepare|준비하다
+middle|verb|protect|보호하다
+middle|verb|realize|깨닫다
+middle|verb|receive|받다
+middle|verb|reduce|줄이다
+middle|verb|remember|기억하다
+middle|verb|repair|수리하다
+middle|verb|repeat|반복하다
+middle|verb|report|보고하다
+middle|verb|respect|존중하다
+middle|verb|review|복습하다
+middle|verb|search|찾다
+middle|verb|select|선택하다
+middle|verb|separate|분리하다
+middle|verb|serve|제공하다
+middle|verb|support|지원하다
+middle|verb|surprise|놀라게 하다
+middle|verb|trust|신뢰하다
+middle|verb|worry|걱정하다
+middle|verb|achieve|이루다
+middle|verb|allow|허락하다
+middle|verb|avoid|피하다
+middle|verb|borrow|빌리다
+middle|verb|celebrate|기념하다
+middle|verb|communicate|소통하다
+middle|verb|complete|완성하다
+middle|verb|connect|연결하다
+middle|verb|consider|고려하다
+middle|verb|create|창조하다
+middle|verb|decide|결정하다
+middle|verb|discover|발견하다
+middle|verb|encourage|격려하다
+middle|verb|enjoy|즐기다
+middle|verb|enter|들어가다
+middle|verb|expect|기대하다
+middle|verb|experience|경험하다
+middle|verb|explore|탐험하다
+middle|verb|gather|모으다
+middle|verb|imagine|상상하다
+middle|verb|introduce|소개하다
+middle|verb|invent|발명하다
+middle|verb|mention|언급하다
+middle|verb|observe|관찰하다
+middle|verb|organize|정리하다
+middle|verb|perform|수행하다
+middle|verb|practice|연습하다
+middle|verb|present|발표하다
+middle|verb|prevent|막다
+middle|verb|promise|약속하다
+middle|verb|recognize|알아보다
+middle|verb|record|기록하다
+middle|verb|refuse|거절하다
+middle|verb|relax|쉬다
+middle|verb|reply|대답하다
+middle|verb|require|요구하다
+middle|verb|satisfy|만족시키다
+middle|verb|succeed|성공하다
+middle|verb|suppose|가정하다
+middle|verb|survive|살아남다
+middle|verb|translate|번역하다
+middle|verb|transport|수송하다
+middle|verb|unite|통합하다
+middle|verb|volunteer|자원하다
+middle|verb|wonder|궁금해하다
+middle|verb|accept|받아들이다
+middle|verb|admire|존경하다
+middle|verb|arrange|정리하다
+middle|verb|attend|참석하다
+middle|verb|behave|행동하다
+middle|verb|breathe|숨쉬다
+middle|verb|cheer|응원하다
+middle|verb|compare|비교하다
+middle|verb|count|세다
+middle|verb|disappear|사라지다
+middle|verb|educate|교육하다
+middle|verb|escape|탈출하다
+middle|verb|exercise|운동하다
+middle|verb|explain|설명하다
+middle|verb|graduate|졸업하다
+middle|verb|handle|다루다
+middle|verb|impress|감명을 주다
+middle|verb|balance|균형을 잡다
+middle|verb|capture|붙잡다
+middle|verb|decorate|장식하다
+middle|verb|exchange|교환하다
+middle|noun|addition|추가
+middle|noun|address|주소
+middle|noun|adult|어른
+middle|noun|adventure|모험
+middle|noun|capital|수도
+middle|noun|century|세기
+middle|noun|company|회사
+middle|noun|danger|위험
+middle|noun|effort|노력
+middle|noun|forest|숲
+middle|noun|grade|학년
+middle|noun|hero|영웅
+middle|noun|island|섬
+middle|noun|magazine|잡지
+middle|noun|message|메시지
+middle|noun|neighbor|이웃
+middle|noun|ocean|대양
+middle|noun|owner|주인
+middle|noun|passenger|승객
+middle|noun|pollution|오염
+middle|noun|president|대통령
+middle|noun|promise|약속
+middle|noun|science|과학
+middle|noun|season|계절
+middle|noun|temperature|온도
+middle|noun|village|마을
+middle|noun|visitor|방문객
+middle|noun|volunteer|자원봉사자
+middle|noun|writer|작가
+middle|adjective|able|할 수 있는
+middle|adjective|afraid|두려워하는
+middle|adjective|ancient|고대의
+middle|adjective|brave|용감한
+middle|adjective|busy|바쁜
+middle|adjective|certain|확실한
+middle|adjective|cheap|값싼
+middle|adjective|comfortable|편안한
+middle|adjective|dangerous|위험한
+middle|adjective|deep|깊은
+middle|adjective|different|다른
+middle|adjective|empty|빈
+middle|adjective|enough|충분한
+middle|adjective|expensive|비싼
+middle|adjective|famous|유명한
+middle|adjective|foreign|외국의
+middle|adjective|free|자유로운
+middle|adjective|fresh|신선한
+middle|adjective|full|가득 찬
+middle|adjective|heavy|무거운
+middle|adjective|huge|거대한
+middle|adjective|main|주된
+middle|adjective|modern|현대의
+middle|adjective|nervous|긴장한
+middle|adjective|private|사적인
+middle|adjective|rich|부유한
+middle|adjective|safe|안전한
+middle|adjective|several|몇몇의
+middle|adjective|similar|비슷한
+middle|adjective|strange|이상한
+high|noun|achievement|성취
+high|noun|analysis|분석
+high|noun|application|적용
+high|noun|assumption|가정
+high|noun|awareness|인식
+high|noun|benefit|이익
+high|noun|chapter|장
+high|noun|component|구성 요소
+high|noun|conclusion|결론
+high|noun|constraint|제약
+high|noun|contrast|대조
+high|noun|contribution|기여
+high|noun|debate|토론
+high|noun|definition|정의
+high|noun|demand|수요
+high|noun|distribution|분포
+high|noun|emphasis|강조
+high|noun|framework|틀
+high|noun|income|소득
+high|noun|interpretation|해석
+high|noun|investment|투자
+high|noun|issue|쟁점
+high|noun|journal|학술지
+high|noun|medium|매체
+high|noun|minority|소수
+high|noun|notion|개념
+high|noun|paragraph|문단
+high|noun|phenomenon|현상
+high|noun|principle|원리
+high|noun|publication|출판
+high|noun|reaction|반응
+high|noun|region|지역
+high|noun|requirement|요구 조건
+high|noun|response|반응
+high|noun|role|역할
+high|noun|scope|범위
+high|noun|shift|변화
+high|noun|source|출처
+high|noun|structure|구조
+high|noun|summary|요약
+high|noun|trend|경향
+high|noun|variable|변수
+high|verb|adapt|적응하다
+high|verb|analyze|분석하다
+high|verb|apply|적용하다
+high|verb|assume|가정하다
+high|verb|attribute|속하다
+high|verb|benefit|이익을 얻다
+high|verb|challenge|이의를 제기하다
+high|verb|cite|인용하다
+high|verb|conclude|결론짓다
+high|verb|conduct|수행하다
+high|verb|confirm|확인하다
+high|verb|construct|구성하다
+high|verb|consume|소비하다
+high|verb|contribute|기여하다
+high|verb|convert|전환하다
+high|verb|define|정의하다
+high|verb|distribute|분배하다
+high|verb|emerge|나타나다
+high|verb|emphasize|강조하다
+high|verb|ensure|보장하다
+high|verb|estimate|추정하다
+high|verb|expand|확장하다
+high|verb|expose|노출하다
+high|verb|illustrate|설명하다
+high|verb|involve|포함하다
+high|verb|isolate|분리하다
+high|verb|justify|정당화하다
+high|verb|locate|위치시키다
+high|verb|occur|발생하다
+high|verb|participate|참여하다
+high|verb|perceive|인식하다
+high|verb|predict|예측하다
+high|verb|publish|출판하다
+high|verb|recover|회복하다
+high|verb|refine|정제하다
+high|verb|require|요구하다
+high|verb|respond|반응하다
+high|verb|retain|유지하다
+high|verb|reveal|드러내다
+high|verb|specify|명시하다
+high|verb|submit|제출하다
+high|verb|transfer|이전하다
+high|verb|vary|다르다
+high|verb|accelerate|가속하다
+high|verb|accommodate|수용하다
+high|verb|accompany|동반하다
+high|verb|accumulate|축적하다
+high|verb|acknowledge|인정하다
+high|verb|allocate|배분하다
+high|verb|anticipate|예상하다
+high|verb|assemble|조립하다
+high|verb|assess|평가하다
+high|verb|assign|배정하다
+high|verb|clarify|명확히 하다
+high|verb|compensate|보상하다
+high|verb|concentrate|집중하다
+high|verb|coordinate|조정하다
+high|verb|demonstrate|보여주다
+high|verb|derive|얻다
+high|verb|detect|감지하다
+high|verb|determine|결정하다
+high|verb|eliminate|제거하다
+high|verb|establish|설립하다
+high|verb|evaluate|평가하다
+high|verb|exclude|제외하다
+high|verb|facilitate|촉진하다
+high|verb|generate|생성하다
+high|verb|identify|식별하다
+high|verb|implement|실행하다
+high|verb|imply|암시하다
+high|verb|indicate|나타내다
+high|verb|integrate|통합하다
+high|verb|interpret|해석하다
+high|verb|investigate|조사하다
+high|verb|maintain|유지하다
+high|verb|modify|수정하다
+high|verb|obtain|얻다
+high|verb|occupy|차지하다
+high|verb|preserve|보존하다
+high|verb|proceed|진행하다
+high|verb|regulate|규제하다
+high|verb|reinforce|강화하다
+high|verb|resolve|해결하다
+high|verb|restrict|제한하다
+high|verb|simulate|모의 실험하다
+high|verb|sustain|유지하다
+high|verb|transform|변형시키다
+high|verb|utilize|활용하다
+high|verb|violate|위반하다
+high|verb|abandon|버리다
+high|verb|absorb|흡수하다
+high|verb|abstract|추상화하다
+high|verb|access|접근하다
+high|verb|account|설명하다
+high|verb|adjust|조정하다
+high|verb|advocate|옹호하다
+high|verb|alter|바꾸다
+high|verb|approve|승인하다
+high|verb|arise|발생하다
+high|verb|attain|달성하다
+high|verb|authorize|승인하다
+high|verb|cease|중단하다
+high|verb|coincide|일치하다
+high|verb|collapse|붕괴하다
+high|verb|compile|엮다
+high|verb|comprise|구성하다
+high|verb|conceive|상상하다
+high|verb|confine|제한하다
+high|verb|confront|직면하다
+high|verb|consist|이루어지다
+high|verb|constitute|구성하다
+high|verb|consult|상담하다
+high|verb|contradict|모순되다
+high|verb|convey|전달하다
+high|verb|convince|납득시키다
+high|verb|deduce|추론하다
+high|verb|deem|여기다
+high|verb|differentiate|구별하다
+high|verb|validate|검증하다
+high|verb|diminish|줄어들다
+high|verb|displace|대체하다
+high|verb|dominate|지배하다
+high|verb|enhance|향상시키다
+high|verb|equate|동일시하다
+high|verb|evolve|진화하다
+high|verb|exceed|초과하다
+high|verb|exploit|활용하다
+high|verb|formulate|공식화하다
+high|verb|highlight|강조하다
+high|verb|impose|부과하다
+high|verb|incline|기울다
+high|verb|induce|유발하다
+high|verb|infer|추론하다
+high|verb|inhibit|억제하다
+high|verb|inspect|검사하다
+high|verb|instruct|지시하다
+high|verb|interact|상호작용하다
+high|verb|intervene|개입하다
+high|verb|manipulate|조작하다
+high|verb|mediate|중재하다
+high|verb|neglect|무시하다
+high|verb|orient|향하게 하다
+high|verb|persist|지속하다
+high|verb|presume|추정하다
+high|verb|prioritize|우선시하다
+high|verb|quote|인용하다
+high|verb|restore|복구하다
+high|verb|speculate|추측하다
+high|verb|substitute|대체하다
+high|verb|trigger|유발하다
+high|verb|underlie|기초가 되다
+high|verb|undertake|착수하다
+high|verb|approximate|근사치를 내다
+high|verb|articulate|분명히 표현하다
+high|verb|calculate|계산하다
+high|verb|collaborate|협력하다
+high|verb|complement|보완하다
+high|verb|comprehend|이해하다
+high|verb|consolidate|통합하다
+high|verb|differentiate|구별하다
+high|noun|acquisition|습득
+high|noun|adaptation|적응
+high|noun|allocation|배분
+high|noun|anticipation|예상
+high|noun|assessment|평가
+high|noun|clarification|명확화
+high|noun|compensation|보상
+high|noun|coordination|조정
+high|noun|demonstration|시연
+high|noun|detection|감지
+high|noun|elimination|제거
+high|noun|evaluation|평가
+high|noun|exclusion|제외
+high|noun|generation|생성
+high|noun|identification|식별
+high|noun|implementation|실행
+high|noun|indication|표시
+high|noun|integration|통합
+high|noun|investigation|조사
+high|noun|modification|수정
+high|noun|preservation|보존
+high|noun|regulation|규제
+high|noun|restriction|제한
+high|noun|simulation|모의 실험
+high|noun|transformation|변형
+high|adjective|academic|학업의
+high|adjective|alternative|대안의
+high|adjective|appropriate|적절한
+high|adjective|complex|복잡한
+high|adjective|constant|끊임없는
+high|adjective|critical|중대한
+high|adjective|domestic|국내의
+high|adjective|economic|경제의
+high|adjective|efficient|효율적인
+high|adjective|environmental|환경의
+high|adjective|essential|필수적인
+high|adjective|eventual|최종적인
+high|adjective|financial|재정의
+high|adjective|global|세계적인
+high|adjective|legal|법적인
+high|adjective|major|주요한
+high|adjective|minor|사소한
+high|adjective|overall|전반적인
+high|adjective|previous|이전의
+high|adjective|primary|주요한
+high|adjective|regional|지역의
+high|adjective|specific|구체적인
+high|adjective|sufficient|충분한
+high|adjective|typical|전형적인
+`.trim();
+
 function makeEnglishSupplements(level, existingWords) {
-  const parts = ENGLISH_SUPPLEMENT_PARTS[level];
   const used = new Set(existingWords.map((item) => item.word.toLowerCase()));
   const rows = [];
   const add = (word, meaning, example, exampleKo) => {
     const key = word.toLowerCase();
+    if (/[^a-z]/.test(key)) return;
     if (used.has(key) || rows.some((item) => item.word.toLowerCase() === key)) return;
     rows.push({
       id: `english-supplement-${level}-${rows.length}-${key.replace(/[^a-z0-9]+/g, "-")}`,
@@ -1412,20 +2229,176 @@ function makeEnglishSupplements(level, existingWords) {
     });
   };
 
-  if (level === "elementary") {
-    parts.colors.forEach(([color, colorKo]) => parts.nouns.forEach(([noun, nounKo]) => {
-      add(`${color} ${noun}`, `${colorKo} ${nounKo}`, `I see a ${color} ${noun}.`, `나는 ${colorKo} ${nounKo}을 봅니다.`);
-    }));
-    parts.adjectives.forEach(([adj, adjKo]) => parts.nouns.forEach(([noun, nounKo]) => {
-      add(`${adj} ${noun}`, `${adjKo} ${nounKo}`, `This is a ${adj} ${noun}.`, `이것은 ${adjKo} ${nounKo}입니다.`);
-    }));
-  } else {
-    parts.adjectives.forEach(([adj, adjKo]) => parts.nouns.forEach(([noun, nounKo]) => {
-      add(`${adj} ${noun}`, `${adjKo} ${nounKo}`, `The ${adj} ${noun} matters.`, `${adjKo} ${nounKo}은 중요합니다.`);
-    }));
-  }
+  const seeds = getSingleWordSeeds(level);
+  seeds.forEach(({ kind, word, meaning }) => {
+    add(word, meaning, makeSingleWordExample(kind, word), makeSingleWordExampleKo(kind, word, meaning));
+    makeSingleWordForms(kind, word, meaning, level).forEach((item) => {
+      add(item.word, item.meaning, makeSingleWordExample(item.kind, item.word), makeSingleWordExampleKo(item.kind, item.word, item.meaning));
+    });
+  });
 
   return rows.slice(0, Math.max(0, ENGLISH_TARGET_PER_LEVEL - existingWords.length));
+}
+
+function getSingleWordSeeds(level) {
+  const parts = ENGLISH_SUPPLEMENT_PARTS[level];
+  const seeds = [];
+  if (parts.colors) parts.colors.forEach(([word, meaning]) => seeds.push({ kind: "adjective", word, meaning }));
+  if (parts.adjectives) parts.adjectives.forEach(([word, meaning]) => seeds.push({ kind: "adjective", word, meaning }));
+  if (parts.nouns) parts.nouns.forEach(([word, meaning]) => seeds.push({ kind: "noun", word, meaning }));
+  if (parts.verbs) parts.verbs.forEach(([word, meaning]) => seeds.push({ kind: "verb", word, meaning }));
+  ENGLISH_SINGLE_WORD_SUPPLEMENTS_RAW.split("\n").forEach((line) => {
+    const [rawLevel, kind, word, meaning] = line.split("|");
+    if (rawLevel === level) seeds.push({ kind, word, meaning });
+  });
+  return seeds.filter((item) => item.word && /^[a-z]+$/.test(item.word));
+}
+
+const IRREGULAR_FORMS = {
+  be: { third: "is", past: "was", ing: "being" },
+  arise: { third: "arises", past: "arose", ing: "arising" },
+  buy: { third: "buys", past: "bought", ing: "buying" },
+  come: { third: "comes", past: "came", ing: "coming" },
+  do: { third: "does", past: "did", ing: "doing" },
+  draw: { third: "draws", past: "drew", ing: "drawing" },
+  drink: { third: "drinks", past: "drank", ing: "drinking" },
+  eat: { third: "eats", past: "ate", ing: "eating" },
+  find: { third: "finds", past: "found", ing: "finding" },
+  get: { third: "gets", past: "got", ing: "getting" },
+  give: { third: "gives", past: "gave", ing: "giving" },
+  go: { third: "goes", past: "went", ing: "going" },
+  have: { third: "has", past: "had", ing: "having" },
+  hold: { third: "holds", past: "held", ing: "holding" },
+  know: { third: "knows", past: "knew", ing: "knowing" },
+  lead: { third: "leads", past: "led", ing: "leading" },
+  leave: { third: "leaves", past: "left", ing: "leaving" },
+  lose: { third: "loses", past: "lost", ing: "losing" },
+  make: { third: "makes", past: "made", ing: "making" },
+  mean: { third: "means", past: "meant", ing: "meaning" },
+  read: { third: "reads", past: "read", ing: "reading" },
+  run: { third: "runs", past: "ran", ing: "running" },
+  say: { third: "says", past: "said", ing: "saying" },
+  sell: { third: "sells", past: "sold", ing: "selling" },
+  sing: { third: "sings", past: "sang", ing: "singing" },
+  sit: { third: "sits", past: "sat", ing: "sitting" },
+  sleep: { third: "sleeps", past: "slept", ing: "sleeping" },
+  speak: { third: "speaks", past: "spoke", ing: "speaking" },
+  stand: { third: "stands", past: "stood", ing: "standing" },
+  take: { third: "takes", past: "took", ing: "taking" },
+  teach: { third: "teaches", past: "taught", ing: "teaching" },
+  tell: { third: "tells", past: "told", ing: "telling" },
+  underlie: { third: "underlies", past: "underlay", ing: "underlying" },
+  undertake: { third: "undertakes", past: "undertook", ing: "undertaking" },
+  understand: { third: "understands", past: "understood", ing: "understanding" },
+  wake: { third: "wakes", past: "woke", ing: "waking" },
+  break: { third: "breaks", past: "broke", ing: "breaking" },
+  catch: { third: "catches", past: "caught", ing: "catching" },
+  cut: { third: "cuts", past: "cut", ing: "cutting" },
+  fly: { third: "flies", past: "flew", ing: "flying" },
+  forget: { third: "forgets", past: "forgot", ing: "forgetting" },
+  grow: { third: "grows", past: "grew", ing: "growing" },
+  hear: { third: "hears", past: "heard", ing: "hearing" },
+  hide: { third: "hides", past: "hid", ing: "hiding" },
+  hit: { third: "hits", past: "hit", ing: "hitting" },
+  keep: { third: "keeps", past: "kept", ing: "keeping" },
+  meet: { third: "meets", past: "met", ing: "meeting" },
+  put: { third: "puts", past: "put", ing: "putting" },
+  ride: { third: "rides", past: "rode", ing: "riding" },
+  send: { third: "sends", past: "sent", ing: "sending" },
+  swim: { third: "swims", past: "swam", ing: "swimming" },
+  throw: { third: "throws", past: "threw", ing: "throwing" },
+  wear: { third: "wears", past: "wore", ing: "wearing" },
+  win: { third: "wins", past: "won", ing: "winning" },
+  write: { third: "writes", past: "wrote", ing: "writing" }
+};
+
+function makeSingleWordForms(kind, word, meaning, level) {
+  if (kind === "noun") return [{ kind: "noun", word: pluralizeEnglish(word), meaning: `${meaning}들` }];
+  if (kind === "verb") {
+    const forms = IRREGULAR_FORMS[word] || {
+      third: makeThirdPerson(word),
+      past: makePastTense(word),
+      ing: makeIngForm(word)
+    };
+    return [
+      { kind: "verb", word: forms.third, meaning: `${meaning}` },
+      { kind: "verb", word: forms.past, meaning: `${meaning}했다` },
+      { kind: "verb", word: forms.ing, meaning: `${meaning}하는` }
+    ];
+  }
+  if (kind === "adjective" && level === "elementary") {
+    const rows = [];
+    const comparative = makeComparative(word);
+    const superlative = makeSuperlative(word);
+    if (comparative) rows.push({ kind: "adjective", word: comparative, meaning: `더 ${meaning}` });
+    if (superlative) rows.push({ kind: "adjective", word: superlative, meaning: `가장 ${meaning}` });
+    const adverb = makeAdverb(word);
+    if (adverb) rows.push({ kind: "adverb", word: adverb, meaning: `${meaning}하게` });
+    return rows;
+  }
+  return [];
+}
+
+function pluralizeEnglish(word) {
+  if (word === "child") return "children";
+  if (word === "person") return "people";
+  if (word === "man") return "men";
+  if (word === "woman") return "women";
+  if (word.endsWith("y") && !/[aeiou]y$/.test(word)) return `${word.slice(0, -1)}ies`;
+  if (/(s|x|z|ch|sh)$/.test(word)) return `${word}es`;
+  return `${word}s`;
+}
+
+function makeThirdPerson(word) {
+  if (word.endsWith("y") && !/[aeiou]y$/.test(word)) return `${word.slice(0, -1)}ies`;
+  if (/(s|x|z|ch|sh|o)$/.test(word)) return `${word}es`;
+  return `${word}s`;
+}
+
+function makePastTense(word) {
+  if (word.endsWith("e")) return `${word}d`;
+  if (word.endsWith("y") && !/[aeiou]y$/.test(word)) return `${word.slice(0, -1)}ied`;
+  return `${word}ed`;
+}
+
+function makeIngForm(word) {
+  if (word.endsWith("ie")) return `${word.slice(0, -2)}ying`;
+  if (word.endsWith("e") && word !== "see") return `${word.slice(0, -1)}ing`;
+  return `${word}ing`;
+}
+
+function makeComparative(word) {
+  if (word.length > 7) return "";
+  if (word.endsWith("y")) return `${word.slice(0, -1)}ier`;
+  if (word.endsWith("e")) return `${word}r`;
+  return `${word}er`;
+}
+
+function makeSuperlative(word) {
+  if (word.length > 7) return "";
+  if (word.endsWith("y")) return `${word.slice(0, -1)}iest`;
+  if (word.endsWith("e")) return `${word}st`;
+  return `${word}est`;
+}
+
+function makeAdverb(word) {
+  if (word.endsWith("y")) return `${word.slice(0, -1)}ily`;
+  if (word.endsWith("ic")) return `${word}ally`;
+  if (word.endsWith("le")) return `${word.slice(0, -1)}y`;
+  if (word.length > 9) return "";
+  return `${word}ly`;
+}
+
+function makeSingleWordExample(kind, word) {
+  if (kind === "verb") return `"${word}" is a verb form.`;
+  if (kind === "adverb") return `"${word}" appears in many sentences.`;
+  return `"${word}" is an important word.`;
+}
+
+function makeSingleWordExampleKo(kind, word, meaning) {
+  if (kind === "verb") return `"${word}"는 "${meaning}"라는 동작을 나타냅니다.`;
+  if (kind === "adverb") return `"${word}"는 "${meaning}"라는 방식으로 쓰입니다.`;
+  return `"${word}"는 "${meaning}"라는 뜻입니다.`;
 }
 
 function normalizeEnglishLevel(level, words) {
