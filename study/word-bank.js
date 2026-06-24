@@ -399,6 +399,311 @@ hanja10|電|전|번개, 전기|電話는 전화입니다.
 hanja10|話|화|말하다|對話는 서로 이야기함입니다.
 `.trim();
 
+// Exam-grade character cards rebuilt from public assignment-list candidates.
+// Keep only character/grade facts from sources; readings and meanings are written for this project.
+const HANJA_GRADE_CARD_RAW = `
+hanja10|校|교|학교
+hanja10|敎|교|가르치다
+hanja10|九|구|아홉
+hanja10|國|국|나라
+hanja10|軍|군|군사
+hanja10|金|금|쇠, 돈
+hanja10|南|남|남쪽
+hanja10|女|녀|여자
+hanja10|年|년|해, 나이
+hanja10|大|대|크다
+hanja10|東|동|동쪽
+hanja10|六|육|여섯
+hanja10|萬|만|일만
+hanja10|母|모|어머니
+hanja10|木|목|나무
+hanja10|門|문|문
+hanja10|民|민|백성
+hanja10|白|백|희다
+hanja10|父|부|아버지
+hanja10|北|북|북쪽
+hanja10|四|사|넷
+hanja10|山|산|산
+hanja10|三|삼|셋
+hanja10|生|생|나다, 살다
+hanja10|西|서|서쪽
+hanja10|先|선|먼저
+hanja10|小|소|작다
+hanja10|水|수|물
+hanja10|室|실|방
+hanja10|十|십|열
+hanja10|五|오|다섯
+hanja10|王|왕|임금
+hanja10|外|외|바깥
+hanja10|月|월|달
+hanja10|二|이|둘
+hanja10|人|인|사람
+hanja10|一|일|하나
+hanja10|日|일|날, 해
+hanja10|長|장|길다, 어른
+hanja10|弟|제|아우
+hanja10|中|중|가운데
+hanja10|靑|청|푸르다
+hanja10|寸|촌|마디
+hanja10|七|칠|일곱
+hanja10|土|토|흙
+hanja10|八|팔|여덟
+hanja10|學|학|배우다
+hanja10|韓|한|한국
+hanja10|兄|형|형
+hanja10|火|화|불
+hanja9|家|가|집
+hanja9|間|간|사이
+hanja9|江|강|강
+hanja9|車|차|수레, 차
+hanja9|工|공|장인, 일
+hanja9|空|공|비다, 하늘
+hanja9|氣|기|기운
+hanja9|記|기|기록하다
+hanja9|男|남|남자
+hanja9|內|내|안
+hanja9|農|농|농사
+hanja9|答|답|대답
+hanja9|道|도|길
+hanja9|動|동|움직이다
+hanja9|力|력|힘
+hanja9|立|립|서다
+hanja9|每|매|매양
+hanja9|名|명|이름
+hanja9|物|물|물건
+hanja9|方|방|방향, 모
+hanja9|不|불|아니다
+hanja9|事|사|일
+hanja9|上|상|위
+hanja9|姓|성|성씨
+hanja9|世|세|세상
+hanja9|手|수|손
+hanja9|時|시|때
+hanja9|市|시|시장
+hanja9|食|식|먹다, 밥
+hanja9|安|안|편안하다
+hanja9|午|오|낮
+hanja9|右|우|오른쪽
+hanja9|子|자|아들, 글자
+hanja9|自|자|스스로
+hanja9|場|장|마당, 장소
+hanja9|電|전|전기
+hanja9|前|전|앞
+hanja9|全|전|온전하다
+hanja9|正|정|바르다
+hanja9|足|족|발, 충분하다
+hanja9|左|좌|왼쪽
+hanja9|直|직|곧다
+hanja9|平|평|평평하다
+hanja9|下|하|아래
+hanja9|漢|한|한나라, 한자
+hanja9|海|해|바다
+hanja9|話|화|말하다
+hanja9|活|활|살다
+hanja9|孝|효|효도
+hanja9|後|후|뒤
+hanja8|歌|가|노래
+hanja8|口|구|입
+hanja8|旗|기|깃발
+hanja8|同|동|같다
+hanja8|洞|동|골, 동네
+hanja8|冬|동|겨울
+hanja8|登|등|오르다
+hanja8|來|래|오다
+hanja8|老|로|늙다
+hanja8|里|리|마을, 거리
+hanja8|林|림|수풀
+hanja8|面|면|얼굴, 쪽
+hanja8|命|명|목숨, 명령
+hanja8|文|문|글월
+hanja8|問|문|묻다
+hanja8|百|백|일백
+hanja8|夫|부|지아비
+hanja8|算|산|셈하다
+hanja8|色|색|빛, 색
+hanja8|夕|석|저녁
+hanja8|少|소|적다
+hanja8|所|소|바, 곳
+hanja8|數|수|셈, 수
+hanja8|植|식|심다
+hanja8|心|심|마음
+hanja8|語|어|말씀
+hanja8|然|연|그러하다
+hanja8|有|유|있다
+hanja8|育|육|기르다
+hanja8|邑|읍|고을
+hanja8|入|입|들어가다
+hanja8|字|자|글자
+hanja8|祖|조|조상
+hanja8|住|주|살다
+hanja8|主|주|주인
+hanja8|重|중|무겁다, 중요하다
+hanja8|紙|지|종이
+hanja8|地|지|땅
+hanja8|千|천|일천
+hanja8|天|천|하늘
+hanja8|川|천|내
+hanja8|草|초|풀
+hanja8|村|촌|마을
+hanja8|秋|추|가을
+hanja8|春|춘|봄
+hanja8|出|출|나가다
+hanja8|便|편|편하다, 소식
+hanja8|夏|하|여름
+hanja8|花|화|꽃
+hanja8|休|휴|쉬다
+hanja7|各|각|각각
+hanja7|角|각|뿔, 모
+hanja7|界|계|경계
+hanja7|計|계|셈하다
+hanja7|高|고|높다
+hanja7|公|공|공평하다, 공적
+hanja7|共|공|함께
+hanja7|功|공|공로
+hanja7|果|과|열매, 결과
+hanja7|科|과|과목
+hanja7|光|광|빛
+hanja7|球|구|공
+hanja7|今|금|이제, 지금
+hanja7|急|급|급하다
+hanja7|短|단|짧다
+hanja7|堂|당|집, 당
+hanja7|代|대|대신, 세대
+hanja7|對|대|대하다
+hanja7|圖|도|그림
+hanja7|讀|독|읽다
+hanja7|童|동|아이
+hanja7|等|등|등급, 무리
+hanja7|樂|락|즐겁다, 음악
+hanja7|利|리|이롭다
+hanja7|理|리|이치
+hanja7|明|명|밝다
+hanja7|聞|문|듣다
+hanja7|半|반|반
+hanja7|反|반|반대하다, 돌이키다
+hanja7|班|반|무리, 반
+hanja7|發|발|피다, 쏘다
+hanja7|放|방|놓다
+hanja7|部|부|부분
+hanja7|分|분|나누다
+hanja7|社|사|모임
+hanja7|書|서|글, 책
+hanja7|線|선|줄
+hanja7|雪|설|눈
+hanja7|成|성|이루다
+hanja7|省|성|살피다
+hanja7|消|소|사라지다
+hanja7|術|술|재주
+hanja7|始|시|시작하다
+hanja7|身|신|몸
+hanja7|神|신|정신, 신
+hanja7|信|신|믿다
+hanja7|新|신|새롭다
+hanja7|弱|약|약하다
+hanja7|藥|약|약
+hanja7|業|업|일
+hanja7|勇|용|용감하다
+hanja7|用|용|쓰다
+hanja7|運|운|운, 옮기다
+hanja7|音|음|소리
+hanja7|飮|음|마시다
+hanja7|意|의|뜻
+hanja7|作|작|짓다
+hanja7|昨|작|어제
+hanja7|才|재|재주
+hanja7|戰|전|싸움
+hanja7|庭|정|뜰
+hanja7|第|제|차례
+hanja7|題|제|제목, 문제
+hanja7|注|주|붓다, 주석
+hanja7|集|집|모으다
+hanja7|窓|창|창
+hanja7|淸|청|맑다
+hanja7|體|체|몸
+hanja7|表|표|겉, 표하다
+hanja7|風|풍|바람
+hanja7|幸|행|다행
+hanja7|現|현|나타나다
+hanja7|形|형|모양
+hanja7|和|화|화하다
+hanja7|會|회|모이다
+hanja6|感|감|느끼다
+hanja6|強|강|강하다
+hanja6|開|개|열다
+hanja6|京|경|서울
+hanja6|古|고|옛
+hanja6|苦|고|괴롭다
+hanja6|交|교|사귀다, 바꾸다
+hanja6|區|구|구역
+hanja6|郡|군|고을
+hanja6|根|근|뿌리
+hanja6|近|근|가깝다
+hanja6|級|급|등급
+hanja6|多|다|많다
+hanja6|待|대|기다리다
+hanja6|度|도|정도, 법도
+hanja6|頭|두|머리
+hanja6|例|례|예
+hanja6|禮|례|예절
+hanja6|路|로|길
+hanja6|綠|록|푸르다
+hanja6|李|리|오얏, 성씨
+hanja6|目|목|눈
+hanja6|美|미|아름답다
+hanja6|米|미|쌀
+hanja6|朴|박|성씨, 순박하다
+hanja6|番|번|차례
+hanja6|別|별|다르다
+hanja6|病|병|병
+hanja6|服|복|옷, 복종하다
+hanja6|本|본|근본
+hanja6|使|사|쓰다, 시키다
+hanja6|死|사|죽다
+hanja6|席|석|자리
+hanja6|石|석|돌
+hanja6|速|속|빠르다
+hanja6|孫|손|손자
+hanja6|樹|수|나무
+hanja6|習|습|익히다
+hanja6|勝|승|이기다
+hanja6|式|식|법식
+hanja6|失|실|잃다
+hanja6|愛|애|사랑
+hanja6|夜|야|밤
+hanja6|野|야|들
+hanja6|陽|양|볕
+hanja6|洋|양|큰 바다
+hanja6|言|언|말씀
+hanja6|英|영|뛰어나다
+hanja6|永|영|길다
+hanja6|溫|온|따뜻하다
+hanja6|園|원|동산
+hanja6|遠|원|멀다
+hanja6|由|유|말미암다
+hanja6|油|유|기름
+hanja6|銀|은|은
+hanja6|醫|의|의원, 고치다
+hanja6|衣|의|옷
+hanja6|者|자|사람
+hanja6|章|장|글, 문장
+hanja6|在|재|있다
+hanja6|定|정|정하다
+hanja6|朝|조|아침
+hanja6|族|족|겨레
+hanja6|晝|주|낮
+hanja6|親|친|친하다
+hanja6|太|태|크다
+hanja6|通|통|통하다
+hanja6|特|특|특별하다
+hanja6|合|합|합하다
+hanja6|行|행|가다, 행하다
+hanja6|向|향|향하다
+hanja6|號|호|이름, 부르다
+hanja6|畫|화|그림, 긋다
+hanja6|黃|황|누렇다
+hanja6|訓|훈|가르치다
+`.trim();
+
 const HANJA_LEVEL_PACKS = {
   hanja9: [
     ["力", "력", "힘", "努力은 힘써 애쓰는 일입니다."],
@@ -1298,6 +1603,20 @@ const hanjaWords = HANJA_BANK_RAW.split("\n").map((line, index) => {
     reading,
     meaning: `${reading} / ${meaning}`,
     example
+  };
+});
+
+const hanjaGradeCards = HANJA_GRADE_CARD_RAW.split("\n").map((line, index) => {
+  const [level, character, reading, meaning] = line.split("|");
+  return {
+    id: `hanja-grade-${level}-${index}-${character}`,
+    type: "hanja",
+    level,
+    term: character,
+    word: character,
+    reading,
+    meaning: `${reading} / ${meaning}`,
+    example: ""
   };
 });
 
@@ -2708,7 +3027,24 @@ function buildEnglishSupplementWords(words) {
   return rows;
 }
 
+function dedupeStudyWords(words) {
+  const seen = new Set();
+  return words.filter((item) => {
+    const key = `${item.type}|${item.level}|${item.word}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
 const englishBaseWords = dedupeEnglishBaseWords([...englishWords, ...extraEnglishWords]);
 const englishSupplementWords = buildEnglishSupplementWords(englishBaseWords);
 
-window.STUDY_WORD_BANK = [...englishBaseWords, ...englishSupplementWords, ...hanjaWords, ...extendedHanjaWords, ...hanjaExamWords];
+window.STUDY_WORD_BANK = dedupeStudyWords([
+  ...englishBaseWords,
+  ...englishSupplementWords,
+  ...hanjaGradeCards,
+  ...hanjaWords,
+  ...extendedHanjaWords,
+  ...hanjaExamWords
+]);

@@ -22,12 +22,16 @@ definitions/examples as-is.
 | New Dolch List 1.1 | Elementary candidate headwords | New General Service List Project; CC BY-SA 4.0 stated on project pages |
 | New General Service List 1.2 | General high-frequency candidate headwords | 2,809-word general English list; CC BY-SA 4.0 stated on project pages |
 | New Academic Word List 1.2 | High school / academic candidate headwords | 957-word academic list; CC BY-SA 4.0 stated on project pages |
+| Korean Language Society / 어문회 assigned Hanja references | Hanja grade character candidates | Use only grade/character facts as candidates; write readings and meanings in-project |
+| Namu mirror of 전국한자능력검정시험 배정한자 | Cross-check assigned Hanja sequence | Candidate cross-check only; do not copy explanations or prose |
 
 Project pages:
 
 - https://www.newgeneralservicelist.com/new-dolch-list
 - https://www.newgeneralservicelist.com/new-general-service-list
 - https://www.newgeneralservicelist.com/new-academic-word-list
+- https://www.hanja.re.kr/
+- https://namu.moe/w/%EC%A0%84%EA%B5%AD%ED%95%9C%EC%9E%90%EB%8A%A5%EB%A0%A5%EA%B2%80%EC%A0%95%EC%8B%9C%ED%97%98/%EB%B0%B0%EC%A0%95%ED%95%9C%EC%9E%90
 
 ## Do Not Use Directly
 
@@ -35,6 +39,7 @@ Project pages:
 - Commercial workbook or paid textbook vocabulary pages.
 - Dictionary definitions/examples copied into Korean or English cards.
 - Large unverified AI-generated batches without source-rank cross-checking.
+- Hanja explanations, example sentences, or page prose copied from third-party pages.
 
 ## Expansion Target
 
