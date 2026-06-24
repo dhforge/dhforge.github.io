@@ -1290,7 +1290,11 @@ const extraEnglishWords = EXTRA_WORD_BANK_RAW.split("\n").map((line, index) => {
   };
 });
 
-const ENGLISH_TARGET_PER_LEVEL = 1000;
+const ENGLISH_TARGET_PER_LEVEL = {
+  elementary: 1022,
+  middle: 1016,
+  high: 1008
+};
 
 const ENGLISH_SUPPLEMENT_PARTS = {
   elementary: {
@@ -2272,7 +2276,8 @@ function makeEnglishSupplements(level, existingWords, globalWords = []) {
     });
   });
 
-  return rows.slice(0, Math.max(0, ENGLISH_TARGET_PER_LEVEL - existingWords.length));
+  const target = ENGLISH_TARGET_PER_LEVEL[level] || 1000;
+  return rows.slice(0, Math.max(0, target - existingWords.length));
 }
 
 function getSingleWordSeeds(level) {

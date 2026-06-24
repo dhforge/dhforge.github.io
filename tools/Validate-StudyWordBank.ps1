@@ -1,7 +1,7 @@
 param(
   [string]$NodePath = "",
   [int]$MaxFallbackExamplesPerLevel = 300,
-  [int]$ExpectedEnglishWordsPerLevel = 1000
+  [int]$MinimumEnglishWordsPerLevel = 1000
 )
 
 $ErrorActionPreference = "Stop"
@@ -19,7 +19,7 @@ const fs = require("fs");
 const vm = require("vm");
 
 const maxFallback = Number(process.argv[2] || 300);
-const expectedPerLevel = Number(process.argv[3] || 1000);
+const minimumPerLevel = Number(process.argv[3] || 1000);
 const code = fs.readFileSync("study/word-bank.js", "utf8");
 const sandbox = { window: {} };
 vm.runInNewContext(code, sandbox, { filename: "study/word-bank.js" });
@@ -40,7 +40,7 @@ for (const level of levels) {
 
   console.log(`${level}: ${rows.length} words, duplicates ${new Set(duplicates).size}, nonSingle ${nonSingle.length}, missingMeaning ${missingMeaning.length}, missingExample ${missingExample.length}, fallbackExamples ${fallbackExamples.length}`);
 
-  if (rows.length !== expectedPerLevel || duplicates.length || nonSingle.length || missingMeaning.length || missingExample.length || fallbackExamples.length > maxFallback) {
+  if (rows.length < minimumPerLevel || duplicates.length || nonSingle.length || missingMeaning.length || missingExample.length || fallbackExamples.length > maxFallback) {
     failed = true;
   }
 }
@@ -62,4 +62,4 @@ if (failed) {
 
 $tempScript = Join-Path $env:TEMP "validate-study-word-bank.js"
 Set-Content -Encoding UTF8 -Path $tempScript -Value $script
-& $NodePath $tempScript $MaxFallbackExamplesPerLevel $ExpectedEnglishWordsPerLevel
+& $NodePath $tempScript $MaxFallbackExamplesPerLevel $MinimumEnglishWordsPerLevel
