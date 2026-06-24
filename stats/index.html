@@ -283,6 +283,14 @@
       label.classList.toggle("error", isError);
     }
 
+    function formatUpdatedAt(value) {
+      return new Intl.DateTimeFormat("ko-KR", {
+        dateStyle: "medium",
+        timeStyle: "medium",
+        timeZone: "Asia/Seoul"
+      }).format(new Date(value));
+    }
+
     function metricValue(data, siteKey, metricKey) {
       const site = data.sites?.find((item) => item.key === siteKey);
       return Number(site?.[metricKey]);
@@ -291,7 +299,7 @@
     function renderStats(data) {
       document.getElementById("rangeLabel").textContent = data.rangeLabel || "최근 30일 방문수";
       document.getElementById("updatedLabel").textContent = data.updatedAt
-        ? `마지막 갱신: ${new Date(data.updatedAt).toLocaleString("ko-KR")}`
+        ? `마지막 갱신: ${formatUpdatedAt(data.updatedAt)}`
         : "아직 갱신 시간이 없습니다.";
 
       for (const element of document.querySelectorAll("[data-field]")) {
@@ -306,7 +314,7 @@
 
     async function loadStats() {
       try {
-        const response = await fetch("./summary.json", { cache: "no-store" });
+        const response = await fetch(`./summary.json?updated=${Date.now()}`, { cache: "no-store" });
         if (!response.ok) throw new Error("summary.json not found");
         renderStats(await response.json());
       } catch (error) {
