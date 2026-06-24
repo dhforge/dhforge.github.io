@@ -1,4 +1,4 @@
-const STUDY_CACHE = "study-lab-v11";
+const STUDY_CACHE = "study-lab-v12";
 const STUDY_ASSETS = [
   "/study/",
   "/study/index.html",

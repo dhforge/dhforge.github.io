@@ -2214,10 +2214,34 @@ high|adjective|regional|지역의
 high|adjective|specific|구체적인
 high|adjective|sufficient|충분한
 high|adjective|typical|전형적인
+middle|noun|landscape|풍경
+middle|noun|shore|해안
+middle|noun|stream|시내
+middle|noun|harbor|항구
+middle|noun|valley|계곡
+middle|noun|routine|일과
+middle|noun|schedule|일정
+middle|noun|festival|축제
+middle|noun|citizen|시민
+middle|noun|budget|예산
+middle|noun|airport|공항
+middle|noun|captain|주장
+middle|noun|leader|지도자
+middle|noun|member|구성원
+middle|noun|guest|손님
+middle|noun|coast|해안
+high|noun|paradigm|전형적 틀
+high|noun|synthesis|종합
+high|noun|inference|추론
+high|noun|variance|차이
+high|noun|criterion|기준
+high|noun|aggregate|총합
+high|noun|taxonomy|분류 체계
+high|noun|correlation|상관관계
 `.trim();
 
-function makeEnglishSupplements(level, existingWords) {
-  const used = new Set(existingWords.map((item) => item.word.toLowerCase()));
+function makeEnglishSupplements(level, existingWords, globalWords = []) {
+  const used = new Set([...existingWords, ...globalWords].map((item) => item.word.toLowerCase()));
   const rows = [];
   const add = (word, meaning, example, exampleKo) => {
     const key = word.toLowerCase();
@@ -2460,12 +2484,33 @@ function makeSingleWordExampleKo(kind, word, meaning) {
   return `"${word}"는 "${meaning}"라는 뜻입니다.`;
 }
 
-function normalizeEnglishLevel(level, words) {
-  const levelWords = words.filter((item) => item.level === level);
-  return makeEnglishSupplements(level, levelWords);
+function dedupeEnglishBaseWords(words) {
+  const used = new Set();
+  const rows = [];
+  ["elementary", "middle", "high"].forEach((level) => {
+    words.filter((item) => item.level === level).forEach((item) => {
+      const key = item.word.toLowerCase();
+      if (used.has(key)) return;
+      used.add(key);
+      rows.push(item);
+    });
+  });
+  return rows;
 }
 
-const englishBaseWords = [...englishWords, ...extraEnglishWords];
-const englishSupplementWords = ["elementary", "middle", "high"].flatMap((level) => normalizeEnglishLevel(level, englishBaseWords));
+function buildEnglishSupplementWords(words) {
+  const rows = [];
+  const globalWords = [...words];
+  ["elementary", "middle", "high"].forEach((level) => {
+    const levelWords = words.filter((item) => item.level === level);
+    const supplements = makeEnglishSupplements(level, levelWords, globalWords);
+    rows.push(...supplements);
+    globalWords.push(...supplements);
+  });
+  return rows;
+}
+
+const englishBaseWords = dedupeEnglishBaseWords([...englishWords, ...extraEnglishWords]);
+const englishSupplementWords = buildEnglishSupplementWords(englishBaseWords);
 
 window.STUDY_WORD_BANK = [...englishBaseWords, ...englishSupplementWords, ...hanjaWords, ...extendedHanjaWords, ...hanjaExamWords];
