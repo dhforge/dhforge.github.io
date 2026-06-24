@@ -382,7 +382,7 @@ function renderTemplate(template, sheet, titleText) {
   if (template === "music-staff-paper") {
     const staffWrap = document.createElement("div");
     staffWrap.className = "music-staff";
-    for (let i = 0; i < 10; i += 1) {
+    for (let i = 0; i < 9; i += 1) {
       const staff = document.createElement("div");
       staff.className = "staff";
       staffWrap.append(staff);
@@ -418,7 +418,7 @@ function renderTemplate(template, sheet, titleText) {
   if (template === "checklist") {
     const list = document.createElement("div");
     list.className = "check-list";
-    for (let i = 0; i < 20; i += 1) {
+    for (let i = 0; i < 18; i += 1) {
       const row = document.createElement("div");
       row.className = "check-row";
       list.append(row);

@@ -606,6 +606,12 @@ input[type="color"] {
   z-index: 2;
 }
 
+.sheet-title:empty + .sheet-content .music-staff,
+.sheet-title:empty + .sheet-content .check-list {
+  height: 100%;
+  margin-top: 0;
+}
+
 .cornell {
   display: grid;
   grid-template-columns: 34% 1fr;
@@ -625,13 +631,20 @@ input[type="color"] {
 
 .music-staff {
   display: grid;
-  gap: 28px;
+  grid-template-rows: repeat(9, minmax(0, 1fr));
+  gap: clamp(14px, 2vh, 24px);
+  height: calc(100% - 64px);
   margin-top: 54px;
+  align-items: center;
 }
 
 .staff {
-  height: 46px;
+  width: 100%;
+  height: min(46px, 100%);
+  min-height: 38px;
   background-image: repeating-linear-gradient(to bottom, var(--paper-color) 0, var(--paper-color) var(--line-weight), transparent var(--line-weight), transparent 9px);
+  background-size: 100% 45px;
+  background-repeat: no-repeat;
 }
 
 .planner-grid {
@@ -673,33 +686,33 @@ input[type="color"] {
 
 .check-list {
   display: grid;
-  grid-template-rows: repeat(20, minmax(0, 1fr));
-  gap: 8px;
+  grid-template-rows: repeat(18, minmax(0, 1fr));
+  gap: clamp(4px, 0.7vw, 8px);
   height: calc(100% - 64px);
   margin-top: 54px;
 }
 
 .check-row {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  align-items: center;
+  gap: clamp(6px, 1vw, 10px);
   min-height: 0;
-  position: relative;
+  padding: 0 clamp(5px, 1vw, 10px);
 }
 
 .check-row::before {
   content: "";
-  position: absolute;
-  left: 8px;
-  top: 7px;
-  width: 14px;
-  height: 14px;
+  display: block;
+  width: clamp(10px, 1.8vw, 14px);
+  height: clamp(10px, 1.8vw, 14px);
   border: var(--line-weight) solid var(--paper-color);
 }
 
 .check-row::after {
   content: "";
-  position: absolute;
-  left: 32px;
-  right: 8px;
-  bottom: 7px;
+  display: block;
+  width: 100%;
   border-bottom: var(--line-weight) solid var(--paper-color);
 }
 
