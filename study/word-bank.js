@@ -1666,6 +1666,689 @@ high|welfare|복지|Public welfare matters.
 high|witness|목격자|The witness spoke clearly.
 `.trim();
 
+const ENGLISH_BULK_WORDS_RAW = `
+elementary|about|~에 대해
+elementary|above|위에
+elementary|across|가로질러
+elementary|after|~후에
+elementary|again|다시
+elementary|almost|거의
+elementary|alone|혼자
+elementary|along|~을 따라
+elementary|also|또한
+elementary|always|항상
+elementary|another|또 다른
+elementary|any|어떤
+elementary|around|주위에
+elementary|away|떨어져
+elementary|back|뒤, 돌아가서
+elementary|because|왜냐하면
+elementary|before|~전에
+elementary|behind|뒤에
+elementary|below|아래에
+elementary|best|최고의
+elementary|better|더 좋은
+elementary|between|~사이에
+elementary|both|둘 다
+elementary|bring|가져오다
+elementary|build|짓다
+elementary|busy|바쁜
+elementary|care|돌봄
+elementary|change|바꾸다
+elementary|cheap|싼
+elementary|choose|고르다
+elementary|circle|원
+elementary|clear|맑은, 분명한
+elementary|clothes|옷
+elementary|corner|모퉁이
+elementary|cute|귀여운
+elementary|deep|깊은
+elementary|different|다른
+elementary|dry|마른
+elementary|each|각각
+elementary|east|동쪽
+elementary|enough|충분한
+elementary|every|모든
+elementary|far|먼
+elementary|favorite|가장 좋아하는
+elementary|feel|느끼다
+elementary|few|조금의
+elementary|first|첫 번째
+elementary|full|가득 찬
+elementary|fun|재미
+elementary|garden|정원
+elementary|hard|어려운, 딱딱한
+elementary|heavy|무거운
+elementary|high|높은
+elementary|inside|안쪽
+elementary|keep|유지하다
+elementary|kind|친절한
+elementary|last|마지막
+elementary|left|왼쪽
+elementary|light|빛, 가벼운
+elementary|little|작은
+elementary|low|낮은
+elementary|many|많은
+elementary|meet|만나다
+elementary|middle|가운데
+elementary|more|더 많은
+elementary|most|가장 많은
+elementary|much|많은
+elementary|near|가까운
+elementary|next|다음
+elementary|north|북쪽
+elementary|often|자주
+elementary|once|한 번
+elementary|only|오직
+elementary|outside|밖에
+elementary|place|장소
+elementary|poor|가난한
+elementary|pretty|예쁜
+elementary|quick|빠른
+elementary|right|오른쪽, 맞는
+elementary|same|같은
+elementary|second|두 번째
+elementary|shape|모양
+elementary|shout|외치다
+elementary|side|쪽
+elementary|south|남쪽
+elementary|sure|확신하는
+elementary|than|~보다
+elementary|then|그때
+elementary|thing|것
+elementary|together|함께
+elementary|under|아래에
+elementary|until|~까지
+elementary|very|매우
+elementary|west|서쪽
+elementary|when|언제
+elementary|where|어디
+elementary|which|어느 것
+elementary|while|~하는 동안
+elementary|why|왜
+elementary|without|~없이
+middle|abroad|해외로
+middle|accept|받아들이다
+middle|actual|실제의
+middle|address|주소, 연설하다
+middle|adult|어른
+middle|affect|영향을 주다
+middle|against|~에 반대하여
+middle|almost|거의
+middle|although|비록 ~이지만
+middle|among|~사이에
+middle|amount|양
+middle|ancient|고대의
+middle|anger|분노
+middle|angle|각도
+middle|apart|떨어져
+middle|article|기사, 물건
+middle|avoid|피하다
+middle|basic|기본적인
+middle|battle|전투
+middle|beauty|아름다움
+middle|belong|속하다
+middle|beyond|~너머에
+middle|billion|십억
+middle|birth|출생
+middle|blood|피
+middle|brain|뇌
+middle|breath|숨
+middle|bridge|다리
+middle|business|사업
+middle|calendar|달력
+middle|capital|수도, 자본
+middle|career|직업, 경력
+middle|cause|원인, 일으키다
+middle|century|세기
+middle|certain|확실한
+middle|challenge|도전
+middle|character|성격, 등장인물
+middle|charge|요금, 책임
+middle|chemical|화학의
+middle|choice|선택
+middle|climate|기후
+middle|collect|모으다
+middle|college|대학
+middle|compare|비교하다
+middle|concern|걱정, 관련되다
+middle|continue|계속하다
+middle|control|통제하다
+middle|conversation|대화
+middle|correct|올바른
+middle|courage|용기
+middle|create|창조하다
+middle|culture|문화
+middle|custom|관습
+middle|damage|손상
+middle|degree|정도, 학위
+middle|depend|의존하다
+middle|desert|사막
+middle|develop|발달하다
+middle|difference|차이
+middle|disease|질병
+middle|distance|거리
+middle|divide|나누다
+middle|double|두 배의
+middle|education|교육
+middle|either|둘 중 하나
+middle|engine|엔진
+middle|enough|충분한
+middle|enter|들어가다
+middle|equal|같은
+middle|escape|탈출하다
+middle|especially|특히
+middle|excellent|훌륭한
+middle|except|~을 제외하고
+middle|exercise|운동
+middle|expect|기대하다
+middle|expensive|비싼
+middle|experiment|실험
+middle|express|표현하다
+middle|factory|공장
+middle|failure|실패
+middle|favor|호의
+middle|festival|축제
+middle|final|마지막의
+middle|foreign|외국의
+middle|freedom|자유
+middle|fresh|신선한
+middle|general|일반적인
+middle|government|정부
+middle|grade|학년, 등급
+middle|habit|습관
+middle|handle|다루다
+middle|harm|해
+middle|however|그러나
+middle|human|인간
+middle|imagine|상상하다
+middle|improve|향상시키다
+middle|include|포함하다
+middle|industry|산업
+middle|instrument|악기, 도구
+middle|international|국제적인
+middle|journey|여행
+middle|justice|정의
+middle|labor|노동
+middle|local|지역의
+middle|major|주요한
+middle|material|재료
+middle|memory|기억
+middle|method|방법
+middle|modern|현대의
+middle|native|토착의, 원어민의
+middle|nature|자연
+middle|necessary|필요한
+middle|notice|알아차리다
+middle|object|물건
+middle|opinion|의견
+middle|opposite|반대의
+middle|ordinary|보통의
+middle|passage|글, 통로
+middle|patient|참을성 있는
+middle|pattern|양식, 무늬
+middle|peaceful|평화로운
+middle|perhaps|아마
+middle|planet|행성
+middle|pleasant|즐거운
+middle|possible|가능한
+middle|prepare|준비하다
+middle|produce|생산하다
+middle|protect|보호하다
+middle|provide|제공하다
+middle|public|공공의
+middle|quality|질
+middle|realize|깨닫다
+middle|receive|받다
+middle|recent|최근의
+middle|reduce|줄이다
+middle|refuse|거절하다
+middle|region|지역
+middle|remain|남다
+middle|repair|수리하다
+middle|repeat|반복하다
+middle|reply|대답하다
+middle|report|보고하다
+middle|require|필요로 하다
+middle|research|연구
+middle|respect|존중하다
+middle|result|결과
+middle|return|돌아오다
+middle|safety|안전
+middle|satisfy|만족시키다
+middle|secret|비밀
+middle|separate|분리된
+middle|serious|심각한
+middle|several|몇몇의
+middle|similar|비슷한
+middle|society|사회
+middle|solution|해결책
+middle|source|출처, 원천
+middle|special|특별한
+middle|spread|퍼지다
+middle|standard|기준
+middle|succeed|성공하다
+middle|sudden|갑작스러운
+middle|suggest|제안하다
+middle|supply|공급하다
+middle|support|지원하다
+middle|surface|표면
+middle|surprise|놀라게 하다
+middle|survive|살아남다
+middle|system|체계
+middle|therefore|그러므로
+middle|through|~을 통하여
+middle|toward|~쪽으로
+middle|tradition|전통
+middle|valuable|가치 있는
+middle|various|다양한
+middle|village|마을
+middle|wonder|궁금해하다
+high|abstract|추상적인
+high|accurate|정확한
+high|adapt|적응하다
+high|adequate|충분한
+high|analyze|분석하다
+high|approach|접근하다, 접근법
+high|assume|가정하다
+high|benefit|이익
+high|challenge|도전
+high|complex|복잡한
+high|concept|개념
+high|conduct|수행하다
+high|consequence|결과
+high|consistent|일관된
+high|context|맥락
+high|contrast|대조하다
+high|contribute|기여하다
+high|controversy|논란
+high|criteria|기준
+high|crucial|중대한
+high|derive|끌어내다
+high|despite|~에도 불구하고
+high|detect|감지하다
+high|determine|결정하다
+high|distinct|뚜렷한
+high|emerge|나타나다
+high|emphasize|강조하다
+high|enable|가능하게 하다
+high|encounter|마주치다
+high|enhance|향상시키다
+high|ensure|보장하다
+high|establish|설립하다
+high|evaluate|평가하다
+high|evidence|증거
+high|expand|확장하다
+high|factor|요인
+high|feature|특징
+high|flexible|유연한
+high|function|기능
+high|generate|생성하다
+high|hypothesis|가설
+high|identify|식별하다
+high|ignore|무시하다
+high|impact|영향
+high|imply|암시하다
+high|indicate|나타내다
+high|individual|개인
+high|interpret|해석하다
+high|maintain|유지하다
+high|major|주요한
+high|minor|사소한
+high|modify|수정하다
+high|obtain|얻다
+high|occur|발생하다
+high|participate|참여하다
+high|perspective|관점
+high|phenomenon|현상
+high|potential|잠재적인
+high|previous|이전의
+high|principle|원리
+high|process|과정
+high|prohibit|금지하다
+high|promote|촉진하다
+high|react|반응하다
+high|reflect|반영하다
+high|relevant|관련 있는
+high|reliable|신뢰할 수 있는
+high|represent|나타내다
+high|respond|응답하다
+high|restrict|제한하다
+high|significant|중요한
+high|specific|구체적인
+high|structure|구조
+high|sufficient|충분한
+high|survey|조사
+high|sustain|유지하다
+high|temporary|일시적인
+high|theory|이론
+high|transform|변형시키다
+high|transition|전환
+high|trend|추세
+high|ultimate|궁극적인
+high|valid|타당한
+high|vary|다르다
+high|visible|보이는
+high|whereas|반면에
+high|widespread|널리 퍼진
+elementary|able|할 수 있는
+elementary|afraid|두려워하는
+elementary|anyone|누구든지
+elementary|anything|무엇이든
+elementary|anywhere|어디든지
+elementary|begin|시작하다
+elementary|beside|옆에
+elementary|borrow|빌리다
+elementary|bottle|병
+elementary|bowl|그릇
+elementary|button|단추
+elementary|calendar|달력
+elementary|careful|조심하는
+elementary|carry|나르다
+elementary|clean|깨끗한
+elementary|cloudy|흐린
+elementary|colorful|다채로운
+elementary|cousin|사촌
+elementary|cover|덮다
+elementary|cross|건너다
+elementary|cry|울다
+elementary|delicious|맛있는
+elementary|doctor|의사
+elementary|early|이른
+elementary|empty|빈
+elementary|enjoy|즐기다
+elementary|everyone|모두
+elementary|everything|모든 것
+elementary|excited|신난
+elementary|expensive|비싼
+elementary|family|가족
+elementary|farmer|농부
+elementary|finally|마침내
+elementary|floor|바닥
+elementary|follow|따르다
+elementary|forget|잊다
+elementary|friendly|친근한
+elementary|front|앞
+elementary|glad|기쁜
+elementary|happen|일어나다
+elementary|homework|숙제
+elementary|hungry|배고픈
+elementary|important|중요한
+elementary|interesting|흥미로운
+elementary|invite|초대하다
+elementary|learn|배우다
+elementary|leave|떠나다
+elementary|lend|빌려주다
+elementary|letter|편지, 글자
+elementary|listen|듣다
+elementary|lucky|운이 좋은
+elementary|minute|분
+elementary|mistake|실수
+elementary|noise|소음
+elementary|nothing|아무것도 없음
+elementary|nurse|간호사
+elementary|pocket|주머니
+elementary|practice|연습하다
+elementary|present|선물, 현재의
+elementary|quiet|조용한
+elementary|ready|준비된
+elementary|remember|기억하다
+elementary|safe|안전한
+elementary|scared|무서워하는
+elementary|someone|누군가
+elementary|something|무언가
+elementary|sometimes|때때로
+elementary|somewhere|어딘가
+elementary|sorry|미안한
+elementary|sound|소리
+elementary|straight|곧은
+elementary|suddenly|갑자기
+elementary|surprised|놀란
+elementary|thirsty|목마른
+elementary|tired|피곤한
+elementary|trouble|문제
+elementary|useful|유용한
+elementary|voice|목소리
+elementary|welcome|환영하다
+elementary|wonderful|멋진
+middle|advantage|장점
+middle|advertise|광고하다
+middle|advice|조언
+middle|alive|살아 있는
+middle|announce|발표하다
+middle|apologize|사과하다
+middle|appear|나타나다
+middle|area|지역
+middle|arrive|도착하다
+middle|attention|주의
+middle|available|이용 가능한
+middle|average|평균
+middle|balance|균형
+middle|behavior|행동
+middle|belief|믿음
+middle|breathe|숨 쉬다
+middle|captain|주장, 선장
+middle|celebrate|축하하다
+middle|communicate|의사소통하다
+middle|community|공동체
+middle|competition|경쟁
+middle|condition|상태
+middle|connect|연결하다
+middle|consider|고려하다
+middle|customer|고객
+middle|decision|결정
+middle|describe|묘사하다
+middle|detail|세부 사항
+middle|direction|방향
+middle|disappear|사라지다
+middle|discuss|토론하다
+middle|effect|효과
+middle|effort|노력
+middle|energy|에너지
+middle|environment|환경
+middle|event|사건, 행사
+middle|examine|검사하다
+middle|example|예
+middle|experience|경험
+middle|explain|설명하다
+middle|familiar|익숙한
+middle|famous|유명한
+middle|fiction|소설
+middle|figure|수치, 인물
+middle|frequently|자주
+middle|friendship|우정
+middle|furniture|가구
+middle|gather|모으다
+middle|generation|세대
+middle|goal|목표
+middle|graduate|졸업하다
+middle|healthy|건강한
+middle|history|역사
+middle|honest|정직한
+middle|increase|증가하다
+middle|information|정보
+middle|interest|관심
+middle|introduce|소개하다
+middle|language|언어
+middle|machine|기계
+middle|medicine|약
+middle|mention|언급하다
+middle|message|메시지
+middle|nation|국가
+middle|natural|자연의
+middle|opportunity|기회
+middle|organization|조직
+middle|personal|개인의
+middle|popular|인기 있는
+middle|population|인구
+middle|position|위치
+middle|proper|적절한
+middle|purpose|목적
+middle|record|기록
+middle|relationship|관계
+middle|resource|자원
+middle|responsible|책임 있는
+middle|scientist|과학자
+middle|sentence|문장
+middle|service|서비스
+middle|single|하나의
+middle|skill|기술
+middle|social|사회적인
+middle|technology|기술
+middle|temperature|온도
+middle|theater|극장
+middle|traffic|교통
+middle|vehicle|탈것
+high|abandon|버리다
+high|absorb|흡수하다
+high|accompany|동행하다
+high|accumulate|축적하다
+high|acknowledge|인정하다
+high|acquire|얻다
+high|advocate|옹호하다
+high|allocate|배분하다
+high|alternative|대안
+high|ambiguous|애매한
+high|anticipate|예상하다
+high|apparent|분명한
+high|arbitrary|임의적인
+high|assemble|조립하다
+high|assess|평가하다
+high|assign|배정하다
+high|assist|돕다
+high|associate|연관 짓다
+high|attribute|속성
+high|authority|권위
+high|bias|편견
+high|capacity|능력, 용량
+high|category|범주
+high|cease|중단하다
+high|circumstance|상황
+high|civil|시민의
+high|clarify|명확히 하다
+high|coherent|일관성 있는
+high|compatible|양립 가능한
+high|compensate|보상하다
+high|complement|보완하다
+high|comprehensive|포괄적인
+high|comprise|구성하다
+high|concentrate|집중하다
+high|conflict|갈등
+high|consent|동의
+high|considerable|상당한
+high|constitute|구성하다
+high|consume|소비하다
+high|contemporary|현대의
+high|contradict|모순되다
+high|conventional|전통적인
+high|coordinate|조정하다
+high|correspond|일치하다
+high|crisis|위기
+high|decline|감소하다
+high|dedicate|바치다
+high|define|정의하다
+high|demonstrate|보여주다
+high|deny|부인하다
+high|diminish|줄어들다
+high|discipline|규율, 학문 분야
+high|diverse|다양한
+high|domestic|국내의
+high|dominant|지배적인
+high|eliminate|제거하다
+high|empirical|경험적인
+high|equivalent|동등한
+high|ethical|윤리적인
+high|eventually|결국
+high|exclude|제외하다
+high|exhibit|보여주다
+high|explicit|명시적인
+high|external|외부의
+high|facilitate|촉진하다
+high|fundamental|근본적인
+high|furthermore|게다가
+high|hierarchy|계층
+high|highlight|강조하다
+high|identical|동일한
+high|ideology|이념
+high|implicit|암시적인
+high|incentive|동기
+high|inevitable|불가피한
+high|infer|추론하다
+high|infrastructure|기반 시설
+high|initial|초기의
+high|innovate|혁신하다
+high|insight|통찰
+high|integrate|통합하다
+high|interval|간격
+high|intrinsic|본질적인
+high|investigate|조사하다
+high|justify|정당화하다
+high|layer|층
+high|likewise|마찬가지로
+high|logic|논리
+high|mechanism|구조, 장치
+high|mediate|중재하다
+high|mental|정신의
+high|mutual|상호의
+high|neutral|중립적인
+high|nonetheless|그럼에도
+high|objective|객관적인
+high|occupy|차지하다
+high|option|선택지
+high|orient|방향을 맞추다
+high|outcome|결과
+high|overall|전반적인
+high|parallel|평행한
+high|phase|단계
+high|policy|정책
+high|portion|부분
+high|precede|앞서다
+high|precise|정확한
+high|predict|예측하다
+high|preserve|보존하다
+high|priority|우선순위
+high|proceed|진행하다
+high|project|계획, 프로젝트
+high|proportion|비율
+high|protocol|절차
+high|radical|급진적인
+high|rational|합리적인
+high|recover|회복하다
+high|regulate|규제하다
+high|reinforce|강화하다
+high|reject|거절하다
+high|release|풀어주다, 발표하다
+high|resolve|해결하다
+high|retain|유지하다
+high|reveal|드러내다
+high|reverse|뒤집다
+high|scheme|계획
+high|sequence|순서
+high|shift|바꾸다
+high|simulate|모의 실험하다
+high|sole|유일한
+high|statistic|통계
+high|substitute|대체하다
+high|sum|합계
+high|suspend|중단하다
+high|symbolic|상징적인
+high|terminate|끝내다
+high|trace|추적하다
+high|transfer|옮기다
+high|trigger|유발하다
+high|undergo|겪다
+high|undertake|맡다
+high|uniform|일정한
+high|utilize|활용하다
+high|version|판, 버전
+high|via|~을 통해
+high|violate|위반하다
+high|virtual|가상의
+high|volume|부피, 음량
+high|welfare|복지
+high|witness|목격자
+`.trim();
+
 function hashWord(word) {
   return String(word).split("").reduce((sum, char) => sum + char.charCodeAt(0), 0);
 }
@@ -1810,6 +2493,21 @@ const extraEnglishWords = EXTRA_WORD_BANK_RAW.split("\n").map((line, index) => {
     meaning,
     example: cardExample,
     exampleKo: exampleKo || fallback.exampleKo
+  };
+});
+
+const bulkEnglishWords = ENGLISH_BULK_WORDS_RAW.split("\n").map((line, index) => {
+  const [level, word, meaning] = line.split("|");
+  const fallback = makeExamplePair("noun", word, meaning);
+  return {
+    id: `english-bulk-${level}-${index}-${word}`,
+    type: "english",
+    level,
+    term: word,
+    word,
+    meaning,
+    example: fallback.example,
+    exampleKo: fallback.exampleKo
   };
 });
 
@@ -2789,14 +3487,6 @@ function makeEnglishSupplements(level, existingWords, globalWords = []) {
   const seeds = getSingleWordSeeds(level);
   seeds.forEach(({ kind, word, meaning }) => {
     add(word, meaning, makeSingleWordExample(kind, word, meaning), makeSingleWordExampleKo(kind, word, meaning));
-    makeSingleWordForms(kind, word, meaning, level).forEach((item) => {
-      add(
-        item.word,
-        item.meaning,
-        item.example || makeSingleWordExample(item.kind, item.word, item.meaning),
-        item.exampleKo || makeSingleWordExampleKo(item.kind, item.word, item.meaning)
-      );
-    });
   });
 
   const target = ENGLISH_TARGET_PER_LEVEL[level] || 1000;
@@ -3187,8 +3877,8 @@ function dedupeStudyWords(words) {
   });
 }
 
-const englishBaseWords = dedupeEnglishBaseWords([...englishWords, ...extraEnglishWords]);
-const englishSupplementWords = [];
+const englishBaseWords = dedupeEnglishBaseWords([...englishWords, ...extraEnglishWords, ...bulkEnglishWords]);
+const englishSupplementWords = buildEnglishSupplementWords(englishBaseWords);
 
 window.STUDY_WORD_BANK = dedupeStudyWords([
   ...englishBaseWords,
