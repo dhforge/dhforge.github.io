@@ -333,7 +333,6 @@ a:focus-visible {
   font-size: 14px;
 }
 
-.tool-flow,
 .status-guide,
 .related-strip {
   display: grid;
@@ -341,13 +340,6 @@ a:focus-visible {
   margin: 18px 0 0;
 }
 
-.tool-flow {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  margin-bottom: 0;
-}
-
-.tool-flow article,
 .status-guide,
 .related-strip {
   min-width: 0;
@@ -358,7 +350,6 @@ a:focus-visible {
   box-shadow: var(--shadow);
 }
 
-.tool-flow b,
 .status-guide b,
 .related-strip b {
   display: block;
@@ -366,7 +357,6 @@ a:focus-visible {
   color: var(--primary-dark);
 }
 
-.tool-flow p,
 .status-guide p,
 .related-strip p {
   margin: 0;
@@ -400,40 +390,6 @@ a:focus-visible {
   border: 1px solid #c6d2d5;
   border-radius: 8px;
   background: #eaf1f0;
-}
-
-.home-categories {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  margin: 0 0 26px;
-}
-
-.home-categories a {
-  display: grid;
-  gap: 4px;
-  min-width: 0;
-  padding: 14px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface);
-  color: var(--text);
-  text-decoration: none;
-  box-shadow: var(--shadow);
-}
-
-.home-categories a:hover {
-  border-color: var(--primary);
-}
-
-.home-categories span {
-  color: var(--primary-dark);
-  font-weight: 900;
-}
-
-.home-categories small {
-  color: var(--muted);
-  line-height: 1.4;
 }
 
 .gateway-heading {
@@ -1180,8 +1136,6 @@ summary {
   .two-column,
   .converter-row,
   .tool-directory,
-  .tool-flow,
-  .home-categories,
   .gateway-grid,
   .content-grid,
   .info-grid {
