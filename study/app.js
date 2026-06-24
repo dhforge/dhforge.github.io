@@ -9,6 +9,9 @@ const wordBankFilters = { type: "all", level: "all", query: "" };
 const practiceFilters = { type: "english", difficulty: "all" };
 const dayStudyFilters = { level: "elementary", day: 1, index: 0, revealed: false };
 const DAY_WORD_COUNT = 30;
+const WORD_BANK_PAGE_SIZE = 80;
+let wordBankVisibleLimit = WORD_BANK_PAGE_SIZE;
+let toastTimer = null;
 const WORD_LEVEL_OPTIONS = {
   all: [
     ["all", "전체"],
@@ -211,17 +214,20 @@ function bindWordBank() {
 
   typeSelect?.addEventListener("change", () => {
     wordBankFilters.type = typeSelect.value || "all";
+    wordBankVisibleLimit = WORD_BANK_PAGE_SIZE;
     syncWordLevelOptions();
     renderWordBank();
   });
 
   levelSelect?.addEventListener("change", () => {
     wordBankFilters.level = levelSelect.value || "all";
+    wordBankVisibleLimit = WORD_BANK_PAGE_SIZE;
     renderWordBank();
   });
 
   searchInput?.addEventListener("input", () => {
     wordBankFilters.query = searchInput.value.trim().toLowerCase();
+    wordBankVisibleLimit = WORD_BANK_PAGE_SIZE;
     renderWordBank();
   });
 
@@ -231,6 +237,7 @@ function bindWordBank() {
     const word = getWordBank().find((item) => item.id === button.dataset.addWord);
     if (!word) return;
     addWordCard(word);
+    showToast(`${word.term || word.word} 추가됨`);
     track("add_word_bank_card", { level: word.level });
     renderAll();
   });
@@ -240,8 +247,15 @@ function bindWordBank() {
     if (added > 0) {
       track("add_visible_word_bank_cards", { count: added, level: wordBankFilters.level });
       saveState();
+      showToast(`${added}개 추가됨`);
       renderAll();
     }
+  });
+
+  list?.addEventListener("click", (event) => {
+    if (!event.target.closest("[data-show-more-words]")) return;
+    wordBankVisibleLimit += WORD_BANK_PAGE_SIZE;
+    renderWordBank();
   });
 
   syncWordLevelOptions();
@@ -258,7 +272,7 @@ function getFilteredWords() {
     const levelMatch = wordBankFilters.level === "all" || word.level === wordBankFilters.level;
     if (!typeMatch || !levelMatch) return false;
     if (!query) return true;
-    return [word.word, word.meaning, word.example, levelLabel(word.level)]
+    return [word.word, word.meaning, levelLabel(word.level)]
       .concat(word.reading || "", typeLabel(word.type))
       .join(" ")
       .toLowerCase()
@@ -275,10 +289,10 @@ function addWordCard(word) {
     cardType: word.type || "english",
     deck: `${levelLabel(word.level)} ${typeLabel(word.type)}`,
     front: word.term || word.word,
-    back: `${meaning}\n${word.example}`,
+    back: meaning,
     meaning,
-    example: word.example,
-    exampleKo: word.exampleKo || "",
+    example: "",
+    exampleKo: "",
     createdAt: Date.now(),
     dueAt: Date.now(),
     level: 0
@@ -367,6 +381,7 @@ function bindPractice() {
   const difficultySelect = $("[data-practice-difficulty]");
   typeSelect?.addEventListener("change", () => {
     practiceFilters.type = typeSelect.value || "english";
+    syncPracticeDifficultyOptions();
     practiceWord = null;
     renderPractice();
   });
@@ -387,12 +402,14 @@ function bindPractice() {
       event.target.textContent = revealed ? "다시 가리기" : "뜻 보기";
     } else if (action === "add" && practiceWord) {
       addWordCard(practiceWord);
+      showToast(`${practiceWord.term || practiceWord.word} 추가됨`);
       renderAll();
     } else if (action === "next") {
       pickPracticeWord();
       renderPractice();
     }
   });
+  syncPracticeDifficultyOptions();
 }
 
 function bindDayStudy() {
@@ -416,6 +433,7 @@ function bindDayStudy() {
     if (added > 0) {
       track("add_day_words", { level: dayStudyFilters.level, day: dayStudyFilters.day, count: added });
       saveState();
+      showToast(`Day ${dayStudyFilters.day}에서 ${added}개 추가됨`);
       renderAll();
     }
   });
@@ -435,7 +453,7 @@ function bindDayStudy() {
       dayStudyFilters.revealed = false;
     } else if (action === "add") {
       const word = words[dayStudyFilters.index];
-      if (word) addWordCard(word);
+      if (word && addWordCard(word)) showToast(`${word.term || word.word} 추가됨`);
       track("add_day_word", { level: word?.level });
     }
     renderAll();
@@ -447,12 +465,18 @@ function getPracticeWords() {
     if (word.type !== practiceFilters.type) return false;
     if (practiceFilters.difficulty === "all") return true;
     if (word.type === "english") return word.level === practiceFilters.difficulty;
-    const levelNumber = Number(String(word.level).replace("hanja", ""));
-    if (practiceFilters.difficulty === "elementary") return levelNumber >= 8;
-    if (practiceFilters.difficulty === "middle") return levelNumber >= 5 && levelNumber <= 7;
-    if (practiceFilters.difficulty === "high") return levelNumber >= 1 && levelNumber <= 4;
-    return true;
+    return word.level === practiceFilters.difficulty;
   });
+}
+
+function syncPracticeDifficultyOptions() {
+  const difficultySelect = $("[data-practice-difficulty]");
+  if (!difficultySelect) return;
+  const options = practiceFilters.type === "hanja" ? WORD_LEVEL_OPTIONS.hanja : WORD_LEVEL_OPTIONS.english;
+  const selected = options.some(([value]) => value === practiceFilters.difficulty) ? practiceFilters.difficulty : "all";
+  difficultySelect.innerHTML = options.map(([value, label]) => `<option value="${value}">${label}</option>`).join("");
+  difficultySelect.value = selected;
+  practiceFilters.difficulty = selected;
 }
 
 function pickPracticeWord() {
@@ -629,6 +653,22 @@ function renderStats() {
   setText('[data-stat="words"]', getWordBank().length);
 }
 
+function showToast(message) {
+  let toast = $("[data-toast]");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.dataset.toast = "";
+    toast.className = "toast";
+    toast.setAttribute("role", "status");
+    toast.setAttribute("aria-live", "polite");
+    document.body.appendChild(toast);
+  }
+  toast.textContent = message;
+  toast.classList.add("is-visible");
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 1800);
+}
+
 function renderCards() {
   const list = $("[data-card-list]");
   if (!list) return;
@@ -656,12 +696,6 @@ function renderBackFace(card) {
   return `
     <div class="card-back-block">
       <p class="card-meaning">${escapeHtml(parts.meaning)}</p>
-      ${parts.example ? `
-        <div class="card-example-block">
-          <p class="card-example">${escapeHtml(parts.example)}</p>
-          ${parts.exampleKo ? `<p class="card-example-ko"><span>해석</span>${escapeHtml(parts.exampleKo)}</p>` : ""}
-        </div>
-      ` : ""}
     </div>
   `;
 }
@@ -692,22 +726,27 @@ function renderWordBank() {
     return;
   }
 
-  list.innerHTML = words.slice(0, 80).map((word) => {
+  const visibleWords = words.slice(0, wordBankVisibleLimit);
+  list.innerHTML = visibleWords.map((word) => {
     const added = addedIds.has(word.id);
     return `
       <article class="word-row">
         <div>
           <div class="word-title"><strong>${escapeHtml(word.term || word.word)}</strong><span>${typeLabel(word.type)}</span><span>${levelLabel(word.level)}</span></div>
           <p>${escapeHtml(word.meaning)}</p>
-          <p class="muted">${escapeHtml(word.example)}</p>
         </div>
         <button class="${added ? "" : "primary-button"}" type="button" data-add-word="${word.id}" ${added ? "disabled" : ""}>${added ? "추가됨" : "카드 추가"}</button>
       </article>
     `;
   }).join("");
 
-  if (words.length > 80) {
-    list.insertAdjacentHTML("beforeend", `<p class="muted">검색 결과가 많아 80개만 먼저 표시합니다. 더 좁게 검색하면 원하는 단어를 빠르게 찾을 수 있습니다.</p>`);
+  if (words.length > visibleWords.length) {
+    list.insertAdjacentHTML("beforeend", `
+      <div class="word-list-more">
+        <p class="muted">${words.length}개 중 ${visibleWords.length}개 표시 중입니다.</p>
+        <button type="button" data-show-more-words>80개 더 보기</button>
+      </div>
+    `);
   }
 }
 
@@ -754,10 +793,6 @@ function renderPractice() {
     </div>
     <div class="practice-answer">
       <p class="card-meaning">${escapeHtml(isHanja ? `음/뜻: ${practiceWord.meaning}` : practiceWord.meaning)}</p>
-      <div class="card-example-block">
-        <p class="card-example">${escapeHtml(practiceWord.example)}</p>
-        ${practiceWord.exampleKo ? `<p class="card-example-ko"><span>해석</span>${escapeHtml(practiceWord.exampleKo)}</p>` : ""}
-      </div>
     </div>
     <div class="item-actions">
       <button type="button" data-practice-action="show">뜻 보기</button>
@@ -821,10 +856,6 @@ function renderDayStudy() {
     </div>
     <div class="practice-answer">
       <p class="card-meaning">${escapeHtml(word.meaning)}</p>
-      <div class="card-example-block">
-        <p class="card-example">${escapeHtml(word.example)}</p>
-        ${word.exampleKo ? `<p class="card-example-ko"><span>해석</span>${escapeHtml(word.exampleKo)}</p>` : ""}
-      </div>
     </div>
     <div class="item-actions">
       <button type="button" data-day-action="prev" ${dayStudyFilters.index === 0 ? "disabled" : ""}>이전</button>
