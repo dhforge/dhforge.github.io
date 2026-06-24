@@ -702,6 +702,156 @@ hanja6|號|호|이름, 부르다
 hanja6|畫|화|그림, 긋다
 hanja6|黃|황|누렇다
 hanja6|訓|훈|가르치다
+hanja5|價|가|값
+hanja5|客|객|손님
+hanja5|格|격|격식, 바로잡다
+hanja5|見|견|보다
+hanja5|結|결|맺다
+hanja5|決|결|결정하다
+hanja5|敬|경|공경하다
+hanja5|告|고|알리다
+hanja5|課|과|과정, 과제
+hanja5|過|과|지나다
+hanja5|觀|관|보다
+hanja5|關|관|관계하다
+hanja5|廣|광|넓다
+hanja5|具|구|갖추다
+hanja5|舊|구|옛
+hanja5|局|국|판, 관청
+hanja5|基|기|터
+hanja5|己|기|몸, 자기
+hanja5|念|념|생각하다
+hanja5|能|능|능하다
+hanja5|團|단|둥글다, 단체
+hanja5|當|당|마땅하다
+hanja5|德|덕|덕
+hanja5|到|도|이르다
+hanja5|獨|독|홀로
+hanja5|良|량|어질다
+hanja5|歷|력|지나다, 역사
+hanja5|練|련|익히다
+hanja5|法|법|법
+hanja5|變|변|변하다
+hanja4|暇|가|겨를
+hanja4|刻|각|새기다, 때
+hanja4|覺|각|깨닫다
+hanja4|簡|간|간단하다
+hanja4|看|간|보다
+hanja4|干|간|방패, 간여하다
+hanja4|甘|감|달다
+hanja4|敢|감|감히
+hanja4|甲|갑|갑옷, 첫째
+hanja4|降|강|내리다
+hanja4|拒|거|막다
+hanja4|居|거|살다
+hanja4|據|거|근거하다
+hanja4|巨|거|크다
+hanja4|傑|걸|뛰어나다
+hanja4|儉|검|검소하다
+hanja4|擊|격|치다
+hanja4|激|격|격하다
+hanja4|堅|견|굳다
+hanja4|犬|견|개
+hanja4|驚|경|놀라다
+hanja4|更|경|고치다, 다시
+hanja4|傾|경|기울다
+hanja4|鏡|경|거울
+hanja4|階|계|계단
+hanja4|季|계|계절
+hanja4|系|계|이어 매다
+hanja4|繼|계|잇다
+hanja4|戒|계|경계하다
+hanja4|穀|곡|곡식
+hanja3|佳|가|아름답다
+hanja3|架|가|시렁, 걸치다
+hanja3|脚|각|다리
+hanja3|閣|각|집, 누각
+hanja3|刊|간|새기다, 펴내다
+hanja3|幹|간|줄기, 맡다
+hanja3|懇|간|간절하다
+hanja3|肝|간|간
+hanja3|鑑|감|거울, 살피다
+hanja3|剛|강|굳세다
+hanja3|綱|강|벼리
+hanja3|鋼|강|강철
+hanja3|槪|개|대개, 개요
+hanja3|介|개|끼이다
+hanja3|蓋|개|덮다
+hanja3|距|거|거리
+hanja3|乾|건|마르다, 하늘
+hanja3|劍|검|칼
+hanja3|隔|격|사이 뜨다
+hanja3|訣|결|이별하다, 비결
+hanja3|兼|겸|겸하다
+hanja3|謙|겸|겸손하다
+hanja3|頃|경|잠깐, 무렵
+hanja3|徑|경|지름길
+hanja3|硬|경|굳다
+hanja3|耕|경|밭 갈다
+hanja3|契|계|맺다
+hanja3|桂|계|계수나무
+hanja3|啓|계|열다, 아뢰다
+hanja3|溪|계|시내
+hanja2|柯|가|가지
+hanja2|賈|가|장사
+hanja2|軻|가|수레
+hanja2|迦|가|부처 이름
+hanja2|伽|가|절, 가야
+hanja2|珏|각|쌍옥
+hanja2|杆|간|막대
+hanja2|艮|간|그치다, 괘 이름
+hanja2|葛|갈|칡
+hanja2|鞨|갈|말갈
+hanja2|憾|감|한스럽다
+hanja2|鉀|갑|갑옷, 칼륨
+hanja2|岬|갑|곶
+hanja2|姜|강|성씨
+hanja2|崗|강|언덕
+hanja2|疆|강|지경
+hanja2|岡|강|산등성이
+hanja2|彊|강|굳세다
+hanja2|价|개|착하다, 심부름꾼
+hanja2|塏|개|높고 건조한 땅
+hanja2|坑|갱|구덩이
+hanja2|鍵|건|열쇠
+hanja2|桀|걸|뛰어나다
+hanja2|杰|걸|뛰어나다
+hanja2|憩|게|쉬다
+hanja2|揭|게|걸다
+hanja2|甄|견|질그릇, 가리다
+hanja2|璟|경|옥빛
+hanja2|儆|경|경계하다
+hanja2|瓊|경|구슬
+hanja1|忙|망|바쁘다
+hanja1|罔|망|없다, 그물
+hanja1|埋|매|묻다
+hanja1|冥|명|어둡다
+hanja1|某|모|아무
+hanja1|暮|모|저물다
+hanja1|募|모|모으다
+hanja1|冒|모|무릅쓰다
+hanja1|侮|모|업신여기다
+hanja1|卯|묘|토끼, 넷째 지지
+hanja1|廟|묘|사당
+hanja1|苗|묘|싹
+hanja1|戊|무|다섯째 천간
+hanja1|霧|무|안개
+hanja1|迷|미|미혹하다
+hanja1|眉|미|눈썹
+hanja1|敏|민|민첩하다
+hanja1|憫|민|불쌍히 여기다
+hanja1|蜜|밀|꿀
+hanja1|泊|박|머무르다
+hanja1|伴|반|짝
+hanja1|叛|반|배반하다
+hanja1|返|반|돌아오다
+hanja1|倣|방|본뜨다
+hanja1|傍|방|곁
+hanja1|邦|방|나라
+hanja1|杯|배|잔
+hanja1|飜|번|뒤집다, 번역하다
+hanja1|煩|번|번거롭다
+hanja1|辨|변|분별하다
 `.trim();
 
 const HANJA_LEVEL_PACKS = {
@@ -3038,7 +3188,7 @@ function dedupeStudyWords(words) {
 }
 
 const englishBaseWords = dedupeEnglishBaseWords([...englishWords, ...extraEnglishWords]);
-const englishSupplementWords = buildEnglishSupplementWords(englishBaseWords);
+const englishSupplementWords = [];
 
 window.STUDY_WORD_BANK = dedupeStudyWords([
   ...englishBaseWords,
