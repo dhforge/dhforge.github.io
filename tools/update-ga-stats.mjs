@@ -14,7 +14,8 @@ const sites = [
       andGroup: {
         expressions: [
           notPathBeginsWith("/paper/"),
-          notPathBeginsWith("/kids/")
+          notPathBeginsWith("/kids/"),
+          notPathBeginsWith("/study/")
         ]
       }
     }
@@ -28,6 +29,11 @@ const sites = [
     key: "kids-practice-lab",
     name: "Kids Practice Lab",
     filter: pathBeginsWith("/kids/")
+  },
+  {
+    key: "study-lab",
+    name: "Study Lab",
+    filter: pathBeginsWith("/study/")
   }
 ];
 
