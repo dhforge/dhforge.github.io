@@ -5,6 +5,7 @@ import { dirname, resolve } from "node:path";
 const propertyId = process.env.GA_PROPERTY_ID;
 const serviceAccountJson = process.env.GA_SERVICE_ACCOUNT_JSON;
 const outputPath = resolve(process.env.STATS_OUTPUT_PATH || "stats/summary.json");
+const dateRange = { startDate: "30daysAgo", endDate: "today" };
 
 const sites = [
   {
@@ -112,6 +113,31 @@ function numberMetric(row, index) {
   return Number(row?.metricValues?.[index]?.value || 0);
 }
 
+function gaDateToIso(value) {
+  return `${value.slice(0, 4)}-${value.slice(4, 6)}-${value.slice(6, 8)}`;
+}
+
+function seoulDateKey(date = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    day: "2-digit",
+    month: "2-digit",
+    timeZone: "Asia/Seoul",
+    year: "numeric"
+  }).formatToParts(date);
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return `${values.year}-${values.month}-${values.day}`;
+}
+
+function recentDateKeys(daysBack = 30) {
+  const [year, month, day] = seoulDateKey().split("-").map(Number);
+  const todayUtc = Date.UTC(year, month - 1, day);
+
+  return Array.from({ length: daysBack + 1 }, (_, index) => {
+    const timestamp = todayUtc - (daysBack - index) * 24 * 60 * 60 * 1000;
+    return new Date(timestamp).toISOString().slice(0, 10);
+  });
+}
+
 async function runSiteReport(accessToken, site) {
   const response = await fetch(`https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`, {
     method: "POST",
@@ -120,7 +146,7 @@ async function runSiteReport(accessToken, site) {
       "content-type": "application/json"
     },
     body: JSON.stringify({
-      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dateRanges: [dateRange],
       metrics: [
         { name: "sessions" },
         { name: "activeUsers" },
@@ -146,6 +172,66 @@ async function runSiteReport(accessToken, site) {
   };
 }
 
+async function runDailyReport(accessToken, site) {
+  const response = await fetch(`https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+      "content-type": "application/json"
+    },
+    body: JSON.stringify({
+      dateRanges: [dateRange],
+      dimensions: [{ name: "date" }],
+      metrics: [{ name: "sessions" }],
+      dimensionFilter: site.filter,
+      orderBys: [{ dimension: { dimensionName: "date" } }]
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error(`GA daily report failed for ${site.key}: ${response.status} ${await response.text()}`);
+  }
+
+  const data = await response.json();
+  return (data.rows || []).map((row) => ({
+    date: gaDateToIso(row.dimensionValues?.[0]?.value || ""),
+    sessions: numberMetric(row, 0)
+  }));
+}
+
+async function buildDailySessions(accessToken) {
+  const dailyByDate = new Map(
+    recentDateKeys().map((date) => [
+      date,
+      {
+        date,
+        sessions: 0,
+        sites: Object.fromEntries(sites.map((site) => [site.key, 0]))
+      }
+    ])
+  );
+
+  for (const site of sites) {
+    const rows = await runDailyReport(accessToken, site);
+
+    for (const row of rows) {
+      if (!dailyByDate.has(row.date)) {
+        dailyByDate.set(row.date, {
+          date: row.date,
+          sessions: 0,
+          sites: Object.fromEntries(sites.map((item) => [item.key, 0]))
+        });
+      }
+
+      const day = dailyByDate.get(row.date);
+      day.sites[site.key] = row.sessions;
+      day.sessions += row.sessions;
+    }
+  }
+
+  return [...dailyByDate.values()].sort((a, b) => a.date.localeCompare(b.date));
+}
+
 const accessToken = await getAccessToken();
 const siteStats = [];
 
@@ -153,10 +239,13 @@ for (const site of sites) {
   siteStats.push(await runSiteReport(accessToken, site));
 }
 
+const dailySessions = await buildDailySessions(accessToken);
+
 const summary = {
   updatedAt: new Date().toISOString(),
   rangeLabel: "최근 30일 방문수",
-  sites: siteStats
+  sites: siteStats,
+  dailySessions
 };
 
 await mkdir(dirname(outputPath), { recursive: true });

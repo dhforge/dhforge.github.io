@@ -69,6 +69,7 @@
 
     .summary-bar,
     .panel,
+    .trend-panel,
     .site-card {
       background: var(--panel);
       border: 1px solid var(--line);
@@ -170,6 +171,35 @@
       padding: 18px;
     }
 
+    .trend-panel {
+      margin-top: 16px;
+      padding: 18px;
+    }
+
+    .trend-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .trend-header h2 {
+      margin-bottom: 4px;
+      color: var(--brand-dark);
+    }
+
+    .chart-wrap {
+      position: relative;
+      height: 260px;
+    }
+
+    #dailyChart {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
     .notice {
       margin: 0;
       padding: 14px 16px;
@@ -189,6 +219,14 @@
       .summary-bar {
         align-items: flex-start;
         flex-direction: column;
+      }
+
+      .trend-header {
+        flex-direction: column;
+      }
+
+      .chart-wrap {
+        height: 230px;
       }
 
       .site-grid {
@@ -263,6 +301,19 @@
       </article>
     </section>
 
+    <section class="trend-panel" aria-labelledby="dailyTrendTitle">
+      <div class="trend-header">
+        <div>
+          <h2 id="dailyTrendTitle">일별 방문수 추이</h2>
+          <span class="muted">최근 한 달 전체 사이트 합산</span>
+        </div>
+        <span class="muted" id="trendSummary">-</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="dailyChart" aria-label="최근 한 달 일별 방문수 차트" role="img"></canvas>
+      </div>
+    </section>
+
     <section class="panel" id="setupPanel" hidden>
       <h2>데이터 준비 필요</h2>
       <p class="notice">아직 GA4에서 가져온 통계 파일이 없습니다. GitHub Actions에 GA 서비스 계정 키를 등록하면 이 페이지 안에서 숫자가 자동으로 표시됩니다.</p>
@@ -271,6 +322,7 @@
 
   <script>
     const siteOrder = ["dhforge-tools", "printable-paper-lab", "kids-practice-lab", "study-lab"];
+    let currentDailySessions = [];
 
     function formatNumber(value) {
       if (!Number.isFinite(value)) return "-";
@@ -296,6 +348,99 @@
       return Number(site?.[metricKey]);
     }
 
+    function formatShortDate(value) {
+      const date = new Date(`${value}T00:00:00+09:00`);
+      return new Intl.DateTimeFormat("ko-KR", {
+        day: "numeric",
+        month: "numeric",
+        timeZone: "Asia/Seoul"
+      }).format(date);
+    }
+
+    function normalizeDailySessions(data) {
+      return (data.dailySessions || [])
+        .map((item) => ({
+          date: item.date,
+          sessions: Number(item.sessions || 0)
+        }))
+        .filter((item) => item.date);
+    }
+
+    function drawDailyChart(rows) {
+      const canvas = document.getElementById("dailyChart");
+      const summary = document.getElementById("trendSummary");
+      const context = canvas.getContext("2d");
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      const width = Math.max(320, Math.floor(rect.width));
+      const height = Math.max(220, Math.floor(rect.height));
+
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+      context.clearRect(0, 0, width, height);
+
+      if (!rows.length) {
+        summary.textContent = "일별 데이터 없음";
+        context.fillStyle = "#647184";
+        context.font = "14px Segoe UI, Arial, sans-serif";
+        context.textAlign = "center";
+        context.fillText("일별 데이터가 아직 없습니다.", width / 2, height / 2);
+        return;
+      }
+
+      const values = rows.map((item) => item.sessions);
+      const maxValue = Math.max(1, ...values);
+      const latest = rows[rows.length - 1];
+      const left = 42;
+      const right = 16;
+      const top = 16;
+      const bottom = 42;
+      const chartWidth = width - left - right;
+      const chartHeight = height - top - bottom;
+      const barGap = 2;
+      const barWidth = Math.max(3, chartWidth / rows.length - barGap);
+
+      summary.textContent = `최근 날짜 ${formatShortDate(latest.date)}: ${formatNumber(latest.sessions)} 방문`;
+
+      context.strokeStyle = "#dce3da";
+      context.lineWidth = 1;
+      context.fillStyle = "#647184";
+      context.font = "12px Segoe UI, Arial, sans-serif";
+      context.textAlign = "right";
+      context.textBaseline = "middle";
+
+      for (let i = 0; i <= 4; i += 1) {
+        const value = Math.round((maxValue / 4) * i);
+        const y = top + chartHeight - (chartHeight * i) / 4;
+        context.beginPath();
+        context.moveTo(left, y);
+        context.lineTo(width - right, y);
+        context.stroke();
+        context.fillText(formatNumber(value), left - 8, y);
+      }
+
+      rows.forEach((item, index) => {
+        const x = left + index * (chartWidth / rows.length) + barGap / 2;
+        const barHeight = (item.sessions / maxValue) * chartHeight;
+        const y = top + chartHeight - barHeight;
+        context.fillStyle = "#2f6f73";
+        context.fillRect(x, y, barWidth, barHeight);
+      });
+
+      context.fillStyle = "#647184";
+      context.textAlign = "center";
+      context.textBaseline = "top";
+
+      const labelStep = Math.max(1, Math.ceil(rows.length / 6));
+      rows.forEach((item, index) => {
+        if (index !== 0 && index !== rows.length - 1 && index % labelStep !== 0) return;
+
+        const x = left + index * (chartWidth / rows.length) + barWidth / 2;
+        context.fillText(formatShortDate(item.date), x, top + chartHeight + 12);
+      });
+    }
+
     function renderStats(data) {
       document.getElementById("rangeLabel").textContent = data.rangeLabel || "최근 30일 방문수";
       document.getElementById("updatedLabel").textContent = data.updatedAt
@@ -308,6 +453,8 @@
       }
 
       const hasData = siteOrder.some((siteKey) => metricValue(data, siteKey, "sessions") > 0);
+      currentDailySessions = normalizeDailySessions(data);
+      drawDailyChart(currentDailySessions);
       document.getElementById("setupPanel").hidden = hasData;
       setStatus(hasData ? "정상" : "데이터 없음", !hasData);
     }
@@ -325,6 +472,7 @@
     }
 
     loadStats();
+    window.addEventListener("resize", () => drawDailyChart(currentDailySessions));
   </script>
 </body>
 </html>
