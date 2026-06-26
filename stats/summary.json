@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-26T11:23:48.696Z",
+  "updatedAt": "2026-06-26T18:14:52.926Z",
   "rangeLabel": "최근 30일 방문수",
   "sites": [
     {
@@ -32,16 +32,6 @@
     }
   ],
   "dailySessions": [
-    {
-      "date": "2026-05-27",
-      "sessions": 0,
-      "sites": {
-        "dhforge-tools": 0,
-        "printable-paper-lab": 0,
-        "kids-practice-lab": 0,
-        "study-lab": 0
-      }
-    },
     {
       "date": "2026-05-28",
       "sessions": 0,
@@ -334,6 +324,16 @@
     },
     {
       "date": "2026-06-26",
+      "sessions": 0,
+      "sites": {
+        "dhforge-tools": 0,
+        "printable-paper-lab": 0,
+        "kids-practice-lab": 0,
+        "study-lab": 0
+      }
+    },
+    {
+      "date": "2026-06-27",
       "sessions": 0,
       "sites": {
         "dhforge-tools": 0,
