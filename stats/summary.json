@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-25T19:26:56.901Z",
+  "updatedAt": "2026-06-26T11:23:48.696Z",
   "rangeLabel": "최근 30일 방문수",
   "sites": [
     {
@@ -21,7 +21,7 @@
       "name": "Kids Practice Lab",
       "sessions": 9,
       "activeUsers": 3,
-      "screenPageViews": 151
+      "screenPageViews": 152
     },
     {
       "key": "study-lab",
